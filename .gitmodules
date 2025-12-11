@@ -1,0 +1,15 @@
+[submodule "benchmarking/inference/merlin/repo"]
+	path = benchmarking/inference/merlin/repo
+	url = https://github.com/StanfordMIMI/Merlin.git
+[submodule "benchmarking/inference/brainmd/repo"]
+	path = benchmarking/inference/brainmd/repo
+	url = https://github.com/YuliWanghust/BrainMD.git
+[submodule "benchmarking/inference/deeptumorvqa/repo"]
+	path = benchmarking/inference/deeptumorvqa/repo
+	url = https://github.com/Schuture/DeepTumorVQA.git
+[submodule "benchmarking/inference/fila/repo"]
+	path = benchmarking/inference/fila/repo
+	url = https://github.com/alibaba-damo-academy/fvlm.git
+[submodule "benchmarking/inference/med3dvlm/repo"]
+	path = benchmarking/inference/med3dvlm/repo
+	url = https://github.com/mirthai/med3dvlm.git
