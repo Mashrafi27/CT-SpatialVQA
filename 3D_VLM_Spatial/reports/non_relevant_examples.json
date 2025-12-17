@@ -1,0 +1,62 @@
+[
+  {
+    "user": "Ahmed Aly",
+    "case": "valid_233_a_1.nii.gz",
+    "index": 7,
+    "question": "Which thoracic compartment was assessed for lymph node size and appearance?",
+    "answer": "The mediastinum.",
+    "spatial": true,
+    "relevant": false,
+    "note": ""
+  },
+  {
+    "user": "Dongli He",
+    "case": "valid_252_a_1.nii.gz",
+    "index": 9,
+    "question": "Which mediastinal hollow organ\u2019s calibration was specifically mentioned?",
+    "answer": "The thoracic esophagus.",
+    "spatial": false,
+    "relevant": false,
+    "note": "I couldn't find such a saying \"mediastinal hollow organ\" on Google. I assume it's some kind of hallucination."
+  },
+  {
+    "user": "Dongli He",
+    "case": "valid_294_a_1.nii.gz",
+    "index": 9,
+    "question": "Are the ground-glass densities more anterior or posterior?",
+    "answer": "Mostly posterior, in the posterobasal parts.",
+    "spatial": false,
+    "relevant": false,
+    "note": "No mention of the anterior area in the report."
+  },
+  {
+    "user": "Dongli He",
+    "case": "valid_240_a_1.nii.gz",
+    "index": 6,
+    "question": "Is the consolidation area described as central (hilar) or peripheral?",
+    "answer": "Central, at the left hilum.",
+    "spatial": true,
+    "relevant": false,
+    "note": "Central (hilar) or peripheral are not notions explained in the report."
+  },
+  {
+    "user": "Dongli He",
+    "case": "valid_240_a_1.nii.gz",
+    "index": 7,
+    "question": "Do the bands and bronchiectasis extend toward the pleural surface or toward the mediastinum?",
+    "answer": "Toward the pleural surface.",
+    "spatial": false,
+    "relevant": false,
+    "note": "The phrase \"pleural surface\" seems to be halluciation in the report."
+  },
+  {
+    "user": "Raza Imam",
+    "case": "valid_163_b_1.nii.gz",
+    "index": 2,
+    "question": "Which lung and segment contains the 5.5 mm parenchymal nodule?",
+    "answer": "Right lung upper lobe anterior segment.",
+    "spatial": true,
+    "relevant": false,
+    "note": ""
+  }
+]

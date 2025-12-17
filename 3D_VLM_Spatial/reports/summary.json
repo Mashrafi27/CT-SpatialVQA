@@ -1,0 +1,840 @@
+{
+  "overall": {
+    "qa_answered": 304,
+    "qa_total": 967,
+    "qa_percent": 31.437435367114787,
+    "status_counts": {
+      "completed_all": 5,
+      "not_started": 11,
+      "in_progress": 4
+    },
+    "case_counts": {
+      "completed": 31,
+      "not_started": 66,
+      "partial": 3
+    },
+    "case_total": 100
+  },
+  "users": [
+    {
+      "name": "Ahmed Aly",
+      "status": "completed_all",
+      "cases_completed": 5,
+      "cases_partial": 0,
+      "cases_not_started": 0,
+      "qa_answered": 49,
+      "qa_total": 49,
+      "cases": [
+        {
+          "name": "valid_49_a_1.nii.gz",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "valid_4_b_1.nii.gz",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "valid_160_a_1.nii.gz",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "valid_233_a_1.nii.gz",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "valid_67_a_1.nii.gz",
+          "answered": 9,
+          "total": 9,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "name": "Aigerim Zhusubalieva",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 49,
+      "cases": [
+        {
+          "name": "valid_277_c_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_293_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_69_a_1.nii.gz",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_275_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_24_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Alya Almsouti",
+      "status": "in_progress",
+      "cases_completed": 0,
+      "cases_partial": 1,
+      "cases_not_started": 4,
+      "qa_answered": 2,
+      "qa_total": 47,
+      "cases": [
+        {
+          "name": "valid_22_a_1.nii.gz",
+          "answered": 2,
+          "total": 9,
+          "status": "partial"
+        },
+        {
+          "name": "valid_277_d_1.nii.gz",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_117_a_1.nii.gz",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_76_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_19_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Amal Saqib",
+      "status": "completed_all",
+      "cases_completed": 5,
+      "cases_partial": 0,
+      "cases_not_started": 0,
+      "qa_answered": 49,
+      "qa_total": 49,
+      "cases": [
+        {
+          "name": "valid_28_a_1.nii.gz",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "valid_75_a_1.nii.gz",
+          "answered": 9,
+          "total": 9,
+          "status": "completed"
+        },
+        {
+          "name": "valid_96_a_1.nii.gz",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "valid_239_a_1.nii.gz",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "valid_254_a_1.nii.gz",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "name": "Asif Hanif",
+      "status": "in_progress",
+      "cases_completed": 3,
+      "cases_partial": 1,
+      "cases_not_started": 1,
+      "qa_answered": 32,
+      "qa_total": 50,
+      "cases": [
+        {
+          "name": "valid_120_a_1.nii.gz",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "valid_74_a_1.nii.gz",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "valid_251_a_1.nii.gz",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "valid_264_a_1.nii.gz",
+          "answered": 2,
+          "total": 10,
+          "status": "partial"
+        },
+        {
+          "name": "valid_188_b_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Ayana Mussabayeva",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 48,
+      "cases": [
+        {
+          "name": "valid_80_a_1.nii.gz",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_153_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_274_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_170_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_62_a_1.nii.gz",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Darya Taratynova",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 49,
+      "cases": [
+        {
+          "name": "valid_91_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_107_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_13_a_1.nii.gz",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_258_b_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_7_b_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Dongli He",
+      "status": "completed_all",
+      "cases_completed": 5,
+      "cases_partial": 0,
+      "cases_not_started": 0,
+      "qa_answered": 49,
+      "qa_total": 49,
+      "cases": [
+        {
+          "name": "valid_252_a_1.nii.gz",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "valid_241_a_1.nii.gz",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "valid_294_a_1.nii.gz",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "valid_261_a_1.nii.gz",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "valid_240_a_1.nii.gz",
+          "answered": 9,
+          "total": 9,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "name": "Hu Wang",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 50,
+      "cases": [
+        {
+          "name": "valid_207_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_217_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_256_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_20_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_285_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Hussain Alasamwi",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 46,
+      "cases": [
+        {
+          "name": "valid_64_a_3.nii.gz",
+          "answered": 0,
+          "total": 8,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_173_a_1.nii.gz",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_165_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_169_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_274_b_1.nii.gz",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Ibrahim AlMakky",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 46,
+      "cases": [
+        {
+          "name": "valid_179_a_1.nii.gz",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_257_a_1.nii.gz",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_41_b_1.nii.gz",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_47_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_277_a_1.nii.gz",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Lotfi Mecharbat",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 49,
+      "cases": [
+        {
+          "name": "valid_155_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_224_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_215_a_1.nii.gz",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_203_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_283_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Mai A. Shaaban",
+      "status": "in_progress",
+      "cases_completed": 1,
+      "cases_partial": 0,
+      "cases_not_started": 4,
+      "qa_answered": 7,
+      "qa_total": 47,
+      "cases": [
+        {
+          "name": "valid_62_c_1.nii.gz",
+          "answered": 7,
+          "total": 7,
+          "status": "completed"
+        },
+        {
+          "name": "valid_176_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_158_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_208_a_4.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_6_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Mostafa Salem",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 49,
+      "cases": [
+        {
+          "name": "valid_229_b_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_221_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_14_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_191_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_238_a_1.nii.gz",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Numan Saeed",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 50,
+      "cases": [
+        {
+          "name": "valid_167_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_208_a_5.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_116_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_123_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_255_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Raza Imam",
+      "status": "in_progress",
+      "cases_completed": 2,
+      "cases_partial": 1,
+      "cases_not_started": 2,
+      "qa_answered": 21,
+      "qa_total": 48,
+      "cases": [
+        {
+          "name": "valid_260_a_1.nii.gz",
+          "answered": 9,
+          "total": 9,
+          "status": "completed"
+        },
+        {
+          "name": "valid_163_b_1.nii.gz",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "valid_212_a_1.nii.gz",
+          "answered": 2,
+          "total": 10,
+          "status": "partial"
+        },
+        {
+          "name": "valid_180_b_1.nii.gz",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_107_b_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Salma Hassan",
+      "status": "completed_all",
+      "cases_completed": 5,
+      "cases_partial": 0,
+      "cases_not_started": 0,
+      "qa_answered": 48,
+      "qa_total": 48,
+      "cases": [
+        {
+          "name": "valid_138_a_1.nii.gz",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "valid_288_a_1.nii.gz",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "valid_79_a_1.nii.gz",
+          "answered": 9,
+          "total": 9,
+          "status": "completed"
+        },
+        {
+          "name": "valid_111_a_1.nii.gz",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "valid_277_b_1.nii.gz",
+          "answered": 9,
+          "total": 9,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "name": "Shahad Hardan",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 47,
+      "cases": [
+        {
+          "name": "valid_42_a_1.nii.gz",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_18_a_1.nii.gz",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_172_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_164_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_151_b_1.nii.gz",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Tausifa Jan Saleem",
+      "status": "completed_all",
+      "cases_completed": 5,
+      "cases_partial": 0,
+      "cases_not_started": 0,
+      "qa_answered": 47,
+      "qa_total": 47,
+      "cases": [
+        {
+          "name": "valid_82_a_1.nii.gz",
+          "answered": 9,
+          "total": 9,
+          "status": "completed"
+        },
+        {
+          "name": "valid_86_a_1.nii.gz",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "valid_124_a_1.nii.gz",
+          "answered": 9,
+          "total": 9,
+          "status": "completed"
+        },
+        {
+          "name": "valid_90_c_1.nii.gz",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "valid_65_a_1.nii.gz",
+          "answered": 9,
+          "total": 9,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "name": "Umaima Rahman",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 50,
+      "cases": [
+        {
+          "name": "valid_149_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_4_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_266_a_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_194_b_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "valid_191_b_1.nii.gz",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        }
+      ]
+    }
+  ]
+}

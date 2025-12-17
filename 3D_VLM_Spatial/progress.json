@@ -1,0 +1,2861 @@
+{
+  "Ahmed Aly": {
+    "valid_49_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T04:24:19.141100Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T04:25:28.876896Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T04:26:12.766360Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T04:26:47.050347Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T04:27:18.843911Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "The question asks which central airway, which is a common question, i think",
+          "saved_at": "2025-11-10T04:29:37.459303Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T04:30:43.140133Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T04:31:22.271961Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T04:31:41.920584Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T04:32:25.242748Z"
+        }
+      ]
+    },
+    "valid_4_b_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T04:32:54.034517Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T04:33:20.357716Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T04:33:38.843784Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T04:33:59.593845Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T04:34:35.593749Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T04:35:01.871017Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "mentions size as well",
+          "saved_at": "2025-11-10T04:35:36.623937Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T04:37:00.885701Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T04:37:22.548370Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T04:37:48.987094Z"
+        }
+      ]
+    },
+    "valid_160_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T04:39:14.137504Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:03:56.934277Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:04:22.473603Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:05:44.519364Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:06:17.251154Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:06:51.228961Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:07:17.713534Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:07:50.391239Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:08:15.505929Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:08:42.833313Z"
+        }
+      ]
+    },
+    "valid_233_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:09:10.989690Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:09:48.840403Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:10:01.526003Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:11:04.317717Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:11:33.764243Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:21:38.131900Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:22:07.206104Z"
+        },
+        {
+          "spatial": true,
+          "relevant": false,
+          "note": "",
+          "saved_at": "2025-11-14T06:22:28.229933Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:32:42.842542Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:33:31.802501Z"
+        }
+      ]
+    },
+    "valid_67_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:33:45.898500Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:34:15.257773Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:34:48.499147Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T06:35:02.993250Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T08:04:51.721329Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T08:05:18.491138Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T08:07:12.134222Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T08:10:30.905341Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T08:10:44.904436Z"
+        }
+      ]
+    }
+  },
+  "Salma Hassan": {
+    "valid_138_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-07T14:49:22.670732Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-07T14:50:53.375749Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-07T14:51:56.677770Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-07T14:52:46.564851Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-07T14:53:22.170802Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-07T14:53:45.495194Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-07T14:54:24.970044Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-07T14:54:45.657443Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-07T14:55:25.750348Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-07T14:55:57.739561Z"
+        }
+      ]
+    },
+    "valid_288_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:33:31.523569Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:34:01.203117Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:34:10.391968Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:35:29.592721Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:36:44.452232Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:37:30.524608Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:37:42.326404Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:37:50.348487Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:37:59.272247Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:38:50.393588Z"
+        }
+      ]
+    },
+    "valid_79_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:39:20.220161Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:39:58.211327Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:40:40.401186Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:41:01.180186Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:41:10.288096Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:41:28.366172Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:41:37.302527Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:41:48.132388Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:42:29.370711Z"
+        }
+      ]
+    },
+    "valid_111_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:42:46.227957Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:43:01.650942Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:43:10.266241Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:45:58.934548Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:46:10.924436Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:46:39.885899Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:51:46.584275Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:52:07.888508Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:52:21.276560Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:54:30.218194Z"
+        }
+      ]
+    },
+    "valid_277_b_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:54:46.329194Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:55:02.290388Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:55:14.671186Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:55:23.029922Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:55:36.072998Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:55:57.219262Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:56:11.772404Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:56:38.392440Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T05:56:50.014915Z"
+        }
+      ]
+    }
+  },
+  "Shahad Hardan": {
+    "valid_42_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_18_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_172_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_164_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_151_b_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  "Amal Saqib": {
+    "valid_28_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:36:25.026364Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T08:03:35.330053Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:19:12.533179Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:19:56.388023Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:31:36.663624Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T10:58:30.897545Z"
+        },
+        {
+          "spatial": true,
+          "relevant": null,
+          "note": "",
+          "saved_at": "2025-11-14T12:39:37.278420Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:39:44.035991Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:40:04.001110Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:40:23.475201Z"
+        }
+      ]
+    },
+    "valid_75_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:37:42.929180Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:37:56.671653Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:38:04.431641Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:38:12.378687Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:38:24.759972Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:38:45.564567Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:38:51.608732Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:39:01.381412Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:39:10.133972Z"
+        }
+      ]
+    },
+    "valid_96_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "trachea is the midline not relative to it so idk",
+          "saved_at": "2025-11-14T11:46:46.555136Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T11:47:43.109319Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T11:48:22.709749Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T11:48:42.901892Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T11:49:15.012134Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T11:49:35.281172Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T11:49:59.583901Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T11:50:23.446617Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T11:50:37.624395Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T11:50:54.981208Z"
+        }
+      ]
+    },
+    "valid_239_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:26:52.626946Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:27:22.468318Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:27:37.414895Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:27:49.385576Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:28:12.283740Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:28:27.862503Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:28:56.397075Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:29:26.453146Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:29:58.307654Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:30:08.057488Z"
+        }
+      ]
+    },
+    "valid_254_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:30:28.769657Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:31:28.092415Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:32:15.775091Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:32:27.855355Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:32:39.874484Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:33:51.224283Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:34:21.637112Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:35:12.806263Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:35:25.101842Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:35:50.291757Z"
+        }
+      ]
+    }
+  },
+  "Hu Wang": {
+    "valid_207_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_217_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_256_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_20_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_285_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  "Mai A. Shaaban": {
+    "valid_62_c_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-07T16:20:51.202817Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-07T16:20:32.155206Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-07T16:20:43.329962Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-07T16:21:07.884978Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-07T16:21:45.375166Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-07T16:21:52.542247Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-07T16:22:08.639668Z"
+        }
+      ]
+    },
+    "valid_176_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_158_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_208_a_4.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_6_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  "Tausifa Jan Saleem": {
+    "valid_82_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T11:44:54.402232Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T11:46:22.620606Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T11:46:59.772742Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T11:47:24.271192Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T11:48:00.859386Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T11:48:23.214367Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T11:48:56.591045Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T11:49:46.011852Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T11:50:07.139541Z"
+        }
+      ]
+    },
+    "valid_86_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:26:24.365252Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:27:02.942361Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:27:28.278161Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:28:06.014123Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:28:15.615537Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:28:21.870185Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:28:49.243540Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:29:21.769406Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:29:49.196406Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:30:16.621400Z"
+        }
+      ]
+    },
+    "valid_124_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:30:59.749222Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:31:16.859803Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:31:40.179412Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:32:07.371675Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:32:21.762336Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:32:50.803976Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:33:39.869098Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:33:47.728105Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:34:04.770754Z"
+        }
+      ]
+    },
+    "valid_90_c_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:34:20.781372Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:34:42.083475Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:35:12.200702Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:35:38.358183Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:35:50.139911Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:36:16.900875Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:36:40.840246Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:37:45.748065Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:37:56.517016Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:38:30.903072Z"
+        }
+      ]
+    },
+    "valid_65_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:38:41.431865Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:38:59.114962Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:39:15.764002Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:39:31.685410Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:39:40.358060Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:39:51.540505Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:40:11.450749Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:40:26.562871Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-14T12:41:04.131350Z"
+        }
+      ]
+    }
+  },
+  "Umaima Rahman": {
+    "valid_149_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_4_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_266_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_194_b_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_191_b_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  "Alya Almsouti": {
+    "valid_22_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-11T04:37:47.995207Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-11T04:38:22.745912Z"
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_277_d_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_117_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_76_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_19_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  "Ibrahim AlMakky": {
+    "valid_179_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_257_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_41_b_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_47_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_277_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  "Lotfi Mecharbat": {
+    "valid_155_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_224_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_215_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_203_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_283_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  "Dongli He": {
+    "valid_252_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:28:51.402199Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T09:18:54.656274Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T09:19:03.026523Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T09:19:11.039378Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T09:19:46.537918Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T09:19:41.214471Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T09:22:01.842058Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T09:25:02.465704Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T09:25:25.563388Z"
+        },
+        {
+          "spatial": false,
+          "relevant": false,
+          "note": "I couldn't find such a saying \"mediastinal hollow organ\" on Google. I assume it's some kind of hallucination.",
+          "saved_at": "2025-11-10T09:35:06.682857Z"
+        }
+      ]
+    },
+    "valid_241_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "IMO, the answer is not ideal because it repeats the phrase \"right lung\" from the question.",
+          "saved_at": "2025-11-10T09:43:04.182885Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T09:58:34.221423Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T09:58:59.084348Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:00:05.729631Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:01:21.662298Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:04:41.112993Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:06:54.640691Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:07:34.039438Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:14:42.625487Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:15:24.384014Z"
+        }
+      ]
+    },
+    "valid_294_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:16:19.863736Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:23:26.487711Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:23:45.113531Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:24:14.965951Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:24:28.071318Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:24:53.784780Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:25:30.335168Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:26:33.641787Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:26:58.363923Z"
+        },
+        {
+          "spatial": false,
+          "relevant": false,
+          "note": "No mention of the anterior area in the report.",
+          "saved_at": "2025-11-10T10:27:43.428871Z"
+        }
+      ]
+    },
+    "valid_261_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:28:32.387693Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:29:27.940292Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:30:17.248591Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:31:12.015934Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:31:56.395780Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:32:50.580354Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:33:48.245952Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:34:29.648172Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:36:59.536334Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:37:48.417110Z"
+        }
+      ]
+    },
+    "valid_240_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:38:01.289259Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:42:14.995013Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:45:09.410624Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:45:42.529107Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:46:22.580185Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:46:46.034044Z"
+        },
+        {
+          "spatial": true,
+          "relevant": false,
+          "note": "Central (hilar) or peripheral are not notions explained in the report.",
+          "saved_at": "2025-11-10T10:49:16.518171Z"
+        },
+        {
+          "spatial": false,
+          "relevant": false,
+          "note": "The phrase \"pleural surface\" seems to be halluciation in the report.",
+          "saved_at": "2025-11-10T10:51:36.505535Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T10:52:16.080423Z"
+        }
+      ]
+    }
+  },
+  "Darya Taratynova": {
+    "valid_91_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_107_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_13_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_258_b_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_7_b_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  "Ayana Mussabayeva": {
+    "valid_80_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_153_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_274_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_170_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_62_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  "Numan Saeed": {
+    "valid_167_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_208_a_5.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_116_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_123_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_255_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  "Mostafa Salem": {
+    "valid_229_b_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_221_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_14_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_191_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_238_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  "Raza Imam": {
+    "valid_260_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T18:32:39.632805Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T18:33:02.198472Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T18:39:32.680921Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T18:39:46.532053Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T18:39:50.091345Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T18:39:53.971594Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T18:39:57.080460Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T18:40:01.461049Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T18:40:04.474949Z"
+        }
+      ]
+    },
+    "valid_163_b_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T18:40:14.783242Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T18:40:21.083724Z"
+        },
+        {
+          "spatial": true,
+          "relevant": false,
+          "note": "",
+          "saved_at": "2025-11-10T18:40:25.645523Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T18:40:31.343792Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T18:40:37.097372Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T18:40:44.280575Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T18:40:49.250805Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T18:40:58.076599Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T18:41:09.378957Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T18:41:15.754397Z"
+        }
+      ]
+    },
+    "valid_212_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-10T18:41:21.554172Z"
+        },
+        {
+          "spatial": null,
+          "relevant": null,
+          "note": "",
+          "saved_at": "2025-11-10T18:41:57.033830Z"
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_180_b_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_107_b_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  "Aigerim Zhusubalieva": {
+    "valid_277_c_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_293_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_69_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_275_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_24_a_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  "Asif Hanif": {
+    "valid_120_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-17T06:22:23.156883Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-17T06:23:03.717638Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-17T06:24:28.675804Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-17T06:27:41.964048Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-17T06:29:29.692939Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-17T06:30:56.570703Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-17T06:31:47.272763Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-17T06:32:14.762041Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-17T06:33:15.759596Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-17T06:33:56.819081Z"
+        }
+      ]
+    },
+    "valid_74_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-17T06:37:41.115570Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-17T06:38:19.860485Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-17T06:40:13.354657Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-17T06:41:00.069984Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-17T06:42:32.809985Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-17T06:42:49.432722Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-17T06:45:53.252356Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-17T06:46:18.951675Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-17T06:46:53.227563Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-17T06:47:38.744669Z"
+        }
+      ]
+    },
+    "valid_251_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-18T10:43:34.510450Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-18T10:44:33.087177Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-18T10:45:10.363362Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-18T10:57:42.552439Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-18T10:58:21.768111Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-18T10:59:04.096798Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-18T10:59:15.597151Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-18T10:59:31.665973Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-18T11:00:36.873630Z"
+        },
+        {
+          "spatial": false,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-18T11:04:53.301768Z"
+        }
+      ]
+    },
+    "valid_264_a_1.nii.gz": {
+      "answers": [
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-18T11:36:14.031174Z"
+        },
+        {
+          "spatial": true,
+          "relevant": true,
+          "note": "",
+          "saved_at": "2025-11-18T11:40:30.270946Z"
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "valid_188_b_1.nii.gz": {
+      "answers": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  }
+}
