@@ -9,7 +9,6 @@ import os
 import sys
 import time
 from pathlib import Path
-from textwrap import dedent
 from typing import Dict, Iterable, List, Sequence
 
 try:
@@ -19,6 +18,11 @@ except ImportError as exc:  # pragma: no cover
         "google-generativeai is required. Install via `pip install google-generativeai`."
     ) from exc
 
+try:
+    from tqdm import tqdm
+except ImportError as exc:  # pragma: no cover
+    raise SystemExit("tqdm is required. Install via `pip install tqdm`.") from exc
+
 PROMPT_TEMPLATE = """You are a radiology QA auditor.
 You receive radiology Findings / Impressions plus QA pairs created from them.
 Label each QA pair with two booleans:
@@ -27,12 +31,12 @@ Label each QA pair with two booleans:
 
 Respond strictly as JSON with the schema:
 [
-  {
+  {{
     "index": <QA index starting at 1 in this batch>,
     "is_spatial": true/false,
     "is_relevant": true/false,
     "reasoning": "brief justification referencing image evidence"
-  }, ...
+  }}, ...
 ]
 Avoid additional narration.
 
@@ -64,7 +68,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--batch-size", type=int, default=5, help="QA pairs per API call")
     parser.add_argument(
         "--model",
-        default="models/gemini-1.5-pro-latest",
+        default="models/gemini-1.0-pro",
         help="Gemini model name",
     )
     parser.add_argument(
@@ -94,6 +98,22 @@ def build_prompt(case_id: str, findings: str, impressions: str, batch: Sequence[
     )
 
 
+def extract_text(response) -> str:
+    """Best-effort extraction of plain text from the Gemini response object."""
+    if getattr(response, "text", None):
+        return response.text
+    chunks: List[str] = []
+    for candidate in getattr(response, "candidates", []) or []:
+        content = getattr(candidate, "content", None)
+        if not content:
+            continue
+        for part in getattr(content, "parts", []) or []:
+            text = getattr(part, "text", None)
+            if text:
+                chunks.append(text)
+    return "\n".join(chunks)
+
+
 def main() -> None:
     args = parse_args()
 
@@ -105,17 +125,27 @@ def main() -> None:
 
     qa_data: Dict[str, dict] = json.loads(args.qa.read_text())
     reports: Dict[str, dict] = json.loads(args.reports.read_text())
-    judgments: Dict[str, List[dict]] = {}
+    if args.output.exists():
+        try:
+            judgments: Dict[str, List[dict]] = json.loads(args.output.read_text())
+        except json.JSONDecodeError:
+            judgments = {}
+    else:
+        judgments = {}
 
-    for case_id, payload in qa_data.items():
+    case_items = list(qa_data.items())
+    for case_id, payload in tqdm(case_items, desc="Cases", unit="case"):
         qa_pairs = payload.get("qa_pairs", [])
         if not qa_pairs:
+            continue
+        if case_id in judgments:
             continue
         report = reports.get(case_id, {})
         findings = report.get("Findings_EN", "")
         impressions = report.get("Impressions_EN", "")
         case_results: List[dict] = []
-        for batch in chunk(qa_pairs, args.batch_size):
+        batches = list(chunk(qa_pairs, args.batch_size))
+        for batch in tqdm(batches, desc=f"{case_id}", unit="batch", leave=False):
             prompt = build_prompt(case_id, findings, impressions, batch)
             attempt = 0
             while True:
@@ -125,22 +155,28 @@ def main() -> None:
                         prompt,
                         generation_config=GENERATION_CONFIG,
                     )
-                    text = response.text
+                    text = extract_text(response)
+                    if text.startswith("```"):
+                        text = text.strip("`\n")
+                        if text.startswith("json\n"):
+                            text = text[5:]
                     parsed = json.loads(text)
                     if not isinstance(parsed, list):  # pragma: no cover
                         raise ValueError("Response is not a list")
                     case_results.extend(parsed)
                     break
                 except Exception as exc:  # pragma: no cover
+                    if isinstance(exc, json.JSONDecodeError):
+                        print(f"[WARN] JSON decode failed for case {case_id} batch starting idx "
+                              f"{qa_pairs.index(batch[0])} -- raw response:\\n{text}")
                     if attempt >= 3:
                         raise
                     time.sleep(2 ** attempt)
             if args.sleep:
                 time.sleep(args.sleep)
         judgments[case_id] = case_results
-
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(judgments, indent=2), encoding="utf-8")
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        args.output.write_text(json.dumps(judgments, indent=2), encoding="utf-8")
     print(f"Saved judgments for {len(judgments)} cases to {args.output}")
 
 
