@@ -1,0 +1,13 @@
+# Local virtual environment
+.venv/
+
+# Downloaded data volumes
+3D_VLM_Spatial/data_volumes/
+
+# Hugging Face cache directories
+cached_datasets/
+datasets--*/
+
+# Binary artifacts / logs
+*.log
+*.tmp
