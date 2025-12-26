@@ -6,12 +6,12 @@
 
 ## Repo Snapshot
 
-- The upstream Med3DVLM repository should be cloned manually on the HPC under `benchmarking/inference/med3dvlm/Med3DVLM` (this repo does not track it as a submodule).
-- Record the commit hash + any local patches in this README so others can reproduce the exact checkout.
+- Upstream repo tracked as a git submodule inside `Med3DVLM/` (pointing to the latest default branch of `mirthai/med3dvlm`).
+- Use `git submodule update --init --recursive` after cloning this repo (or syncing on the HPC) to pull the source and note the commit hash here.
 
 ## To-Do
 
-- [ ] Sync the external `Med3DVLM` clone (ensure the HPC path above is up to date) and decide whether to keep the full project or extract lean inference modules here.
+- [ ] Sync the `Med3DVLM` submodule and decide whether to keep the full project or extract lean inference modules here.
 - [ ] Document required checkpoints and where to fetch them on the HPC.
 - [ ] Create 10-sample JSONL and verify inference locally on HPC GPUs.
 - [ ] Export and store frozen `env/requirements.txt`.
