@@ -6,7 +6,7 @@ import pandas as pd
 from huggingface_hub import hf_hub_download
 from tqdm import tqdm
 
-split = 'test'
+split = 'valid'
 batch_size = 100
 start_at = 0
 
