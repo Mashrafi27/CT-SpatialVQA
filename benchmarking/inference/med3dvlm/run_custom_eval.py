@@ -1,0 +1,154 @@
+#!/usr/bin/env python3
+"""Run Med3DVLM inference on the custom spatial benchmark JSONL."""
+
+from __future__ import annotations
+
+import argparse
+import json
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Iterable, List, Dict
+
+import numpy as np
+import SimpleITK as sitk
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from tqdm import tqdm
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Med3DVLM custom dataset evaluator")
+    parser.add_argument(
+        "--dataset",
+        type=Path,
+        required=True,
+        help="Path to JSONL with keys image_path/question[/answer]",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        required=True,
+        help="Path to save predictions JSONL",
+    )
+    parser.add_argument(
+        "--model-path",
+        type=Path,
+        required=True,
+        help="Path to Med3DVLM checkpoint (e.g., models/Med3DVLM-Qwen-2.5-7B)",
+    )
+    parser.add_argument(
+        "--device",
+        default="cuda",
+        help="Device identifier (cuda, cuda:0, cpu)",
+    )
+    parser.add_argument(
+        "--dtype",
+        default="bfloat16",
+        choices=["float32", "float16", "bfloat16"],
+        help="Torch dtype for inference",
+    )
+    parser.add_argument(
+        "--max-new-tokens",
+        type=int,
+        default=256,
+        help="Maximum generated tokens per sample",
+    )
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Optionally limit number of samples",
+    )
+    parser.add_argument(
+        "--skip",
+        type=int,
+        default=0,
+        help="Skip this many samples from the start",
+    )
+    return parser.parse_args()
+
+
+def load_jsonl(path: Path, skip: int = 0, limit: int | None = None) -> List[Dict]:
+    records: List[Dict] = []
+    with path.open() as f:
+        for idx, line in enumerate(f):
+            if idx < skip:
+                continue
+            try:
+                record = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            records.append(record)
+            if limit is not None and len(records) >= limit:
+                break
+    return records
+
+
+def prepare_image(image_path: Path, dtype: torch.dtype, device: torch.device) -> torch.Tensor:
+    image_np = np.expand_dims(sitk.GetArrayFromImage(sitk.ReadImage(str(image_path))), axis=0)
+    image_pt = torch.from_numpy(image_np).unsqueeze(0).to(dtype=dtype, device=device)
+    return image_pt
+
+
+def main() -> None:
+    args = parse_args()
+    dtype_map = {
+        "float32": torch.float32,
+        "float16": torch.float16,
+        "bfloat16": torch.bfloat16,
+    }
+    dtype = dtype_map[args.dtype]
+    device = torch.device(args.device)
+
+    dataset = load_jsonl(args.dataset, skip=args.skip, limit=args.limit)
+    if not dataset:
+        raise SystemExit("Dataset is empty after applying skip/limit.")
+
+    tokenizer = AutoTokenizer.from_pretrained(
+        args.model_path,
+        use_fast=False,
+        padding_side="right",
+        trust_remote_code=True,
+    )
+    model = AutoModelForCausalLM.from_pretrained(
+        args.model_path,
+        torch_dtype=dtype,
+        device_map=str(device),
+        trust_remote_code=True,
+    )
+    proj_out_num = (
+        model.get_model().config.proj_out_num
+        if hasattr(model.get_model().config, "proj_out_num")
+        else 256
+    )
+    prompt_prefix = "<im_patch>" * proj_out_num
+
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    with args.output.open("w") as out_f:
+        for record in tqdm(dataset, desc="Running Med3DVLM"):
+            image_path = Path(record["image_path"])
+            question = record.get("question") or "Describe the findings of the medical image you see."
+            input_text = prompt_prefix + question
+            inputs = tokenizer(input_text, return_tensors="pt")["input_ids"].to(device=device)
+            image_tensor = prepare_image(image_path, dtype=dtype, device=device)
+            generation = model.generate(
+                images=image_tensor,
+                inputs=inputs,
+                max_new_tokens=args.max_new_tokens,
+                do_sample=True,
+                top_p=0.9,
+                temperature=1.0,
+            )
+            prediction = tokenizer.batch_decode(generation, skip_special_tokens=True)[0]
+            result = {
+                "image_path": record.get("image_path"),
+                "question": question,
+                "prediction": prediction,
+            }
+            if "answer" in record:
+                result["answer"] = record["answer"]
+            out_f.write(json.dumps(result) + "\n")
+
+
+if __name__ == "__main__":
+    main()
