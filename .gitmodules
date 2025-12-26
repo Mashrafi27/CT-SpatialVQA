@@ -10,6 +10,3 @@
 [submodule "benchmarking/inference/fila/repo"]
 	path = benchmarking/inference/fila/repo
 	url = https://github.com/alibaba-damo-academy/fvlm.git
-[submodule "benchmarking/inference/med3dvlm/repo"]
-	path = benchmarking/inference/med3dvlm/repo
-	url = https://github.com/mirthai/med3dvlm.git
