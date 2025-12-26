@@ -1,17 +1,20 @@
 import shutil
-import pandas as pd
+import os
+from pathlib import Path
 
+import pandas as pd
 from huggingface_hub import hf_hub_download
 from tqdm import tqdm
 
-
-split = 'train'
+split = 'test'
 batch_size = 100
 start_at = 0
 
 repo_id = 'ibrahimhamamci/CT-RATE'
 directory_name = f'dataset/{split}_fixed/'
-hf_token = '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'
+hf_token = os.getenv("HF_TOKEN")
+if not hf_token:
+    raise RuntimeError("Set HF_TOKEN environment variable with your Hugging Face access token.")
 
 data = pd.read_csv(hf_hub_download(repo_id='ibrahimhamamci/CT-RATE', filename=f'dataset/multi_abnormality_labels/{split}_predicted_labels.csv', repo_type='dataset'))
 
@@ -38,4 +41,6 @@ for i in tqdm(range(start_at, len(data), batch_size)):
             resume_download=True,
             )
 
-    shutil.rmtree('./datasets--ibrahimhamamci--CT-RATE')
+    cache_dir = Path('./datasets--ibrahimhamamci--CT-RATE')
+    if cache_dir.exists():
+        shutil.rmtree(cache_dir)
