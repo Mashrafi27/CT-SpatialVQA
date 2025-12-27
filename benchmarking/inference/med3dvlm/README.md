@@ -36,7 +36,7 @@ python run_custom_eval.py \
   --dtype bfloat16
 ```
 
-Inputs must contain `image_path` (either absolute, or relative to `--image-root`) and `question`. If the path looks like `valid_1_a_1.nii.gz`, the script automatically resolves it to `<root>/valid_1/valid_1_a/valid_1_a_1.nii.gz`. The script adds `<im_patch>` tokens automatically and stores predictions as JSONL with the original metadata. `--model-path` can point to a local directory (`Med3DVLM/models/Med3DVLM-Qwen-2.5-7B`) or a Hugging Face repo id (`MagicXin/Med3DVLM-Qwen-2.5-7B`).
+Inputs must contain `image_path` (either absolute, or relative to `--image-root`) and `question`. If the path looks like `valid_1_a_1.nii.gz`, the script automatically resolves it to `<root>/valid_1/valid_1_a/valid_1_a_1.nii.gz`. Paths ending in `.npy` (produced by the preprocessing script) are also supported. The script adds `<im_patch>` tokens automatically and stores predictions as JSONL with the original metadata. `--model-path` can point to a local directory (`Med3DVLM/models/Med3DVLM-Qwen-2.5-7B`) or a Hugging Face repo id (`MagicXin/Med3DVLM-Qwen-2.5-7B`).
 
 ## CT-RATE Preprocessing Workflow
 

@@ -90,9 +90,17 @@ def load_jsonl(path: Path, skip: int = 0, limit: int | None = None) -> List[Dict
     return records
 
 
+def load_volume(image_path: Path) -> np.ndarray:
+    if image_path.suffix == ".npy":
+        return np.load(image_path)
+    return sitk.GetArrayFromImage(sitk.ReadImage(str(image_path)))
+
+
 def prepare_image(image_path: Path, dtype: torch.dtype, device: torch.device) -> torch.Tensor:
-    image_np = np.expand_dims(sitk.GetArrayFromImage(sitk.ReadImage(str(image_path))), axis=0)
-    image_pt = torch.from_numpy(image_np).unsqueeze(0).to(dtype=dtype, device=device)
+    volume = load_volume(image_path)
+    if volume.ndim == 3:
+        volume = np.expand_dims(volume, axis=0)  # (1, D, H, W)
+    image_pt = torch.from_numpy(volume).unsqueeze(0).to(dtype=dtype, device=device)
     return image_pt
 
 
