@@ -32,9 +32,9 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--model-path",
-        type=Path,
+        type=str,
         required=True,
-        help="Path to Med3DVLM checkpoint (e.g., models/Med3DVLM-Qwen-2.5-7B)",
+        help="Local path or Hugging Face repo id for Med3DVLM (e.g., models/Med3DVLM-Qwen-2.5-7B or MagicXin/Med3DVLM-Qwen-2.5-7B)",
     )
     parser.add_argument(
         "--device",

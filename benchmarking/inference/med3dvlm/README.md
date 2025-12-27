@@ -30,10 +30,10 @@ cd benchmarking/inference/med3dvlm
 python run_custom_eval.py \
   --dataset ../../../3D_VLM_Spatial/reports/my_spatial_eval.jsonl \
   --output ../../../3D_VLM_Spatial/reports/med3dvlm_predictions.jsonl \
-  --model-path Med3DVLM/models/Med3DVLM-Qwen-2.5-7B \
-  --image-root ../../../3D_VLM_Spatial/dataset/data_volumes \
+  --model-path MagicXin/Med3DVLM-Qwen-2.5-7B \
+  --image-root ../../../3D_VLM_Spatial/dataset/data_volumes/dataset/valid_fixed \
   --device cuda:0 \
   --dtype bfloat16
 ```
 
-Inputs must contain `image_path` (either absolute, or relative to `--image-root`) and `question`. The script adds `<im_patch>` tokens automatically and stores predictions as JSONL with the original metadata. Ensure the Med3DVLM checkpoints (e.g., `Med3DVLM/models/Med3DVLM-Qwen-2.5-7B`) are available before running.
+Inputs must contain `image_path` (either absolute, or relative to `--image-root`) and `question`. The script adds `<im_patch>` tokens automatically and stores predictions as JSONL with the original metadata. `--model-path` can point to a local directory (`Med3DVLM/models/Med3DVLM-Qwen-2.5-7B`) or a Hugging Face repo id (`MagicXin/Med3DVLM-Qwen-2.5-7B`).
