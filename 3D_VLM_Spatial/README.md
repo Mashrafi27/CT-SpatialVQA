@@ -58,3 +58,14 @@ python 3D_VLM_Spatial/scripts/evaluate_predictions.py \
 ```
 
 The script prints `{total, correct, accuracy}` and optionally logs sample mismatches. Adjust the path to point at any other model’s prediction JSONL.
+
+For a more flexible evaluation (allowing medically equivalent phrasing), use the Gemini-based judge:
+
+```bash
+python 3D_VLM_Spatial/scripts/evaluate_with_gemini.py \
+  --predictions 3D_VLM_Spatial/reports/med3dvlm_predictions.jsonl \
+  --output 3D_VLM_Spatial/reports/med3dvlm_gemini_eval.json \
+  --model models/gemini-2.0-flash
+```
+
+This script reads each prediction, sends batches to Gemini, and writes per-question correctness plus an aggregated accuracy summary (printed to stdout). Ensure `GEMINI_API_KEY` is set in your environment.
