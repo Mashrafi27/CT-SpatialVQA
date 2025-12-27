@@ -45,3 +45,16 @@ python 3D_VLM_Spatial/scripts/to_jsonl.py \
 ```
 
 The JSONL records will include the resolved `image_path`, `question`, and `answer`, ready for `run_custom_eval.py --dataset ...jsonl`.
+
+## Evaluate Predictions
+
+After running a model, you can compute simple exact-match accuracy against the ground truth answers using `scripts/evaluate_predictions.py`:
+
+```bash
+python 3D_VLM_Spatial/scripts/evaluate_predictions.py \
+  --predictions 3D_VLM_Spatial/reports/med3dvlm_predictions.jsonl \
+  --report 3D_VLM_Spatial/reports/med3dvlm_eval.json \
+  --show-mismatches
+```
+
+The script prints `{total, correct, accuracy}` and optionally logs sample mismatches. Adjust the path to point at any other model’s prediction JSONL.
