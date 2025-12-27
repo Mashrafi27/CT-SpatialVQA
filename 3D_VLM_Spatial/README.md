@@ -32,3 +32,16 @@ python 3D_VLM_Spatial/scripts/filter_qa_pairs.py \
 Flags `--keep-nonspatial` or `--keep-nonrelevant` can be used if you only want to filter one category.
 
 The resulting JSON can be fed to `benchmarking/inference/med3dvlm/run_custom_eval.py` (or other model scripts) using the absolute `image_path` references. Keep the answers for evaluation only—they are not supplied to the models during inference.
+
+## Convert to JSONL
+
+Some evaluators expect a flat JSONL (one QA per line). Use `scripts/to_jsonl.py` to transform the filtered JSON into that format and optionally prepend the image root:
+
+```bash
+python 3D_VLM_Spatial/scripts/to_jsonl.py \
+  --input 3D_VLM_Spatial/spatial_qa_filtered.json \
+  --output 3D_VLM_Spatial/spatial_qa_filtered.jsonl \
+  --image-root 3D_VLM_Spatial/dataset/data_volumes/dataset/valid_fixed
+```
+
+The JSONL records will include the resolved `image_path`, `question`, and `answer`, ready for `run_custom_eval.py --dataset ...jsonl`.
