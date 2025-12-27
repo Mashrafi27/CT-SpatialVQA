@@ -96,6 +96,32 @@ def prepare_image(image_path: Path, dtype: torch.dtype, device: torch.device) ->
     return image_pt
 
 
+def resolve_image_path(raw_path: str, image_root: Path | None) -> Path:
+    """
+    Resolve image paths.
+    - If raw_path exists, return it.
+    - Else, if image_root provided and raw_path looks like 'valid_1_a_1.nii.gz',
+      construct <root>/<valid_1>/<valid_1_a>/<valid_1_a_1.nii.gz>.
+    """
+    candidate = Path(raw_path)
+    if candidate.is_file():
+        return candidate
+    if image_root is None:
+        return candidate
+    name = candidate.name or raw_path
+    stem = name.replace(".nii.gz", "")
+    tokens = stem.split("_")
+    if len(tokens) >= 3 and tokens[0] == "valid":
+        patient = "_".join(tokens[:2])  # valid_1
+        series = "_".join(tokens[:3])   # valid_1_a
+        derived = image_root / patient / series / name
+        if derived.is_file():
+            return derived
+    # fallback: assume direct child
+    fallback = image_root / name
+    return fallback
+
+
 def main() -> None:
     args = parse_args()
     dtype_map = {
@@ -132,9 +158,10 @@ def main() -> None:
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("w") as out_f:
         for record in tqdm(dataset, desc="Running Med3DVLM"):
-            image_path = Path(record["image_path"])
-            if not image_path.is_absolute() and args.image_root:
-                image_path = args.image_root / image_path
+            raw_path = record.get("image_path") or record.get("case_id")
+            if not raw_path:
+                raise ValueError("Record missing image_path/case_id field")
+            image_path = resolve_image_path(raw_path, args.image_root)
             if not image_path.exists():
                 raise FileNotFoundError(f"Image not found: {image_path}")
 
