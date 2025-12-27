@@ -35,13 +35,13 @@ def main() -> None:
         qa_pairs = case_payload.get("qa_pairs", [])
         judge_entries = judgments.get(case_id, [])
         keep_pairs = []
-        for idx, qa_pair in enumerate(qa_pairs, start=1):
-            match = next((entry for entry in judge_entries if entry.get("index") == idx), None)
-            if not match:
-                keep_pairs.append(qa_pair)
-                continue
-            spatial_ok = match.get("is_spatial", True)
-            relevant_ok = match.get("is_relevant", True)
+        judge_idx = 0
+        for qa_pair in qa_pairs:
+            match = judge_entries[judge_idx] if judge_idx < len(judge_entries) else None
+            if match is not None:
+                judge_idx += 1
+            spatial_ok = match.get("is_spatial", True) if match else True
+            relevant_ok = match.get("is_relevant", True) if match else True
             if not spatial_ok and not args.keep_nonspatial:
                 removed_counts["non_spatial"] += 1
                 continue
