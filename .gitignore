@@ -14,3 +14,6 @@ datasets--*/
 
 # Downloaded NIfTI volumes for CT-RATE
 3D_VLM_Spatial/dataset/data_volumes/
+
+# Processed tensors
+3D_VLM_Spatial/processed_volumes/
