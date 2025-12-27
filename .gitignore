@@ -11,3 +11,6 @@ datasets--*/
 # Binary artifacts / logs
 *.log
 *.tmp
+
+# Downloaded NIfTI volumes for CT-RATE
+3D_VLM_Spatial/dataset/data_volumes/
