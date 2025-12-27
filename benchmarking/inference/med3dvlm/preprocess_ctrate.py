@@ -80,7 +80,34 @@ def resolve_path(raw_path: str, root: Path | None) -> Path:
         return candidate
     if root is None:
         return candidate
-    return (root / candidate).resolve()
+    name = candidate.name or raw_path
+    stem = name.replace(".nii.gz", "")
+    tokens = stem.split("_")
+    if len(tokens) >= 3 and tokens[0] == "valid":
+        patient = "_".join(tokens[:2])  # valid_1
+        series = "_".join(tokens[:3])   # valid_1_a
+        return (root / patient / series / name).resolve()
+    return (root / name).resolve()
+
+
+def derive_case_id(raw_path: str) -> str:
+    name = Path(raw_path).stem
+    return name or raw_path
+
+
+def derive_save_path(output_root: Path, raw_path: str) -> Path:
+    name = Path(raw_path).name
+    stem = name.replace(".nii.gz", "")
+    tokens = stem.split("_")
+    if len(tokens) >= 3 and tokens[0] == "valid":
+        patient = "_".join(tokens[:2])
+        series = "_".join(tokens[:3])
+        save_dir = output_root / patient / series
+        save_dir.mkdir(parents=True, exist_ok=True)
+        return save_dir / f"{stem}.npy"
+    save_dir = output_root / stem
+    save_dir.mkdir(parents=True, exist_ok=True)
+    return save_dir / f"{stem}.npy"
 
 
 def main() -> None:
@@ -100,13 +127,11 @@ def main() -> None:
         volume = sitk.GetArrayFromImage(resampled_img)  # (depth, height, width)
         volume = normalize_array(volume, args.clip_min, args.clip_max)
 
-        case_id = record.get("case_id") or Path(raw_path).stem
-        save_dir = args.output_root / case_id
-        save_dir.mkdir(parents=True, exist_ok=True)
-        save_path = save_dir / f"{case_id}.npy"
+        save_path = derive_save_path(args.output_root, raw_path)
         np.save(save_path, volume)
 
         updated = dict(record)
+        updated["case_id"] = record.get("case_id") or derive_case_id(raw_path)
         updated["image_path"] = str(save_path.resolve())
         processed_records.append(updated)
 
