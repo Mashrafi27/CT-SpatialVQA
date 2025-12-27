@@ -75,6 +75,14 @@ def strip_code_fence(text: str) -> str:
     return text
 
 
+def sanitize_json(text: str) -> str:
+    # Gemini occasionally emits trailing commas inside arrays; strip them.
+    text = text.replace(",\n]", "\n]")
+    text = text.replace(", ]", "]")
+    text = text.replace(",]", "]")
+    return text
+
+
 def main() -> None:
     args = parse_args()
 
@@ -102,6 +110,7 @@ def main() -> None:
 
         response = model.generate_content(prompt)
         text = strip_code_fence(extract_text(response))
+        text = sanitize_json(text)
         try:
             parsed = json.loads(text)
         except json.JSONDecodeError as exc:
