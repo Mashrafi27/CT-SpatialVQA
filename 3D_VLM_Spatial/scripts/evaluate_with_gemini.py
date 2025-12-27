@@ -80,6 +80,9 @@ def sanitize_json(text: str) -> str:
     text = text.replace(",\n]", "\n]")
     text = text.replace(", ]", "]")
     text = text.replace(",]", "]")
+    # Also ensure each JSON object entry ends with a comma if needed.
+    text = text.replace('"}  {', '"}, {')
+    text = text.replace('}\n  {', '},\n  {')
     return text
 
 
