@@ -102,7 +102,11 @@ def main() -> None:
 
         response = model.generate_content(prompt)
         text = strip_code_fence(extract_text(response))
-        parsed = json.loads(text)
+        try:
+            parsed = json.loads(text)
+        except json.JSONDecodeError as exc:
+            print("[WARN] Failed to parse Gemini output:\n", text)
+            raise exc
         for judgment, record in zip(parsed, batch):
             item = {
                 "question": record.get("question"),
