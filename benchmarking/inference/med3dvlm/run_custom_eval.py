@@ -42,6 +42,12 @@ def parse_args() -> argparse.Namespace:
         help="Device identifier (cuda, cuda:0, cpu)",
     )
     parser.add_argument(
+        "--image-root",
+        type=Path,
+        default=None,
+        help="Optional root directory to prepend to relative image paths",
+    )
+    parser.add_argument(
         "--dtype",
         default="bfloat16",
         choices=["float32", "float16", "bfloat16"],
@@ -127,6 +133,11 @@ def main() -> None:
     with args.output.open("w") as out_f:
         for record in tqdm(dataset, desc="Running Med3DVLM"):
             image_path = Path(record["image_path"])
+            if not image_path.is_absolute() and args.image_root:
+                image_path = args.image_root / image_path
+            if not image_path.exists():
+                raise FileNotFoundError(f"Image not found: {image_path}")
+
             question = record.get("question") or "Describe the findings of the medical image you see."
             input_text = prompt_prefix + question
             inputs = tokenizer(input_text, return_tensors="pt")["input_ids"].to(device=device)
