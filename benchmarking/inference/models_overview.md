@@ -32,10 +32,10 @@ This file mirrors the spreadsheet contents for quick reference when scripting in
 4. Medical reasoning: staging, resectability, diagnosis-level reasoning
 
 ## VILA-M3
-- Image segmentation
-- Abnormality classification
+- Image segmentation + abnormality classification using expert plugins
 - Medical report generation
 - Visual question answering
+- Code: https://github.com/Project-MONAI/VLM-Radiology-Agent-Framework (Hugging Face `MONAI/Llama3-VILA-M3-*` checkpoints)
 
 ## E3D-GPT
 - Report generation from 3D imaging

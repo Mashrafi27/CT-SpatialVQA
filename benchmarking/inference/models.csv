@@ -67,7 +67,7 @@ Resectability assessment (should the cyst/tumor be surgically resected?)
 Diagnosis-level reasoning (e.g., cyst vs. tumor classification, fatty liver assessment)
 
 ",
-VILA-M3,,https://openaccess.thecvf.com/content/CVPR2025/papers/Nath_VILA-M3_Enhancing_Vision-Language_Models_with_Medical_Expert_Knowledge_CVPR_2025_paper,"Image segmentation
+VILA-M3,https://github.com/Project-MONAI/VLM-Radiology-Agent-Framework,https://openaccess.thecvf.com/content/CVPR2025/papers/Nath_VILA-M3_Enhancing_Vision-Language_Models_with_Medical_Expert_Knowledge_CVPR_2025_paper,"Image segmentation
 
 Abnormality classification
 

@@ -13,3 +13,6 @@
 [submodule "benchmarking/inference/med3dvlm/Med3DVLM"]
 	path = benchmarking/inference/med3dvlm/Med3DVLM
 	url = https://github.com/mirthai/med3dvlm.git
+[submodule "benchmarking/inference/vila-m3/repo"]
+	path = benchmarking/inference/vila-m3/repo
+	url = https://github.com/Project-MONAI/VLM-Radiology-Agent-Framework
