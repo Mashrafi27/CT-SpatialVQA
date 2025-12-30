@@ -116,9 +116,19 @@ def main() -> None:
         text = sanitize_json(text)
         try:
             parsed = json.loads(text)
-        except json.JSONDecodeError as exc:
+        except json.JSONDecodeError:
             print("[WARN] Failed to parse Gemini output:\n", text)
-            raise exc
+            # Fallback: mark this batch as unscored but preserve raw text.
+            for record in batch:
+                item = {
+                    "question": record.get("question"),
+                    "answer": record.get("answer"),
+                    "prediction": record.get("prediction"),
+                    "is_correct": None,
+                    "reasoning": f"PARSE_ERROR: {text[:200]}...",
+                }
+                judgments.append(item)
+            continue
         for judgment, record in zip(parsed, batch):
             item = {
                 "question": record.get("question"),
@@ -128,9 +138,10 @@ def main() -> None:
                 "reasoning": judgment.get("reasoning"),
             }
             judgments.append(item)
-            if item["is_correct"]:
-                correct += 1
-            total += 1
+            if item["is_correct"] is not None:
+                total += 1
+                if item["is_correct"]:
+                    correct += 1
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(judgments, indent=2))
