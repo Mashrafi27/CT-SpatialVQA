@@ -24,9 +24,34 @@ DEMO_ROOT = REPO_ROOT / "m3" / "demo"
 sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(DEMO_ROOT))
 
+import gradio_m3  # type: ignore[import]
+from transformers import StoppingCriteria  # type: ignore[import]
 from experts.expert_monai_vista3d import ExpertVista3D  # type: ignore[import]
 from experts.utils import get_slice_filenames  # type: ignore[import]
-from gradio_m3 import M3Generator  # type: ignore[import]
+
+
+class SafeKeywordsStoppingCriteria(StoppingCriteria):
+    """Keyword-based stopping that guards against short sequences."""
+
+    def __init__(self, keywords, tokenizer, input_ids):
+        super().__init__()
+        self.tokenizer = tokenizer
+        self.start_len = input_ids.shape[1]
+        self.keyword_ids = [
+            tokenizer(keyword, add_special_tokens=False, return_tensors="pt")["input_ids"][0]
+            for keyword in keywords
+        ]
+
+    def __call__(self, input_ids, scores, **kwargs):
+        for i in range(input_ids.shape[0]):
+            seq = input_ids[i, self.start_len :]
+            for kw in self.keyword_ids:
+                if seq.numel() < kw.numel():
+                    continue
+                if (seq[-kw.numel():] == kw.to(seq.device)).all():
+                    return True
+        return False
+
 
 
 def parse_args() -> argparse.Namespace:
@@ -205,8 +230,10 @@ def main() -> None:
         case_id = rec.get("case_id") or Path(rec.get("image_path", "")).name
         grouped[str(case_id)].append(rec)
 
+    # Patch stopping criteria inside gradio_m3 to avoid short-length crashes
+    gradio_m3.KeywordsStoppingCriteria = SafeKeywordsStoppingCriteria
     expert = ExpertVista3D()
-    generator = M3Generator(source="huggingface", model_path=args.model_path, conv_mode="llama_3")
+    generator = gradio_m3.M3Generator(source="huggingface", model_path=args.model_path, conv_mode="llama_3")
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.cache_dir.mkdir(parents=True, exist_ok=True)
