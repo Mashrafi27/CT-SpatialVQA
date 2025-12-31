@@ -122,6 +122,12 @@ def parse_args() -> argparse.Namespace:
         default=0,
         help="Skip this many QA pairs from the start",
     )
+    parser.add_argument(
+        "--stage",
+        choices=["all", "expert-only", "vila-only"],
+        default="all",
+        help="Run both expert + VILA (all), or only precompute expert outputs, or only VILA using cached expert outputs.",
+    )
     return parser.parse_args()
 
 
@@ -168,10 +174,11 @@ def run_vista3d(
     nifti_path: Path,
     case_dir: Path,
     slice_index: int,
+    skip_if_exists: bool = True,
 ) -> Dict[str, str | int]:
     case_dir.mkdir(parents=True, exist_ok=True)
     summary_path = case_dir / "vista3d_summary.json"
-    if summary_path.is_file():
+    if skip_if_exists and summary_path.is_file():
         return json.loads(summary_path.read_text())
 
     text_output, seg_image, _ = expert.run(
@@ -230,10 +237,12 @@ def main() -> None:
         case_id = rec.get("case_id") or Path(rec.get("image_path", "")).name
         grouped[str(case_id)].append(rec)
 
-    # Patch stopping criteria inside gradio_m3 to avoid short-length crashes
-    gradio_m3.KeywordsStoppingCriteria = SafeKeywordsStoppingCriteria
     expert = ExpertVista3D()
-    generator = gradio_m3.M3Generator(source="huggingface", model_path=args.model_path, conv_mode="llama_3")
+    generator = None
+    if args.stage in {"all", "vila-only"}:
+        # Patch stopping criteria inside gradio_m3 to avoid short-length crashes
+        gradio_m3.KeywordsStoppingCriteria = SafeKeywordsStoppingCriteria
+        generator = gradio_m3.M3Generator(source="huggingface", model_path=args.model_path, conv_mode="llama_3")
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.cache_dir.mkdir(parents=True, exist_ok=True)
@@ -247,11 +256,23 @@ def main() -> None:
             depth = get_depth(nifti_path)
             slice_index = args.slice_index if args.slice_index is not None else depth // 2
             case_dir = args.cache_dir / Path(case_id).stem.replace(".nii", "")
-            summary = run_vista3d(expert, nifti_path, case_dir, slice_index)
+            if args.stage == "vila-only":
+                summary_path = case_dir / "vista3d_summary.json"
+                if not summary_path.is_file():
+                    raise FileNotFoundError(f"No cached VISTA3D summary for {case_id} in {summary_path.parent}")
+                summary = json.loads(summary_path.read_text())
+            else:
+                summary = run_vista3d(expert, nifti_path, case_dir, slice_index)
+
+            if args.stage == "expert-only":
+                # Only precompute expert outputs; skip VILA generation.
+                continue
 
             for record in case_records:
                 question = record.get("question") or "Describe the findings in this CT volume."
                 messages = build_messages(question, summary)
+                if generator is None:
+                    raise RuntimeError("VILA generator not initialized; stage must include VILA.")
                 response = generator.generate_response(
                     messages=generator.squash_expert_messages_into_user(messages),
                     max_tokens=args.max_new_tokens,
@@ -273,4 +294,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
