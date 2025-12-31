@@ -152,7 +152,10 @@ def main() -> None:
     with args.output_jsonl.open("w") as f:
         for rec in updated:
             f.write(json.dumps(rec) + "\n")
-    print(f"Resampled {len(updated)} volumes to spacing {args.spacing}. Output root: {args.output_root}")
+    print(
+        f"Resampled {len(updated)} volumes to size (D,H,W)=({args.depth},{args.height},{args.width}). "
+        f"Output root: {args.output_root}"
+    )
 
 
 if __name__ == "__main__":
