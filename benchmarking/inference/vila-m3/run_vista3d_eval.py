@@ -53,6 +53,23 @@ class SafeKeywordsStoppingCriteria(StoppingCriteria):
         return False
 
 
+CONTROL_TOKENS = [
+    "<|begin_of_text|>",
+    "<|end_of_text|>",
+    "<|start_header_id|>",
+    "<|end_header_id|>",
+    "<|eot_id|>",
+]
+
+
+def clean_control_tokens(text: str) -> str:
+    """Strip chat control tokens that sometimes leak from generation."""
+    if not isinstance(text, str):
+        return text
+    for tok in CONTROL_TOKENS:
+        text = text.replace(tok, "")
+    return text.strip()
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="VILA-M3 + VISTA3D evaluator")
@@ -280,6 +297,8 @@ def main() -> None:
                     top_p=args.top_p,
                     system_prompt=None,
                 )
+
+                response = clean_control_tokens(response)
 
                 result = {
                     "case_id": record.get("case_id"),
