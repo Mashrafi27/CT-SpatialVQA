@@ -70,6 +70,10 @@ def clean_control_tokens(text: str) -> str:
         text = text.replace(tok, "")
     return text.strip()
 
+SYSTEM_PROMPT = (
+    "Answer the user's question concisely using the provided CT image and segmentation. "
+    "Return only the answer (no preamble, no reasoning steps, no extra text)."
+)
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="VILA-M3 + VISTA3D evaluator")
@@ -295,7 +299,7 @@ def main() -> None:
                     max_tokens=args.max_new_tokens,
                     temperature=args.temperature,
                     top_p=args.top_p,
-                    system_prompt=None,
+                    system_prompt=SYSTEM_PROMPT,
                 )
 
                 response = clean_control_tokens(response)
