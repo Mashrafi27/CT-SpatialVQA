@@ -18,3 +18,5 @@ datasets--*/
 # Processed tensors
 3D_VLM_Spatial/processed_volumes/
 3D_VLM_Spatial/reports/vista3d_cache/
+3D_VLM_Spatial/reports/vista3d_cache/
+3D_VLM_Spatial/dataset/resampled_vista3d_fixed/
