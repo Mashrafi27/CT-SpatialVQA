@@ -18,5 +18,8 @@ datasets--*/
 # Processed tensors
 3D_VLM_Spatial/processed_volumes/
 3D_VLM_Spatial/reports/vista3d_cache/
+3D_VLM_Spatial/dataset/resampled_merlin/
+3D_VLM_Spatial/reports/merlin_predictions.jsonl
+3D_VLM_Spatial/spatial_qa_resampled_merlin.jsonl
 3D_VLM_Spatial/reports/vista3d_cache/
 3D_VLM_Spatial/dataset/resampled_vista3d_fixed/
