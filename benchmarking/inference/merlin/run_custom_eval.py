@@ -99,12 +99,19 @@ def main() -> None:
             question = rec.get("question") or "Describe the findings in this CT."
             prompt = SYSTEM_PROMPT.format(question=question)
 
-            generated = model.generate(
-                vol,
-                [prompt],
-                max_new_tokens=args.max_new_tokens,
-                temperature=args.temperature,
-            )
+            if args.temperature <= 0:
+                gen_kwargs = {
+                    "max_new_tokens": args.max_new_tokens,
+                    "do_sample": False,
+                }
+            else:
+                gen_kwargs = {
+                    "max_new_tokens": args.max_new_tokens,
+                    "temperature": args.temperature,
+                    "do_sample": True,
+                }
+
+            generated = model.generate(vol, [prompt], **gen_kwargs)
             # model.generate returns a list of strings
             prediction = generated[0] if isinstance(generated, list) else str(generated)
             prediction = prediction.strip()
