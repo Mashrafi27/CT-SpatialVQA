@@ -19,3 +19,13 @@
 ## Notes
 
 Alibaba often distributes large checkpoints separately; be ready to document the exact download/placement process (HPC only).
+
+## Plan to integrate with our benchmark
+
+- Use our resampled CTs and QA JSONL. Start with center-slice evaluation to get a baseline; expand to multi-slice/3D if feasible.
+- Drop FILA weights (from their Google Drive link) into the HPC; also place the ViT-B MAE weights and BiomedVLP-CXR-BERT-specialized text encoder in `repo/data` as expected by their scripts.
+- Implement a custom evaluator (similar to `med3dvlm/run_custom_eval.py`) that:
+  - Reads our QA JSONL,
+  - Resolves each `case_id` to a NIfTI path and picks a slice (configurable),
+  - Runs FILA and writes `3D_VLM_Spatial/reports/fila_predictions.jsonl`.
+- Keep this repo clone clean locally; heavy files and checkpoints stay on the HPC and out of git.
