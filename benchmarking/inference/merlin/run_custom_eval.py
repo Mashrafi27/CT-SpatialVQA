@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -34,6 +35,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--temperature", type=float, default=0.0, help="Sampling temperature (0 = greedy)")
     p.add_argument("--limit", type=int, default=None, help="Optional limit on number of QA pairs")
     p.add_argument("--skip", type=int, default=0, help="Skip this many QA pairs from start")
+    p.add_argument("--resume", action="store_true", help="If set, append to output and auto-skip existing lines")
     return p.parse_args()
 
 
@@ -80,6 +82,12 @@ def main() -> None:
     args = parse_args()
     device = torch.device(args.device)
 
+    # If resuming, auto-infer skip from existing output lines
+    if args.resume and args.output.exists():
+        existing = sum(1 for _ in args.output.open())
+        if existing > args.skip:
+            args.skip = existing
+
     records = load_jsonl(args.dataset, skip=args.skip, limit=args.limit)
     if not records:
         raise SystemExit("No records loaded.")
@@ -89,7 +97,8 @@ def main() -> None:
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
 
-    with args.output.open("w") as out_f, torch.no_grad():
+    mode = "a" if args.resume else "w"
+    with args.output.open(mode) as out_f, torch.no_grad():
         for rec in tqdm(records, desc="Running Merlin"):
             nifti_path = resolve_nifti_path(rec, args.nifti_root)
             if not nifti_path.is_file():
@@ -125,6 +134,8 @@ def main() -> None:
             if "answer" in rec:
                 out_rec["answer"] = rec["answer"]
             out_f.write(json.dumps(out_rec) + "\n")
+            out_f.flush()
+            os.fsync(out_f.fileno())
 
 
 if __name__ == "__main__":
