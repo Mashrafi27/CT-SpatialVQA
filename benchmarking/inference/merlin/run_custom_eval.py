@@ -56,21 +56,30 @@ def load_jsonl(path: Path, skip: int = 0, limit: Optional[int] = None) -> List[D
 
 
 def resolve_nifti_path(rec: Dict, root: Path) -> Path:
+    def expand_valid_path(name: str) -> Path:
+        stem = name.replace(".nii.gz", "").replace(".nii", "")
+        tokens = stem.split("_")
+        if len(tokens) >= 3 and tokens[0] == "valid":
+            patient = "_".join(tokens[:2])  # valid_1
+            series = "_".join(tokens[:3])   # valid_1_a
+            return root / patient / series / name
+        return root / name
+
     # Prefer explicit image_path if present
     if "image_path" in rec and rec["image_path"]:
         p = Path(rec["image_path"])
         # If we were given a processed .npy path, map back to the original NIfTI name.
         if p.suffix == ".npy":
             name = p.name.replace(".npy", ".nii.gz")
-            p = Path(name)
+            return expand_valid_path(name)
         if p.is_absolute():
             return p
-        return root / p
+        return expand_valid_path(p.name)
     case_id = str(rec.get("case_id") or "")
     name = Path(case_id).name
     if not name.endswith(".nii") and not name.endswith(".nii.gz"):
         name = f"{name}.nii.gz"
-    return root / name
+    return expand_valid_path(name)
 
 
 def center_pad_crop(volume: np.ndarray, target_shape: tuple[int, int, int]) -> np.ndarray:
