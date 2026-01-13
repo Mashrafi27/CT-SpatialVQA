@@ -100,7 +100,7 @@ def main() -> None:
     correct = 0
     total = 0
 
-    for idx in range(0, len(preds), args.batch_size):
+    for idx in tqdm(range(0, len(preds), args.batch_size), desc="Gemini evaluating", unit="batch"):
         batch = preds[idx : idx + args.batch_size]
         prompt_entries = []
         for offset, record in enumerate(batch, start=1):

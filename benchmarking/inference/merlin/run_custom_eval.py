@@ -14,7 +14,8 @@ import os
 from pathlib import Path
 from typing import Dict, List, Optional
 
-import nibabel as nib
+import numpy as np
+import SimpleITK as sitk
 import torch
 from merlin import Merlin
 from tqdm import tqdm
@@ -68,13 +69,65 @@ def resolve_nifti_path(rec: Dict, root: Path) -> Path:
     return root / name
 
 
+def center_pad_crop(volume: np.ndarray, target_shape: tuple[int, int, int]) -> np.ndarray:
+    depth, height, width = volume.shape
+    t_depth, t_height, t_width = target_shape
+
+    pad_d = max(t_depth - depth, 0)
+    pad_h = max(t_height - height, 0)
+    pad_w = max(t_width - width, 0)
+
+    if pad_d or pad_h or pad_w:
+        pad_before = (pad_d // 2, pad_h // 2, pad_w // 2)
+        pad_after = (pad_d - pad_before[0], pad_h - pad_before[1], pad_w - pad_before[2])
+        volume = np.pad(
+            volume,
+            ((pad_before[0], pad_after[0]),
+             (pad_before[1], pad_after[1]),
+             (pad_before[2], pad_after[2])),
+            mode="constant",
+            constant_values=0,
+        )
+
+    depth, height, width = volume.shape
+    start_d = max((depth - t_depth) // 2, 0)
+    start_h = max((height - t_height) // 2, 0)
+    start_w = max((width - t_width) // 2, 0)
+    return volume[
+        start_d:start_d + t_depth,
+        start_h:start_h + t_height,
+        start_w:start_w + t_width,
+    ]
+
+
 def load_volume(nifti_path: Path, device: torch.device) -> torch.Tensor:
-    img = nib.load(str(nifti_path))
-    data = img.get_fdata().astype("float32")
-    # Ensure shape [D,H,W]; add batch & channel -> [1,1,D,H,W]
-    if data.ndim == 4:
-        data = data[..., 0]
-    vol = torch.from_numpy(data)[None, None]  # [1,1,D,H,W]
+    img = sitk.ReadImage(str(nifti_path))
+    # Match Merlin preprocessing: RAS orientation + spacing 1.5x1.5x3
+    orienter = sitk.DICOMOrientImageFilter()
+    orienter.SetDesiredCoordinateOrientation("RAS")
+    img = orienter.Execute(img)
+
+    target_spacing = (1.5, 1.5, 3.0)
+    orig_spacing = img.GetSpacing()
+    orig_size = img.GetSize()
+    new_size = [
+        int(round(osz * ospc / tspc))
+        for osz, ospc, tspc in zip(orig_size, orig_spacing, target_spacing)
+    ]
+    resampler = sitk.ResampleImageFilter()
+    resampler.SetInterpolator(sitk.sitkLinear)
+    resampler.SetOutputSpacing(target_spacing)
+    resampler.SetSize([int(x) for x in new_size])
+    resampler.SetOutputDirection(img.GetDirection())
+    resampler.SetOutputOrigin(img.GetOrigin())
+    resampler.SetDefaultPixelValue(img.GetPixelIDValue())
+    img = resampler.Execute(img)
+
+    arr = sitk.GetArrayFromImage(img).astype("float32")  # z,y,x
+    arr = np.clip(arr, -1000, 1000)
+    arr = (arr - (-1000)) / (1000 - (-1000))  # [0,1]
+    arr = center_pad_crop(arr, (160, 224, 224))
+    vol = torch.from_numpy(arr)[None, None]  # [1,1,D,H,W]
     return vol.to(device)
 
 
