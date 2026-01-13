@@ -59,6 +59,10 @@ def resolve_nifti_path(rec: Dict, root: Path) -> Path:
     # Prefer explicit image_path if present
     if "image_path" in rec and rec["image_path"]:
         p = Path(rec["image_path"])
+        # If we were given a processed .npy path, map back to the original NIfTI name.
+        if p.suffix == ".npy":
+            name = p.name.replace(".npy", ".nii.gz")
+            p = Path(name)
         if p.is_absolute():
             return p
         return root / p
