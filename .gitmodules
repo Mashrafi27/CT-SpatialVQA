@@ -16,3 +16,9 @@
 [submodule "benchmarking/inference/vila-m3/repo"]
 	path = benchmarking/inference/vila-m3/repo
 	url = https://github.com/Project-MONAI/VLM-Radiology-Agent-Framework
+[submodule "benchmarking/inference/m3d/repo"]
+	path = benchmarking/inference/m3d/repo
+	url = https://github.com/BAAI-DCAI/M3D
+[submodule "benchmarking/inference/radfm/repo"]
+	path = benchmarking/inference/radfm/repo
+	url = https://github.com/chaoyi-wu/RadFM
