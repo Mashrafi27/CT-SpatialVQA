@@ -152,18 +152,10 @@ def main() -> None:
             vision_x = load_image(image_path).to(device=device, dtype=dtype)
             vision_x = vision_x.unsqueeze(0).unsqueeze(0)
 
-            gen_kwargs = {"max_new_tokens": args.max_new_tokens}
-            if args.temperature <= 0:
-                gen_kwargs["do_sample"] = False
-            else:
-                gen_kwargs.update(
-                    do_sample=True,
-                    temperature=args.temperature,
-                    top_p=args.top_p,
-                )
-
             with torch.inference_mode():
-                generation = model.generate(lang_x, vision_x, **gen_kwargs)
+                generation = model.generate(lang_x, vision_x)
+            if args.max_new_tokens:
+                generation = generation[:, : args.max_new_tokens]
             prediction = tokenizer.batch_decode(generation, skip_special_tokens=True)[0]
 
             result = {
