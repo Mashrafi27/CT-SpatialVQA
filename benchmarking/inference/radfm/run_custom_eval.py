@@ -128,7 +128,9 @@ def main() -> None:
     tokenizer, image_padding_tokens = get_tokenizer(tokenizer_dir)
     model = MultiLLaMAForCausalLM(lang_model_path=str(tokenizer_dir))
     ckpt = torch.load(str(checkpoint), map_location="cpu")
-    model.load_state_dict(ckpt)
+    if "embedding_layer.bert_model.embeddings.position_ids" in ckpt:
+        ckpt.pop("embedding_layer.bert_model.embeddings.position_ids")
+    model.load_state_dict(ckpt, strict=False)
     model = model.to(device=device, dtype=dtype)
     model.eval()
 
