@@ -24,3 +24,4 @@ checkpoints/
 3D_VLM_Spatial/dataset/resampled_merlin/
 3D_VLM_Spatial/dataset/resampled_m3d/
 3D_VLM_Spatial/dataset/resampled_radfm/
+3D_VLM_Spatial/dataset/ctchat_embeddings/

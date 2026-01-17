@@ -22,3 +22,9 @@
 [submodule "benchmarking/inference/radfm/repo"]
 	path = benchmarking/inference/radfm/repo
 	url = https://github.com/chaoyi-wu/RadFM
+[submodule "benchmarking/inference/ct-clip/repo"]
+	path = benchmarking/inference/ct-clip/repo
+	url = https://github.com/ibrahimethemhamamci/CT-CLIP
+[submodule "benchmarking/inference/ct-chat/repo"]
+	path = benchmarking/inference/ct-chat/repo
+	url = https://github.com/ibrahimethemhamamci/CT-CHAT
