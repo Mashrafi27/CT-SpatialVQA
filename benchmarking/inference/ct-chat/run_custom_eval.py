@@ -77,6 +77,10 @@ def main() -> None:
     if "llava" not in model_name.lower():
         # CT-CHAT uses LLaVA-style LoRA weights; force the LLaVA LoRA branch.
         model_name = "llava-lora"
+
+    if "llava" not in model_name.lower():
+        # CT-CHAT uses LLaVA-style LoRA weights; force the LLaVA LoRA branch.
+        model_name = "llava-lora"
     tokenizer, model, image_processor, context_len = load_pretrained_model(
         args.model_path,
         args.model_base,
