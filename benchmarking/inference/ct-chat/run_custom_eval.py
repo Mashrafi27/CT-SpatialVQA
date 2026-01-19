@@ -74,6 +74,9 @@ def main() -> None:
         raise SystemExit("No records loaded.")
 
     model_name = get_model_name_from_path(args.model_path)
+    if "llava" not in model_name.lower():
+        # CT-CHAT uses LLaVA-style LoRA weights; force the LLaVA LoRA branch.
+        model_name = "llava-lora"
     tokenizer, model, image_processor, context_len = load_pretrained_model(
         args.model_path,
         args.model_base,
