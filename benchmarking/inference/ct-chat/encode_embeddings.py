@@ -144,7 +144,24 @@ def main() -> None:
         dim_head=32,
         heads=8,
     ).to(device=device).eval()
-    image_encoder.load(args.encoder_ckpt)
+    ckpt = torch.load(args.encoder_ckpt, map_location="cpu")
+    if isinstance(ckpt, dict) and "state_dict" in ckpt:
+        ckpt = ckpt["state_dict"]
+    if isinstance(ckpt, dict) and "model" in ckpt:
+        ckpt = ckpt["model"]
+    if isinstance(ckpt, dict):
+        remapped = {}
+        for key, value in ckpt.items():
+            if key.startswith("visual_transformer."):
+                remapped[key.replace("visual_transformer.", "", 1)] = value
+            elif key.startswith("image_encoder."):
+                remapped[key.replace("image_encoder.", "", 1)] = value
+        if remapped:
+            ckpt = remapped
+    try:
+        image_encoder.load_state_dict(ckpt, strict=False)
+    except Exception:
+        image_encoder.load(ckpt)
 
     updated = []
     for idx, rec in enumerate(tqdm(list(iter_jsonl(args.input_jsonl)), desc="Encoding CT-CHAT")):
