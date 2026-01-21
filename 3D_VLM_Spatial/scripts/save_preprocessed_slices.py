@@ -32,6 +32,12 @@ def parse_args() -> argparse.Namespace:
         help="Labels that should use raw volumes instead of image_path (e.g., CTCHAT).",
     )
     parser.add_argument(
+        "--dhw-labels",
+        nargs="+",
+        default=[],
+        help="Labels whose volumes are stored as D,H,W and should be transposed to H,W,D for viewing.",
+    )
+    parser.add_argument(
         "--dataset",
         action="append",
         nargs=2,
@@ -192,6 +198,8 @@ def main() -> None:
                 if not src.is_file():
                     continue
                 vol = squeeze_to_3d(load_volume(src))
+                if label in args.dhw_labels:
+                    vol = np.transpose(vol, (1, 2, 0))
                 vol_axis = select_axis(vol, axis)
                 mid = vol_axis.shape[2] // 2
                 slice_2d = window_slice(vol_axis[:, :, mid], args.vmin, args.vmax, args.normalize)
