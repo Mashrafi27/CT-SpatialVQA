@@ -33,6 +33,11 @@ def parse_args() -> argparse.Namespace:
         help="Root of raw NIfTI volumes (valid_fixed). If set, logs raw + preprocessed.",
     )
     parser.add_argument(
+        "--combine-case",
+        action="store_true",
+        help="Create a single image per case with RAW + all model preprocessings side-by-side.",
+    )
+    parser.add_argument(
         "--dataset",
         action="append",
         nargs=2,
@@ -52,7 +57,7 @@ def iter_jsonl(path: Path) -> Iterable[dict]:
 
 
 def load_paths(path: Path) -> List[Tuple[str, str, str]]:
-    items: List[Tuple[str, str]] = []
+    items: List[Tuple[str, str, str]] = []
     for rec in iter_jsonl(path):
         image_path = rec.get("image_path") or rec.get("case_id")
         case_id = rec.get("case_id") or image_path
@@ -149,6 +154,15 @@ def combine_side_by_side(left: np.ndarray, right: np.ndarray) -> np.ndarray:
     return canvas
 
 
+def combine_many(images: List[np.ndarray]) -> np.ndarray:
+    if not images:
+        raise SystemExit("No images to combine.")
+    combined = images[0]
+    for img in images[1:]:
+        combined = combine_side_by_side(combined, img)
+    return combined
+
+
 def resolve_raw_nifti(case_id: str, root: Path) -> Path:
     name = Path(case_id).name
     if name.endswith(".npz"):
@@ -178,6 +192,62 @@ def main() -> None:
         raise SystemExit("Install wandb to log images.") from exc
 
     run = wandb.init(project=args.project, name=args.run_name)
+
+    if args.combine_case:
+        if args.raw_root is None:
+            raise SystemExit("--combine-case requires --raw-root.")
+        # Build case_id -> {label: (path, question)}
+        per_label: Dict[str, Dict[str, Tuple[str, str]]] = {}
+        for label, jsonl_path in args.dataset:
+            items = load_paths(Path(jsonl_path))
+            by_case: Dict[str, Tuple[str, str]] = {}
+            for image_path, case_id, question in items:
+                by_case[case_id] = (image_path, question)
+            per_label[label] = by_case
+
+        common_cases = set.intersection(*(set(m.keys()) for m in per_label.values()))
+        if not common_cases:
+            raise SystemExit("No common case_id across datasets.")
+        cases = list(common_cases)
+        random.shuffle(cases)
+        cases = cases[: args.num_samples]
+
+        axes = ["axial", "coronal", "sagittal"]
+        for case_id in tqdm(cases, desc="Logging combined cases"):
+            raw_path = resolve_raw_nifti(case_id, args.raw_root)
+            if not raw_path.is_file():
+                print(f"[WARN] Missing raw NIfTI: {raw_path}")
+                continue
+            raw_vol = squeeze_to_3d(load_volume(raw_path))
+
+            for axis in axes:
+                panels: List[np.ndarray] = []
+                # RAW panel first
+                raw_axis = select_axis(raw_vol, axis)
+                raw_axis = window_volume(raw_axis, args.vmin, args.vmax, args.normalize)
+                raw_idx = compute_indices(raw_axis.shape[2], args.num_slices)
+                raw_montage = to_uint8(make_montage(raw_axis, raw_idx))
+                panels.append(raw_montage)
+
+                # Each model panel
+                caption_parts = [f"RAW({raw_path.name})"]
+                for label, by_case in per_label.items():
+                    image_path, question = by_case[case_id]
+                    vol = squeeze_to_3d(load_volume(Path(image_path)))
+                    vol_axis = select_axis(vol, axis)
+                    vol_axis = window_volume(vol_axis, args.vmin, args.vmax, args.normalize)
+                    idx = compute_indices(vol_axis.shape[2], args.num_slices)
+                    montage = to_uint8(make_montage(vol_axis, idx))
+                    panels.append(montage)
+                    caption_parts.append(label)
+
+                combined = combine_many(panels)
+                caption = f"{case_id} | {axis} | " + " | ".join(caption_parts)
+                images.append(wandb.Image(combined, caption=caption))
+
+        run.log({"combined_montages": images})
+        run.finish()
+        return
 
     for label, jsonl_path in args.dataset:
         entries = load_paths(Path(jsonl_path))
