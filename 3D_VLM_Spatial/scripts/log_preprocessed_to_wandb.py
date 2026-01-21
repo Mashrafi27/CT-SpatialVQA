@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Dict, Iterable, List, Tuple
 
 import numpy as np
+from tqdm import tqdm
 
 
 def parse_args() -> argparse.Namespace:
@@ -181,7 +182,7 @@ def main() -> None:
         entries = entries[:max_items]
 
         images = []
-        for image_path, case_id, question in entries:
+        for image_path, case_id, question in tqdm(entries, desc=f"Logging {label}"):
             path = Path(image_path)
             volume = load_volume(path)
             volume = squeeze_to_3d(volume)
