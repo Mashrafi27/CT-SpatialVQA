@@ -140,6 +140,15 @@ def to_uint8(image: np.ndarray) -> np.ndarray:
     return img
 
 
+def combine_side_by_side(left: np.ndarray, right: np.ndarray) -> np.ndarray:
+    height = max(left.shape[0], right.shape[0])
+    width = left.shape[1] + right.shape[1]
+    canvas = np.zeros((height, width), dtype=left.dtype)
+    canvas[:left.shape[0], :left.shape[1]] = left
+    canvas[:right.shape[0], left.shape[1]:] = right
+    return canvas
+
+
 def resolve_raw_nifti(case_id: str, root: Path) -> Path:
     name = Path(case_id).name
     if name.endswith(".npz"):
@@ -187,34 +196,35 @@ def main() -> None:
             volume = load_volume(path)
             volume = squeeze_to_3d(volume)
             axes = ["axial", "coronal", "sagittal"]
+            raw_vol = None
+            raw_path = None
+            if args.raw_root is not None:
+                raw_path = resolve_raw_nifti(case_id, args.raw_root)
+                if raw_path.is_file():
+                    raw_vol = squeeze_to_3d(load_volume(raw_path))
+                else:
+                    print(f"[WARN] Missing raw NIfTI: {raw_path}")
+
             for axis in axes:
                 vol_axis = select_axis(volume, axis)
                 vol_axis = window_volume(vol_axis, args.vmin, args.vmax, args.normalize)
                 indices = compute_indices(vol_axis.shape[2], args.num_slices)
-                montage = make_montage(vol_axis, indices)
-                montage = to_uint8(montage)
-                caption = f"{label} | {path.name} | {axis}"
+                pre_montage = to_uint8(make_montage(vol_axis, indices))
+
+                if raw_vol is not None:
+                    raw_axis = select_axis(raw_vol, axis)
+                    raw_axis = window_volume(raw_axis, args.vmin, args.vmax, args.normalize)
+                    raw_indices = compute_indices(raw_axis.shape[2], args.num_slices)
+                    raw_montage = to_uint8(make_montage(raw_axis, raw_indices))
+                    montage = combine_side_by_side(raw_montage, pre_montage)
+                    caption = f"{label} | RAW | PREP | {axis} | {path.name}"
+                else:
+                    montage = pre_montage
+                    caption = f"{label} | PREP | {axis} | {path.name}"
+
                 if question:
                     caption = f"{caption} | Q: {question}"
                 images.append(wandb.Image(montage, caption=caption))
-
-            if args.raw_root is not None:
-                raw_path = resolve_raw_nifti(case_id, args.raw_root)
-                if raw_path.is_file():
-                    raw_vol = load_volume(raw_path)
-                    raw_vol = squeeze_to_3d(raw_vol)
-                    for axis in axes:
-                        raw_axis = select_axis(raw_vol, axis)
-                        raw_axis = window_volume(raw_axis, args.vmin, args.vmax, args.normalize)
-                        indices = compute_indices(raw_axis.shape[2], args.num_slices)
-                        montage = make_montage(raw_axis, indices)
-                        montage = to_uint8(montage)
-                        caption = f"{label} RAW | {raw_path.name} | {axis}"
-                        if question:
-                            caption = f"{caption} | Q: {question}"
-                        images.append(wandb.Image(montage, caption=caption))
-                else:
-                    print(f"[WARN] Missing raw NIfTI: {raw_path}")
 
         run.log({f"{label}_montages": images})
 
