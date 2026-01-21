@@ -212,6 +212,7 @@ def main() -> None:
         random.shuffle(cases)
         cases = cases[: args.num_samples]
 
+        images: List["wandb.Image"] = []
         axes = ["axial", "coronal", "sagittal"]
         for case_id in tqdm(cases, desc="Logging combined cases"):
             raw_path = resolve_raw_nifti(case_id, args.raw_root)
