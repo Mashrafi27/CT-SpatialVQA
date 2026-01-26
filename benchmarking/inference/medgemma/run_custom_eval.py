@@ -225,14 +225,18 @@ def main() -> None:
                 gen_kwargs["temperature"] = args.temperature
 
             with torch.inference_mode():
-                generated = model.generate(**inputs, **gen_kwargs)
+                generated = model.generate(
+                    **inputs,
+                    pad_token_id=processor.tokenizer.eos_token_id,
+                    **gen_kwargs,
+                )
 
-            decoded = processor.post_process_image_text_to_text(generated, skip_special_tokens=True)[0]
-            decoded_inputs = processor.post_process_image_text_to_text(inputs["input_ids"], skip_special_tokens=True)[0]
-            raw_output = decoded
-            if decoded.startswith(decoded_inputs):
-                decoded = decoded[len(decoded_inputs):].lstrip()
-            if not decoded.strip():
+            raw_output = processor.post_process_image_text_to_text(generated, skip_special_tokens=True)[0]
+            # Prefer decoding only newly generated tokens
+            input_len = inputs["input_ids"].shape[1]
+            new_tokens = generated[:, input_len:]
+            decoded = processor.tokenizer.decode(new_tokens[0], skip_special_tokens=True).strip()
+            if not decoded:
                 decoded = raw_output.strip()
 
             out = {
