@@ -296,6 +296,18 @@ def main() -> None:
                 decoded = decoded[idx + len(decoded_inputs):]
             decoded = decoded.strip()
 
+            if not decoded:
+                # Retry once forcing non-EOS generation if we only got special tokens.
+                forced = {"min_new_tokens": max(4, args.min_new_tokens)}
+                with torch.inference_mode():
+                    generated = _generate(inputs, force_no_eos=True, override_gen=forced)
+                raw_output = processor.post_process_image_text_to_text(generated, skip_special_tokens=True)[0]
+                decoded = raw_output
+                idx = decoded.find(decoded_inputs)
+                if 0 <= idx <= 2:
+                    decoded = decoded[idx + len(decoded_inputs):]
+                decoded = decoded.strip()
+
             out = {
                 "case_id": case_id,
                 "question": question,
