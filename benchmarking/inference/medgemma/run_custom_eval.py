@@ -4,11 +4,13 @@
 Implements the approach shown in medgemma/notebooks/high_dimensional_ct_hugging_face.ipynb:
 - sample N slices uniformly across the volume (default 85)
 - apply 3 CT windows and stack to RGB
-- pass slices as image inputs with <image> placeholders in the prompt
+- encode slices inline as base64 images in the chat prompt
 """
 from __future__ import annotations
 
 import argparse
+import base64
+import io
 import json
 import math
 import os
@@ -130,23 +132,29 @@ def make_rgb_window(slice_2d: np.ndarray, resize: int = 0, resize_longest: int =
     return rgb
 
 
-def build_prompt_and_images(
+def _encode_inline(rgb: np.ndarray, fmt: str = "jpeg") -> str:
+    with io.BytesIO() as buf:
+        with Image.fromarray(rgb) as img:
+            img.save(buf, format=fmt)
+        buf.seek(0)
+        encoded = base64.b64encode(buf.getbuffer()).decode("utf-8")
+    return f"data:image/{fmt};base64,{encoded}"
+
+
+def build_messages(
     slice_rgbs: List[np.ndarray],
     instruction: str,
     question: str,
     query_suffix: str,
     add_slice_labels: bool = True,
-) -> Tuple[List[dict], List[Image.Image]]:
+) -> List[dict]:
     content = [{"type": "text", "text": instruction}]
-    images: List[Image.Image] = []
     for i, rgb in enumerate(slice_rgbs, 1):
+        content.append({"type": "image", "image": _encode_inline(rgb)})
         if add_slice_labels:
-            content.append({"type": "text", "text": f"\nSLICE {i}\n"})
-        content.append({"type": "image"})
-        images.append(Image.fromarray(rgb))
+            content.append({"type": "text", "text": f"SLICE {i}"})
     content.append({"type": "text", "text": f"{query_suffix}\n\nQuestion: {question}"})
-    messages = [{"role": "user", "content": content}]
-    return messages, images
+    return [{"role": "user", "content": content}]
 
 
 def load_volume(nifti_path: Path) -> np.ndarray:
@@ -217,23 +225,18 @@ def main() -> None:
                 for i in idxs
             ]
 
-            messages, images = build_prompt_and_images(
+            messages = build_messages(
                 slice_rgbs,
                 args.instruction,
                 question,
                 args.query_suffix,
             )
-            prompt = processor.apply_chat_template(
+            inputs = processor.apply_chat_template(
                 messages,
-                tokenize=False,
                 add_generation_prompt=True,
                 continue_final_message=False,
-            )
-            # Wrap in lists so processor treats this as a single sample with multiple images.
-            inputs = processor(
-                text=[prompt],
-                images=[images],
                 return_tensors="pt",
+                tokenize=True,
                 return_dict=True,
             )
             # Move tensors to device, keep integer tensors as int64
@@ -241,16 +244,14 @@ def main() -> None:
                 k: (v.to(model.device, dtype=dtype) if torch.is_floating_point(v) else v.to(model.device))
                 for k, v in inputs.items()
             }
-            # Truncate input_ids/attention_mask to leave room for generation
+            # Avoid truncating input_ids: image tokens must align with images.
             if max_ctx:
                 input_len = inputs["input_ids"].shape[1]
                 if input_len + args.max_new_tokens > max_ctx:
-                    keep = max_ctx - args.max_new_tokens
-                    if keep < 1:
-                        raise ValueError(f"Input too long for context window: input_len={input_len}, max_ctx={max_ctx}")
-                    inputs["input_ids"] = inputs["input_ids"][:, -keep:]
-                    if "attention_mask" in inputs:
-                        inputs["attention_mask"] = inputs["attention_mask"][:, -keep:]
+                    print(
+                        f"Warning: input length {input_len} + max_new_tokens {args.max_new_tokens} "
+                        f"exceeds context {max_ctx}. Generation may be truncated."
+                    )
 
             gen_kwargs = {
                 "do_sample": args.temperature > 0,
@@ -288,10 +289,12 @@ def main() -> None:
                     generated = _generate(inputs, force_no_eos=True, override_gen=forced)
 
             raw_output = processor.post_process_image_text_to_text(generated, skip_special_tokens=True)[0]
-            # Prefer decoding only newly generated tokens
-            input_len = inputs["input_ids"].shape[1]
-            new_tokens = generated[:, input_len:]
-            decoded = processor.tokenizer.decode(new_tokens[0], skip_special_tokens=True).strip()
+            decoded_inputs = processor.post_process_image_text_to_text(inputs["input_ids"], skip_special_tokens=True)[0]
+            decoded = raw_output
+            idx = decoded.find(decoded_inputs)
+            if 0 <= idx <= 2:
+                decoded = decoded[idx + len(decoded_inputs):]
+            decoded = decoded.strip()
 
             out = {
                 "case_id": case_id,
