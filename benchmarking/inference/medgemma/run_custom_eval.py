@@ -215,7 +215,11 @@ def main() -> None:
                 tokenize=True,
                 return_dict=True,
             )
-            inputs = inputs.to(model.device, dtype=dtype)
+            # Move tensors to device, keep integer tensors as int64
+            inputs = {
+                k: (v.to(model.device, dtype=dtype) if torch.is_floating_point(v) else v.to(model.device))
+                for k, v in inputs.items()
+            }
 
             gen_kwargs = {
                 "do_sample": args.temperature > 0,
@@ -224,12 +228,23 @@ def main() -> None:
             if args.temperature > 0:
                 gen_kwargs["temperature"] = args.temperature
 
-            with torch.inference_mode():
-                generated = model.generate(
-                    **inputs,
+            def _generate(batch):
+                return model.generate(
+                    **batch,
                     pad_token_id=processor.tokenizer.eos_token_id,
                     **gen_kwargs,
                 )
+
+            with torch.inference_mode():
+                generated = _generate(inputs)
+                # If no new tokens were generated, drop the final token and retry once
+                if generated.shape[1] == inputs["input_ids"].shape[1]:
+                    retry = dict(inputs)
+                    retry["input_ids"] = retry["input_ids"][:, :-1]
+                    if "attention_mask" in retry:
+                        retry["attention_mask"] = retry["attention_mask"][:, :-1]
+                    generated = _generate(retry)
+                    inputs = retry
 
             raw_output = processor.post_process_image_text_to_text(generated, skip_special_tokens=True)[0]
             # Prefer decoding only newly generated tokens
