@@ -58,6 +58,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--resize-longest", type=int, default=0, help="Resize longest side to N (keeps aspect).")
     parser.add_argument("--pad-square", action="store_true", help="Pad resized slice to square (for keep-aspect).")
     parser.add_argument("--max-new-tokens", type=int, default=512)
+    parser.add_argument("--min-new-tokens", type=int, default=0, help="Force minimum new tokens to generate.")
     parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--device", default="cuda:0")
     parser.add_argument("--dtype", default="bfloat16", choices=["float16", "bfloat16"])
@@ -225,6 +226,8 @@ def main() -> None:
                 "do_sample": args.temperature > 0,
                 "max_new_tokens": args.max_new_tokens,
             }
+            if args.min_new_tokens and args.min_new_tokens > 0:
+                gen_kwargs["min_new_tokens"] = args.min_new_tokens
             if args.temperature > 0:
                 gen_kwargs["temperature"] = args.temperature
 
