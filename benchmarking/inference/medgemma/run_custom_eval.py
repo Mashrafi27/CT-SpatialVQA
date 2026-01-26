@@ -4,12 +4,11 @@
 Implements the approach shown in medgemma/notebooks/high_dimensional_ct_hugging_face.ipynb:
 - sample N slices uniformly across the volume (default 85)
 - apply 3 CT windows and stack to RGB
-- encode slices as inline images in the chat prompt
+- pass slices as image inputs with <image> placeholders in the prompt
 """
 from __future__ import annotations
 
 import argparse
-import base64
 import json
 import math
 import os
@@ -131,24 +130,23 @@ def make_rgb_window(slice_2d: np.ndarray, resize: int = 0, resize_longest: int =
     return rgb
 
 
-def encode_png(data: np.ndarray) -> str:
-    """Encode uint8 HxWx3 to data URI string."""
-    with Image.fromarray(data) as img:
-        from io import BytesIO
-        buf = BytesIO()
-        img.save(buf, format="PNG")
-        buf.seek(0)
-        encoded = base64.b64encode(buf.getbuffer()).decode("utf-8")
-    return f"data:image/png;base64,{encoded}"
-
-
-def build_messages(slice_rgbs: List[np.ndarray], instruction: str, question: str, query_suffix: str) -> List[dict]:
+def build_prompt_and_images(
+    slice_rgbs: List[np.ndarray],
+    instruction: str,
+    question: str,
+    query_suffix: str,
+    add_slice_labels: bool = True,
+) -> Tuple[List[dict], List[Image.Image]]:
     content = [{"type": "text", "text": instruction}]
+    images: List[Image.Image] = []
     for i, rgb in enumerate(slice_rgbs, 1):
-        content.append({"type": "image", "image": encode_png(rgb)})
-        content.append({"type": "text", "text": f"SLICE {i}"})
+        if add_slice_labels:
+            content.append({"type": "text", "text": f"\nSLICE {i}\n"})
+        content.append({"type": "image"})
+        images.append(Image.fromarray(rgb))
     content.append({"type": "text", "text": f"{query_suffix}\n\nQuestion: {question}"})
-    return [{"role": "user", "content": content}]
+    messages = [{"role": "user", "content": content}]
+    return messages, images
 
 
 def load_volume(nifti_path: Path) -> np.ndarray:
@@ -219,13 +217,22 @@ def main() -> None:
                 for i in idxs
             ]
 
-            messages = build_messages(slice_rgbs, args.instruction, question, args.query_suffix)
-            inputs = processor.apply_chat_template(
+            messages, images = build_prompt_and_images(
+                slice_rgbs,
+                args.instruction,
+                question,
+                args.query_suffix,
+            )
+            prompt = processor.apply_chat_template(
                 messages,
+                tokenize=False,
                 add_generation_prompt=True,
                 continue_final_message=False,
+            )
+            inputs = processor(
+                text=prompt,
+                images=images,
                 return_tensors="pt",
-                tokenize=True,
                 return_dict=True,
             )
             # Move tensors to device, keep integer tensors as int64
