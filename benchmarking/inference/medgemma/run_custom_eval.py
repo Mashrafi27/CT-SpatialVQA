@@ -59,6 +59,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--pad-square", action="store_true", help="Pad resized slice to square (for keep-aspect).")
     parser.add_argument("--max-new-tokens", type=int, default=512)
     parser.add_argument("--min-new-tokens", type=int, default=0, help="Force minimum new tokens to generate.")
+    parser.add_argument("--max-input-tokens", type=int, default=0, help="Override max input tokens (0 = auto from model config).")
     parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--device", default="cuda:0")
     parser.add_argument("--dtype", default="bfloat16", choices=["float16", "bfloat16"])
@@ -186,6 +187,17 @@ def main() -> None:
     processor = AutoProcessor.from_pretrained(args.model_id, use_fast=True)
     model = AutoModelForImageTextToText.from_pretrained(args.model_id, **model_kwargs)
 
+    # Determine context length for truncation
+    max_ctx = None
+    for attr in ("max_position_embeddings", "max_sequence_length"):
+        max_ctx = getattr(model.config, attr, None)
+        if max_ctx:
+            break
+    if max_ctx is None and hasattr(model.config, "text_config"):
+        max_ctx = getattr(model.config.text_config, "max_position_embeddings", None)
+    if args.max_input_tokens and args.max_input_tokens > 0:
+        max_ctx = args.max_input_tokens
+
     with Path(args.dataset).open() as f_in, output_path.open("a") as f_out:
         for line in tqdm(f_in, total=sum(1 for _ in Path(args.dataset).open()), desc="Running MedGemma"):
             if not line.strip():
@@ -221,6 +233,16 @@ def main() -> None:
                 k: (v.to(model.device, dtype=dtype) if torch.is_floating_point(v) else v.to(model.device))
                 for k, v in inputs.items()
             }
+            # Truncate input_ids/attention_mask to leave room for generation
+            if max_ctx:
+                input_len = inputs["input_ids"].shape[1]
+                if input_len + args.max_new_tokens > max_ctx:
+                    keep = max_ctx - args.max_new_tokens
+                    if keep < 1:
+                        raise ValueError(f"Input too long for context window: input_len={input_len}, max_ctx={max_ctx}")
+                    inputs["input_ids"] = inputs["input_ids"][:, -keep:]
+                    if "attention_mask" in inputs:
+                        inputs["attention_mask"] = inputs["attention_mask"][:, -keep:]
 
             gen_kwargs = {
                 "do_sample": args.temperature > 0,
