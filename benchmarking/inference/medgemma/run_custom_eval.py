@@ -54,6 +54,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output", required=True, help="Output JSONL for predictions.")
     parser.add_argument("--model-id", default="google/medgemma-1.5-4b-it", help="HF model id.")
     parser.add_argument("--num-slices", type=int, default=85, help="Number of slices sampled uniformly.")
+    parser.add_argument("--resize", type=int, default=0, help="Resize each slice to NxN (0 = keep original).")
+    parser.add_argument("--resize-longest", type=int, default=0, help="Resize longest side to N (keeps aspect).")
+    parser.add_argument("--pad-square", action="store_true", help="Pad resized slice to square (for keep-aspect).")
     parser.add_argument("--max-new-tokens", type=int, default=512)
     parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--device", default="cuda:0")
@@ -68,7 +71,11 @@ def derive_nifti_path(nifti_root: Path, case_id: str) -> Path:
     """Convert case_id like valid_1_a_1.nii.gz to valid_fixed path structure."""
     stem = case_id.replace(".nii.gz", "")
     subdir = stem.rsplit("_", 1)[0]  # valid_1_a
-    base = subdir.split("_a")[0]     # valid_1
+    # Drop trailing split like _a/_b/_c to get base (valid_1)
+    if "_" in subdir:
+        base = subdir.rsplit("_", 1)[0]
+    else:
+        base = subdir
     return nifti_root / base / subdir / case_id
 
 
@@ -91,9 +98,34 @@ def window_slice(slice_2d: np.ndarray, window: Tuple[int, int]) -> np.ndarray:
     return np.round(x, 0).astype(np.uint8)
 
 
-def make_rgb_window(slice_2d: np.ndarray) -> np.ndarray:
+def _resize_keep_aspect(rgb: np.ndarray, longest: int, pad_square: bool) -> np.ndarray:
+    if longest <= 0:
+        return rgb
+    h, w = rgb.shape[:2]
+    scale = longest / float(max(h, w))
+    new_w = max(1, int(round(w * scale)))
+    new_h = max(1, int(round(h * scale)))
+    img = Image.fromarray(rgb)
+    img = img.resize((new_w, new_h), resample=Image.BILINEAR)
+    if not pad_square:
+        return np.asarray(img)
+    canvas = Image.new("RGB", (longest, longest), (0, 0, 0))
+    x0 = (longest - new_w) // 2
+    y0 = (longest - new_h) // 2
+    canvas.paste(img, (x0, y0))
+    return np.asarray(canvas)
+
+
+def make_rgb_window(slice_2d: np.ndarray, resize: int = 0, resize_longest: int = 0, pad_square: bool = False) -> np.ndarray:
     chans = [window_slice(slice_2d, w) for w in DEFAULT_WINDOWS]
-    return np.stack(chans, axis=-1)
+    rgb = np.stack(chans, axis=-1)
+    if resize and resize > 0:
+        img = Image.fromarray(rgb)
+        img = img.resize((resize, resize), resample=Image.BILINEAR)
+        rgb = np.asarray(img)
+    elif resize_longest and resize_longest > 0:
+        rgb = _resize_keep_aspect(rgb, resize_longest, pad_square)
+    return rgb
 
 
 def encode_png(data: np.ndarray) -> str:
@@ -168,7 +200,10 @@ def main() -> None:
 
             vol = load_volume(nifti_path)
             idxs = sample_indices(vol.shape[0], args.num_slices)
-            slice_rgbs = [make_rgb_window(vol[i]) for i in idxs]
+            slice_rgbs = [
+                make_rgb_window(vol[i], resize=args.resize, resize_longest=args.resize_longest, pad_square=args.pad_square)
+                for i in idxs
+            ]
 
             messages = build_messages(slice_rgbs, args.instruction, question, args.query_suffix)
             inputs = processor.apply_chat_template(
