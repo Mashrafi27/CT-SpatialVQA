@@ -229,9 +229,10 @@ def main() -> None:
                 add_generation_prompt=True,
                 continue_final_message=False,
             )
+            # Wrap in lists so processor treats this as a single sample with multiple images.
             inputs = processor(
-                text=prompt,
-                images=images,
+                text=[prompt],
+                images=[images],
                 return_tensors="pt",
                 return_dict=True,
             )
