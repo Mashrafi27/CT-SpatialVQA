@@ -62,6 +62,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--device", default="cuda:0")
     parser.add_argument("--dtype", default="bfloat16", choices=["float16", "bfloat16"])
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--limit", type=int, default=0, help="Only process first N records (0 = all).")
     parser.add_argument("--instruction", default=DEFAULT_INSTRUCTION)
     parser.add_argument("--query-suffix", default=DEFAULT_QUERY_SUFFIX)
     return parser.parse_args()
@@ -177,7 +178,7 @@ def main() -> None:
     dtype = torch.float16 if args.dtype == "float16" else torch.bfloat16
 
     model_kwargs = dict(
-        torch_dtype=dtype,
+        dtype=dtype,
         device_map="auto",
         offload_buffers=True,
     )
@@ -228,19 +229,25 @@ def main() -> None:
 
             decoded = processor.post_process_image_text_to_text(generated, skip_special_tokens=True)[0]
             decoded_inputs = processor.post_process_image_text_to_text(inputs["input_ids"], skip_special_tokens=True)[0]
+            raw_output = decoded
             if decoded.startswith(decoded_inputs):
                 decoded = decoded[len(decoded_inputs):].lstrip()
+            if not decoded.strip():
+                decoded = raw_output.strip()
 
             out = {
                 "case_id": case_id,
                 "question": question,
                 "answer": answer,
                 "prediction": decoded,
+                "prediction_raw": raw_output,
                 "model_id": args.model_id,
                 "num_slices": args.num_slices,
             }
             f_out.write(json.dumps(out) + "\n")
             f_out.flush()
+            if args.limit and len(processed) + 1 >= args.limit:
+                break
 
 
 if __name__ == "__main__":
