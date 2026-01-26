@@ -28,3 +28,6 @@
 [submodule "benchmarking/inference/ct-chat/repo"]
 	path = benchmarking/inference/ct-chat/repo
 	url = https://github.com/ibrahimethemhamamci/CT-CHAT
+[submodule "benchmarking/inference/medgemma/repo"]
+	path = benchmarking/inference/medgemma/repo
+	url = https://github.com/google-health/medgemma
