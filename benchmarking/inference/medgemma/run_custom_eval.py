@@ -57,7 +57,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--resize-longest", type=int, default=0, help="Resize longest side to N (keeps aspect).")
     parser.add_argument("--pad-square", action="store_true", help="Pad resized slice to square (for keep-aspect).")
     parser.add_argument("--max-new-tokens", type=int, default=512)
-    parser.add_argument("--min-new-tokens", type=int, default=0, help="Force minimum new tokens to generate.")
+    parser.add_argument("--min-new-tokens", type=int, default=4, help="Force minimum new tokens to generate.")
     parser.add_argument("--max-input-tokens", type=int, default=0, help="Override max input tokens (0 = auto from model config).")
     parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--device", default="cuda:0")
@@ -260,11 +260,15 @@ def main() -> None:
             if args.temperature > 0:
                 gen_kwargs["temperature"] = args.temperature
 
-            def _generate(batch):
+            def _generate(batch, force_no_eos: bool = False, override_gen: dict | None = None):
+                local_gen = dict(gen_kwargs)
+                if override_gen:
+                    local_gen.update(override_gen)
                 return model.generate(
                     **batch,
                     pad_token_id=processor.tokenizer.eos_token_id,
-                    **gen_kwargs,
+                    eos_token_id=None if force_no_eos else processor.tokenizer.eos_token_id,
+                    **local_gen,
                 )
 
             with torch.inference_mode():
@@ -277,14 +281,16 @@ def main() -> None:
                         retry["attention_mask"] = retry["attention_mask"][:, :-1]
                     generated = _generate(retry)
                     inputs = retry
+                # If still no new tokens, force a short generation without EOS stopping
+                if generated.shape[1] == inputs["input_ids"].shape[1]:
+                    forced = {"min_new_tokens": 4}
+                    generated = _generate(inputs, force_no_eos=True, override_gen=forced)
 
             raw_output = processor.post_process_image_text_to_text(generated, skip_special_tokens=True)[0]
             # Prefer decoding only newly generated tokens
             input_len = inputs["input_ids"].shape[1]
             new_tokens = generated[:, input_len:]
             decoded = processor.tokenizer.decode(new_tokens[0], skip_special_tokens=True).strip()
-            if not decoded:
-                decoded = raw_output.strip()
 
             out = {
                 "case_id": case_id,
