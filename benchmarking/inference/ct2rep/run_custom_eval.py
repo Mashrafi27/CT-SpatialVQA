@@ -20,7 +20,9 @@ from tqdm import tqdm
 
 # Ensure CT2Rep repo + ctvit package are on sys.path
 REPO_ROOT = Path(__file__).resolve().parent / "repo"
+CT2REP_ROOT = REPO_ROOT / "CT2Rep"
 sys.path.insert(0, str(REPO_ROOT))
+sys.path.insert(0, str(CT2REP_ROOT))
 CTVIT_ROOT = REPO_ROOT / "ctvit"
 if (CTVIT_ROOT / "ctvit").exists():
     sys.path.insert(0, str(CTVIT_ROOT))
