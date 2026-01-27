@@ -31,3 +31,6 @@
 [submodule "benchmarking/inference/medgemma/repo"]
 	path = benchmarking/inference/medgemma/repo
 	url = https://github.com/google-health/medgemma
+[submodule "benchmarking/inference/ct2rep/repo"]
+	path = benchmarking/inference/ct2rep/repo
+	url = https://github.com/ibrahimethemhamamci/CT2Rep.git
