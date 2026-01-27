@@ -18,12 +18,15 @@ import torch
 import nibabel as nib
 from tqdm import tqdm
 
-# Ensure CT2Rep repo is on sys.path
+# Ensure CT2Rep repo + ctvit package are on sys.path
 REPO_ROOT = Path(__file__).resolve().parent / "repo"
 sys.path.insert(0, str(REPO_ROOT))
+CTVIT_ROOT = REPO_ROOT / "ctvit"
+if (CTVIT_ROOT / "ctvit").exists():
+    sys.path.insert(0, str(CTVIT_ROOT))
 
 # CT2Rep repo imports
-from ctvit import CTViT  # noqa: F401  # required for model init side-effects
+from ctvit.ctvit import CTViT  # noqa: F401  # required for model init side-effects
 from CT2Rep.models.ct2rep import CT2RepModel
 from CT2Rep.modules.tokenizers import Tokenizer as CT2RepTokenizer
 
