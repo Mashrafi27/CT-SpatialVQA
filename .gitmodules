@@ -34,3 +34,6 @@
 [submodule "benchmarking/inference/ct2rep/repo"]
 	path = benchmarking/inference/ct2rep/repo
 	url = https://github.com/ibrahimethemhamamci/CT2Rep.git
+[submodule "benchmarking/inference/medevalkit/repo"]
+	path = benchmarking/inference/medevalkit/repo
+	url = https://github.com/alibaba-damo-academy/MedEvalKit.git
