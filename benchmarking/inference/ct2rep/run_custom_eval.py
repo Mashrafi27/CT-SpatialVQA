@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Dict, Iterable, List, Tuple
@@ -19,7 +20,8 @@ import nibabel as nib
 from tqdm import tqdm
 
 # Ensure CT2Rep repo + ctvit package are on sys.path
-REPO_ROOT = Path(__file__).resolve().parent / "repo"
+ALT_ROOT = os.getenv("CT2REP_ROOT")
+REPO_ROOT = Path(ALT_ROOT).resolve() if ALT_ROOT else (Path(__file__).resolve().parent / "repo")
 CT2REP_ROOT = REPO_ROOT / "CT2Rep"
 sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(CT2REP_ROOT))
