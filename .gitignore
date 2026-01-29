@@ -28,3 +28,5 @@ checkpoints/
 # CT-CHAT local model assets
 benchmarking/inference/ct-chat/CT_CLIP_encoder/
 benchmarking/inference/ct-chat/models/
+
+benchmarking/inference/ct2rep/models/
