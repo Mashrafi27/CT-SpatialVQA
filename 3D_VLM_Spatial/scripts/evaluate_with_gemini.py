@@ -6,8 +6,10 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import random
 from pathlib import Path
-from typing import List
+from typing import List, Optional
+import time
 
 try:
     import google.generativeai as genai
@@ -40,6 +42,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--batch-size", type=int, default=5, help="Number of QA pairs per Gemini call")
     parser.add_argument("--sleep", type=float, default=0.0, help="Optional delay between calls")
     parser.add_argument("--prediction-field", default="prediction", help="Field to read model output from")
+    parser.add_argument("--max-retries", type=int, default=8, help="Max retries for rate limit errors")
+    parser.add_argument("--initial-backoff", type=float, default=5.0, help="Initial backoff seconds")
+    parser.add_argument("--max-backoff", type=float, default=120.0, help="Maximum backoff seconds")
+    parser.add_argument("--backoff-mult", type=float, default=2.0, help="Backoff multiplier")
+    parser.add_argument("--resume", action="store_true", help="Resume from existing output file")
     return parser.parse_args()
 
 
@@ -52,6 +59,31 @@ def load_predictions(path: Path) -> List[dict]:
                 continue
             records.append(json.loads(line))
     return records
+
+
+def load_existing_output(path: Path) -> Optional[List[dict]]:
+    if not path.exists():
+        return None
+    try:
+        data = json.loads(path.read_text())
+        if isinstance(data, list):
+            return data
+        if isinstance(data, dict) and "jury" in data:
+            return None
+    except Exception:
+        pass
+    # Fallback: try JSONL
+    records = []
+    with path.open() as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                records.append(json.loads(line))
+            except Exception:
+                continue
+    return records or None
 
 
 def extract_text(response) -> str:
@@ -89,7 +121,42 @@ def sanitize_json(text: str) -> str:
     return text
 
 
-def judge_with_model(model_name: str, preds: List[dict], batch_size: int, sleep: float, prediction_field: str):
+def _should_retry(exc: Exception) -> bool:
+    name = exc.__class__.__name__.lower()
+    msg = str(exc).lower()
+    if "resourceexhausted" in name or "quota" in msg or "rate" in msg or "429" in msg:
+        return True
+    return False
+
+
+def _generate_with_retry(model, prompt: str, max_retries: int, initial_backoff: float, max_backoff: float, backoff_mult: float):
+    attempt = 0
+    backoff = initial_backoff
+    while True:
+        try:
+            return model.generate_content(prompt)
+        except Exception as exc:  # noqa: BLE001
+            attempt += 1
+            if attempt > max_retries or not _should_retry(exc):
+                raise
+            jitter = random.uniform(0, 0.25 * backoff)
+            sleep_for = min(max_backoff, backoff + jitter)
+            print(f"[WARN] Rate limited, retrying in {sleep_for:.1f}s (attempt {attempt}/{max_retries})")
+            time.sleep(sleep_for)
+            backoff = min(max_backoff, backoff * backoff_mult)
+
+
+def judge_with_model(
+    model_name: str,
+    preds: List[dict],
+    batch_size: int,
+    sleep: float,
+    prediction_field: str,
+    max_retries: int,
+    initial_backoff: float,
+    max_backoff: float,
+    backoff_mult: float,
+):
     model = genai.GenerativeModel(model_name)
     judgments = []
     correct = 0
@@ -106,7 +173,30 @@ def judge_with_model(model_name: str, preds: List[dict], batch_size: int, sleep:
             )
         prompt = PROMPT_TEMPLATE.format(batch="\n".join(prompt_entries))
 
-        response = model.generate_content(prompt)
+        try:
+            response = _generate_with_retry(
+                model,
+                prompt,
+                max_retries=max_retries,
+                initial_backoff=initial_backoff,
+                max_backoff=max_backoff,
+                backoff_mult=backoff_mult,
+            )
+        except Exception as exc:  # noqa: BLE001
+            print(f"[WARN] Gemini call failed: {exc}")
+            for record in batch:
+                item = {
+                    "case_id": record.get("case_id"),
+                    "question": record.get("question"),
+                    "answer": record.get("answer"),
+                    "prediction": record.get(prediction_field),
+                    "is_correct": None,
+                    "reasoning": f"REQUEST_ERROR: {exc}",
+                }
+                judgments.append(item)
+            if sleep:
+                time.sleep(sleep)
+            continue
         text = strip_code_fence(extract_text(response))
         text = sanitize_json(text)
         try:
@@ -115,6 +205,7 @@ def judge_with_model(model_name: str, preds: List[dict], batch_size: int, sleep:
             print(f"[WARN] Failed to parse Gemini output for {model_name}:\n", text)
             for record in batch:
                 item = {
+                    "case_id": record.get("case_id"),
                     "question": record.get("question"),
                     "answer": record.get("answer"),
                     "prediction": record.get(prediction_field),
@@ -125,6 +216,7 @@ def judge_with_model(model_name: str, preds: List[dict], batch_size: int, sleep:
             continue
         for judgment, record in zip(parsed, batch):
             item = {
+                "case_id": record.get("case_id"),
                 "question": record.get("question"),
                 "answer": record.get("answer"),
                 "prediction": record.get(prediction_field),
@@ -153,6 +245,15 @@ def main() -> None:
     genai.configure(api_key=api_key)
 
     preds = load_predictions(args.predictions)
+    existing = None
+    if args.resume:
+        existing = load_existing_output(args.output)
+        if existing is None:
+            print("[WARN] No valid existing output found; starting from scratch.")
+
+    if existing is not None and args.jury:
+        print("[WARN] --resume with --jury is not supported yet; rerun without --resume.")
+        existing = None
     model_list = args.models if args.models else [args.model]
 
     if args.jury and len(model_list) > 1:
@@ -161,7 +262,15 @@ def main() -> None:
         per_model_judgments = {}
         for model_name in model_list:
             judgments, stats = judge_with_model(
-                model_name, preds, args.batch_size, args.sleep, args.prediction_field
+                model_name,
+                preds,
+                args.batch_size,
+                args.sleep,
+                args.prediction_field,
+                args.max_retries,
+                args.initial_backoff,
+                args.max_backoff,
+                args.backoff_mult,
             )
             per_model_judgments[model_name] = judgments
             per_model_stats[model_name] = stats
@@ -200,12 +309,30 @@ def main() -> None:
         accuracy = correct / total if total else 0.0
         print(json.dumps({"total": total, "correct": correct, "accuracy": accuracy}, indent=2))
     else:
+        start_idx = 0
+        if isinstance(existing, list):
+            start_idx = len(existing)
+        if start_idx:
+            print(f"[INFO] Resuming from item {start_idx}/{len(preds)}")
         judgments, stats = judge_with_model(
-            model_list[0], preds, args.batch_size, args.sleep, args.prediction_field
+            model_list[0],
+            preds[start_idx:],
+            args.batch_size,
+            args.sleep,
+            args.prediction_field,
+            args.max_retries,
+            args.initial_backoff,
+            args.max_backoff,
+            args.backoff_mult,
         )
+        combined = (existing or []) + judgments
         args.output.parent.mkdir(parents=True, exist_ok=True)
-        args.output.write_text(json.dumps(judgments, indent=2))
-        print(json.dumps(stats, indent=2))
+        args.output.write_text(json.dumps(combined, indent=2))
+        # Recompute stats on combined list
+        total = sum(1 for j in combined if j.get("is_correct") is not None)
+        correct = sum(1 for j in combined if j.get("is_correct") is True)
+        accuracy = correct / total if total else 0.0
+        print(json.dumps({"total": total, "correct": correct, "accuracy": accuracy}, indent=2))
 
 
 if __name__ == "__main__":

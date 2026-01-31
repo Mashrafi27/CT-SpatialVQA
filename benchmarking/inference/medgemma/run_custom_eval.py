@@ -166,6 +166,15 @@ def load_volume(nifti_path: Path) -> np.ndarray:
     return vol
 
 
+def _downsample_slices(slices: List[np.ndarray], keep: int) -> List[np.ndarray]:
+    if keep >= len(slices):
+        return slices
+    if keep <= 1:
+        return [slices[len(slices) // 2]]
+    idxs = np.linspace(0, len(slices) - 1, keep)
+    return [slices[int(round(i))] for i in idxs]
+
+
 def main() -> None:
     args = parse_args()
     nifti_root = Path(args.nifti_root)
@@ -225,20 +234,33 @@ def main() -> None:
                 for i in idxs
             ]
 
-            messages = build_messages(
-                slice_rgbs,
-                args.instruction,
-                question,
-                args.query_suffix,
-            )
-            inputs = processor.apply_chat_template(
-                messages,
-                add_generation_prompt=True,
-                continue_final_message=False,
-                return_tensors="pt",
-                tokenize=True,
-                return_dict=True,
-            )
+            # Build inputs and shrink slice count if prompt exceeds context.
+            cur_slices = slice_rgbs
+            inputs = None
+            while True:
+                messages = build_messages(
+                    cur_slices,
+                    args.instruction,
+                    question,
+                    args.query_suffix,
+                )
+                inputs = processor.apply_chat_template(
+                    messages,
+                    add_generation_prompt=True,
+                    continue_final_message=False,
+                    return_tensors="pt",
+                    tokenize=True,
+                    return_dict=True,
+                )
+                if not max_ctx:
+                    break
+                input_len = inputs["input_ids"].shape[1]
+                if input_len + args.max_new_tokens <= max_ctx:
+                    break
+                new_keep = max(1, int(len(cur_slices) * 0.8))
+                if new_keep == len(cur_slices):
+                    new_keep = max(1, len(cur_slices) - 1)
+                cur_slices = _downsample_slices(cur_slices, new_keep)
             # Move tensors to device, keep integer tensors as int64
             inputs = {
                 k: (v.to(model.device, dtype=dtype) if torch.is_floating_point(v) else v.to(model.device))
@@ -316,6 +338,7 @@ def main() -> None:
                 "prediction_raw": raw_output,
                 "model_id": args.model_id,
                 "num_slices": args.num_slices,
+                "num_slices_used": len(cur_slices),
             }
             f_out.write(json.dumps(out) + "\n")
             f_out.flush()

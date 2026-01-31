@@ -37,3 +37,6 @@
 [submodule "benchmarking/inference/medevalkit/repo"]
 	path = benchmarking/inference/medevalkit/repo
 	url = https://github.com/alibaba-damo-academy/MedEvalKit.git
+[submodule "benchmarking/inference/reg2rg/repo_fresh"]
+	path = benchmarking/inference/reg2rg/repo_fresh
+	url = https://github.com/zhi-xuan-chen/Reg2RG.git
