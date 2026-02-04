@@ -43,7 +43,8 @@ def main() -> None:
 
     run = wandb.init(project=args.project, name=args.run_name)
 
-    cases = [p for p in args.images_root.iterdir() if p.is_dir()]
+    root_for_cases = args.grid_root if args.grid_root is not None else args.images_root
+    cases = [p for p in root_for_cases.iterdir() if p.is_dir()]
     cases.sort()
     if args.limit is not None:
         cases = cases[: args.limit]
@@ -51,7 +52,7 @@ def main() -> None:
     images = []
     for case_dir in tqdm(cases, desc="Logging cases"):
         if args.grid_root is not None:
-            grid_case = args.grid_root / case_dir.name
+            grid_case = case_dir
             for axis in args.axes:
                 grid_path = grid_case / f"{axis}_grid.png"
                 if grid_path.is_file():
@@ -80,6 +81,8 @@ def main() -> None:
             images.append(wandb.Image(combined, caption=caption))
 
     key = "grid_slices" if args.grid_root is not None else "combined_slices"
+    if not images:
+        print("WARNING: no images found to log. Check --grid-root/--images-root paths.")
     run.log({key: images})
     run.finish()
 

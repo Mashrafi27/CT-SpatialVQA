@@ -48,7 +48,8 @@ def load_tile(path, label, tile_size):
     font = ImageFont.load_default()
     text = label
     # Draw a small label bar
-    tw, th = draw.textsize(text, font=font)
+    bbox = draw.textbbox((0, 0), text, font=font)
+    tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
     pad = 2
     draw.rectangle([0, 0, tw + 2 * pad, th + 2 * pad], fill=(0, 0, 0))
     draw.text((pad, pad), text, fill=(255, 255, 255), font=font)
