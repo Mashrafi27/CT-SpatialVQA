@@ -16,6 +16,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--project", required=True, help="W&B project name")
     parser.add_argument("--run-name", default="ct-slice-logs")
     parser.add_argument("--images-root", type=Path, required=True, help="Root with case_id/axis/*.png")
+    parser.add_argument("--grid-root", type=Path, default=None, help="Root with case_id/<axis>_grid.png")
     parser.add_argument("--labels", nargs="+", required=True, help="Labels to include (order matters)")
     parser.add_argument("--axes", nargs="+", default=["axial", "coronal", "sagittal"])
     parser.add_argument("--limit", type=int, default=None)
@@ -49,6 +50,14 @@ def main() -> None:
 
     images = []
     for case_dir in tqdm(cases, desc="Logging cases"):
+        if args.grid_root is not None:
+            grid_case = args.grid_root / case_dir.name
+            for axis in args.axes:
+                grid_path = grid_case / f"{axis}_grid.png"
+                if grid_path.is_file():
+                    caption = f"{case_dir.name} | {axis} | grid"
+                    images.append(wandb.Image(str(grid_path), caption=caption))
+            continue
         for axis in args.axes:
             axis_dir = case_dir / axis
             if not axis_dir.is_dir():
@@ -70,7 +79,8 @@ def main() -> None:
             caption = f"{case_dir.name} | {axis} | " + " | ".join(captions)
             images.append(wandb.Image(combined, caption=caption))
 
-    run.log({"combined_slices": images})
+    key = "grid_slices" if args.grid_root is not None else "combined_slices"
+    run.log({key: images})
     run.finish()
 
 
