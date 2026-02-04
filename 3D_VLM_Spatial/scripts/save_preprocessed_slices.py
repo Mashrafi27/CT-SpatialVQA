@@ -38,6 +38,11 @@ def parse_args() -> argparse.Namespace:
         help="Labels whose volumes are stored as D,H,W and should be transposed to H,W,D for viewing.",
     )
     parser.add_argument(
+        "--auto-orient",
+        action="store_true",
+        help="Auto-detect volume orientation (D,H,W vs H,W,D) and transpose to H,W,D when needed.",
+    )
+    parser.add_argument(
         "--dataset",
         action="append",
         nargs=2,
@@ -108,6 +113,22 @@ def squeeze_to_3d(volume: np.ndarray) -> np.ndarray:
     if vol.ndim != 3:
         raise SystemExit(f"Expected 3D volume after squeeze, got shape {vol.shape}")
     return vol
+
+
+def _infer_orientation(shape: tuple[int, int, int]) -> str | None:
+    """
+    Heuristic: CT usually has H,W ~ 512 and D smaller.
+    - If axis0 much smaller than axis1/axis2 => D,H,W.
+    - If axis2 much smaller than axis0/axis1 => H,W,D.
+    """
+    d0, d1, d2 = shape
+    def is_much_smaller(a, b, c):
+        return a <= min(b, c) * 0.75
+    if is_much_smaller(d0, d1, d2):
+        return "DHW"
+    if is_much_smaller(d2, d0, d1):
+        return "HWD"
+    return None
 
 
 def select_axis(volume: np.ndarray, axis: str) -> np.ndarray:
@@ -199,7 +220,11 @@ def main() -> None:
                     continue
                 vol = squeeze_to_3d(load_volume(src))
                 if label in args.dhw_labels:
-                    vol = np.transpose(vol, (1, 2, 0))
+                    vol = np.transpose(vol, (1, 2, 0))  # D,H,W -> H,W,D
+                elif args.auto_orient:
+                    orient = _infer_orientation(vol.shape)
+                    if orient == "DHW":
+                        vol = np.transpose(vol, (1, 2, 0))
                 vol_axis = select_axis(vol, axis)
                 mid = vol_axis.shape[2] // 2
                 slice_2d = window_slice(vol_axis[:, :, mid], args.vmin, args.vmax, args.normalize)
