@@ -49,6 +49,12 @@ def parse_args() -> argparse.Namespace:
         metavar=("LABEL", "JSONL"),
         help="Model label and JSONL with image_path/case_id entries. Repeat for multiple models.",
     )
+    parser.add_argument(
+        "--ctclip-labels",
+        nargs="+",
+        default=[],
+        help="Labels that should use CT-CLIP preprocessing (from raw NIfTI) instead of image_path.",
+    )
     return parser.parse_args()
 
 
@@ -104,6 +110,58 @@ def load_volume(path: Path) -> np.ndarray:
             return data["arr"]
         return data[list(data.keys())[0]]
     raise SystemExit(f"Unsupported input: {path}")
+
+
+def ctclip_preprocess(nifti_path: Path) -> np.ndarray:
+    """Mirror CT-CLIP preprocessing in encode_embeddings.py (spacing, clip, normalize, crop/pad)."""
+    try:
+        import nibabel as nib  # type: ignore
+    except ImportError as exc:
+        raise SystemExit("Install nibabel to read NIfTI files.") from exc
+    import torch
+    import torch.nn.functional as F
+
+    nii_img = nib.load(str(nifti_path))
+    img_data = nii_img.get_fdata()
+
+    # Mimic encode_embeddings.py
+    target_spacing = (1.5, 0.75, 0.75)  # z, y, x
+    current = (1.0, 1.0, 1.0)  # assume isotropic if unknown
+
+    img_data = img_data.astype(np.float32)
+    img_data = np.clip(img_data, -1000, 1000)
+    img_data = img_data.transpose(2, 0, 1)  # z,y,x
+
+    tensor = torch.tensor(img_data).unsqueeze(0).unsqueeze(0)
+    original_shape = tensor.shape[2:]
+    scaling_factors = [current[i] / target_spacing[i] for i in range(len(original_shape))]
+    new_shape = [int(original_shape[i] * scaling_factors[i]) for i in range(len(original_shape))]
+    resized = F.interpolate(tensor, size=new_shape, mode="trilinear", align_corners=False).cpu().numpy()
+    img_data = resized[0][0]
+    img_data = np.transpose(img_data, (1, 2, 0))  # h,w,d
+
+    img_data = (img_data / 1000).astype(np.float32)
+    tensor = torch.tensor(img_data)
+
+    target_shape = (480, 480, 240)
+    h, w, d = tensor.shape
+    dh, dw, dd = target_shape
+
+    h_start = max((h - dh) // 2, 0)
+    w_start = max((w - dw) // 2, 0)
+    d_start = max((d - dd) // 2, 0)
+    tensor = tensor[h_start:h_start + min(dh, h), w_start:w_start + min(dw, w), d_start:d_start + min(dd, d)]
+
+    pad_h_before = (dh - tensor.size(0)) // 2
+    pad_h_after = dh - tensor.size(0) - pad_h_before
+    pad_w_before = (dw - tensor.size(1)) // 2
+    pad_w_after = dw - tensor.size(1) - pad_w_before
+    pad_d_before = (dd - tensor.size(2)) // 2
+    pad_d_after = dd - tensor.size(2) - pad_d_before
+
+    tensor = F.pad(tensor, (pad_d_before, pad_d_after, pad_w_before, pad_w_after, pad_h_before, pad_h_after), value=-1)
+    # Return as H,W,D
+    return tensor.numpy()
 
 
 def squeeze_to_3d(volume: np.ndarray) -> np.ndarray:
@@ -212,6 +270,17 @@ def main() -> None:
                 if case_id not in index:
                     continue
                 image_path = index[case_id]
+                if label in args.ctclip_labels and args.raw_root is not None:
+                    src = resolve_raw_nifti(case_id, args.raw_root)
+                    if not src.is_file():
+                        continue
+                    vol = ctclip_preprocess(src)
+                    vol_axis = select_axis(vol, axis)
+                    mid = vol_axis.shape[2] // 2
+                    slice_2d = window_slice(vol_axis[:, :, mid], args.vmin, args.vmax, args.normalize)
+                    slice_2d = to_uint8(slice_2d)
+                    save_png(slice_2d, args.output_root / case_id / axis / f"{label}.png", args.size)
+                    continue
                 if label in args.use_raw_for_label and args.raw_root is not None:
                     src = resolve_raw_nifti(case_id, args.raw_root)
                 else:
