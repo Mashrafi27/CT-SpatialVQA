@@ -1,0 +1,119 @@
+_wandb:
+    value:
+        cli_version: 0.24.0
+        e:
+            p916s7m0iqghwmw4b2wnmd5t7xkrinoq:
+                args:
+                    - --project
+                    - 3dvlm-preproc
+                    - --run-name
+                    - slice_grids_3x3_n
+                    - --images-root
+                    - 3D_VLM_Spatial/reports/slice_pngs_all
+                    - --grid-root
+                    - 3D_VLM_Spatial/reports/slice_grids_3x3
+                    - --labels
+                    - Med3DVLM
+                    - Merlin
+                    - VILA-M3
+                    - M3D
+                    - CT-CLIP
+                    - RadFM
+                    - MedEvalKit
+                    - MedGemma
+                    - RAW
+                    - --axes
+                    - axial
+                    - coronal
+                    - sagittal
+                codePath: 3D_VLM_Spatial/scripts/log_saved_slices_to_wandb.py
+                codePathLocal: 3D_VLM_Spatial/scripts/log_saved_slices_to_wandb.py
+                cpu_count: 24
+                cpu_count_logical: 48
+                cudaVersion: "12.4"
+                disk:
+                    /:
+                        total: "1073741824"
+                        used: "11407360"
+                email: mmm9886@nyu.edu
+                executable: /home/mashrafi.monon/.conda/envs/ctchat/bin/python
+                git:
+                    commit: 8db29922d3c478c42696fda0f30a9e1c4ac09815
+                    remote: git@github.com:Mashrafi27/MICCAI2026-3DMedVLMS.git
+                gpu: NVIDIA RTX 5000 Ada Generation
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Ada
+                      cudaCores: 12800
+                      memoryTotal: "34351349760"
+                      name: NVIDIA RTX 5000 Ada Generation
+                      uuid: GPU-7e0aa123-0c50-0cb6-a4b3-c7c19a8afead
+                host: ws-l1-015
+                memory:
+                    total: "269465772032"
+                os: Linux-5.15.173-ql-generic-13.0-17-x86_64-with-glibc2.35
+                program: /l/users/mashrafi.monon/MICCAI2026-3DMedVLMS/3D_VLM_Spatial/scripts/log_saved_slices_to_wandb.py
+                python: CPython 3.12.12
+                root: /l/users/mashrafi.monon/MICCAI2026-3DMedVLMS
+                slurm:
+                    cluster_name: zap
+                    conf: /etc/qlustar/common/slurm-llnl/slurm.conf
+                    cpu_bind: quiet,mask_cpu:0x100000100000
+                    cpu_bind_list: "0x100000100000"
+                    cpu_bind_type: 'mask_cpu:'
+                    cpu_bind_verbose: quiet
+                    cpus_on_node: "2"
+                    gtids: "0"
+                    job_account: students
+                    job_cpus_per_node: "1"
+                    job_end_time: "1770361903"
+                    job_gid: "2002"
+                    job_id: "118406"
+                    job_name: interactive
+                    job_nodelist: ws-l1-015
+                    job_num_nodes: "1"
+                    job_partition: ws-ia
+                    job_qos: normal
+                    job_start_time: "1770275503"
+                    job_uid: "3152"
+                    job_user: mashrafi.monon
+                    jobid: "118406"
+                    launch_node_ipaddr: 10.127.78.115
+                    localid: "0"
+                    nnodes: "1"
+                    nodeid: "0"
+                    nodelist: ws-l1-015
+                    prio_process: "0"
+                    procid: "0"
+                    pty_port: "45479"
+                    pty_win_col: "146"
+                    pty_win_row: "27"
+                    script_context: prolog_task
+                    srun_comm_host: 10.127.78.115
+                    srun_comm_port: "42103"
+                    step_id: "0"
+                    step_launcher_port: "42103"
+                    step_nodelist: ws-l1-015
+                    step_num_nodes: "1"
+                    step_num_tasks: "1"
+                    step_tasks_per_node: "1"
+                    stepid: "0"
+                    submit_dir: /l/users/mashrafi.monon/MICCAI2026-3DMedVLMS
+                    submit_host: lo-02
+                    task_pid: "409421"
+                    tasks_per_node: "1"
+                    topology_addr: ws-l1-015
+                    topology_addr_pattern: node
+                    umask: "0022"
+                startedAt: "2026-02-05T07:17:58.475264Z"
+                writerId: p916s7m0iqghwmw4b2wnmd5t7xkrinoq
+        m: []
+        python_version: 3.12.12
+        t:
+            "3":
+                - 2
+                - 13
+            "4": 3.12.12
+            "5": 0.24.0
+            "12": 0.24.0
+            "13": linux-x86_64
