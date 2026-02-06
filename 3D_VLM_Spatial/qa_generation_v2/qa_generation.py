@@ -70,7 +70,22 @@ def generate_spatial_QA(findings, impressions, model="gpt-4o-mini", max_retries=
                     raise json.JSONDecodeError("Not a list", content, 0)
                 return qa_pairs
             except json.JSONDecodeError:
-                return [{"error": "Invalid JSON output", "raw_output": content}]
+                # sanitize common formatting issues (code fences, raw newlines)
+                cleaned = content.strip()
+                if cleaned.startswith("```"):
+                    cleaned = cleaned.split("```", 2)[1] if "```" in cleaned else cleaned
+                cleaned = cleaned.replace("```json", "").replace("```", "").strip()
+                cleaned = cleaned.replace("\r\n", "\n")
+                # convert raw newlines to escaped ones
+                cleaned = cleaned.replace("\n", "\\n")
+                # attempt parse again
+                try:
+                    qa_pairs = json.loads(cleaned)
+                    if not isinstance(qa_pairs, list):
+                        raise json.JSONDecodeError("Not a list", cleaned, 0)
+                    return qa_pairs
+                except Exception:
+                    return [{"error": "Invalid JSON output", "raw_output": content}]
         except Exception:
             # naive exponential backoff
             time.sleep(sleep_base * (2 ** attempt) + random.random())
