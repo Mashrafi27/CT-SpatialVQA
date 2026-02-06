@@ -89,6 +89,7 @@ def process_reports(
     model: str,
     dry_run: bool,
 ):
+    random.seed(seed)
     reports = json.loads(reports_json.read_text(encoding="utf-8"))
     all_case_ids = {Path(k).name for k in reports.keys()}
 
@@ -148,7 +149,7 @@ if __name__ == "__main__":
     parser.add_argument("--existing_cases", default=None, help="Path to existing_case_ids.json (optional).")
     parser.add_argument("--output_json", default="spatial_QA_output.json", help="Path to save generated JSON output.")
     parser.add_argument("--target_total", type=int, default=1000, help="Total target cases (incl. existing).")
-    parser.add_argument("--seed", type=int, default=13, help="Random seed for sampling.")
+    parser.add_argument("--seed", type=int, default=42, help="Random seed for sampling.")
     parser.add_argument("--model", default="gpt-4o-mini", help="OpenAI model id.")
     parser.add_argument("--dry-run", action="store_true", help="Generate only 10 cases for validation.")
     args = parser.parse_args()
