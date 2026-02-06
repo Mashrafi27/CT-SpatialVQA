@@ -7,22 +7,63 @@ from pathlib import Path
 from typing import List
 
 
-def sanitize(content: str):
+def sanitize(content: str) -> str:
     cleaned = content.strip()
+    # Remove fenced code blocks if present
     if cleaned.startswith("```"):
         parts = cleaned.split("```")
         if len(parts) >= 3:
             cleaned = parts[1]
     cleaned = cleaned.replace("```json", "").replace("```", "").strip()
-    cleaned = cleaned.replace("\r\n", "\n")
-    cleaned = cleaned.replace("\n", "\\n")
     return cleaned
 
 
+def extract_json_list(text: str) -> str | None:
+    """Try to extract the first JSON list from a blob of text."""
+    if not text:
+        return None
+    start = text.find("[")
+    end = text.rfind("]")
+    if start == -1 or end == -1 or end <= start:
+        return None
+    return text[start : end + 1]
+
+
 def try_parse(raw: str):
+    if not raw:
+        return None
+    # 1) Try raw directly
+    try:
+        data = json.loads(raw)
+        if isinstance(data, list):
+            return data
+    except Exception:
+        pass
+
+    # 2) Sanitize and retry
     cleaned = sanitize(raw)
     try:
         data = json.loads(cleaned)
+        if isinstance(data, list):
+            return data
+    except Exception:
+        pass
+
+    # 3) Extract bracketed list and retry
+    extracted = extract_json_list(cleaned)
+    if extracted:
+        try:
+            data = json.loads(extracted)
+            if isinstance(data, list):
+                return data
+        except Exception:
+            pass
+
+    # 4) Replace literal newlines with escaped newlines and retry
+    cleaned_nl = cleaned.replace("\r\n", "\n").replace("\n", "\\n")
+    extracted_nl = extract_json_list(cleaned_nl) or cleaned_nl
+    try:
+        data = json.loads(extracted_nl)
         if isinstance(data, list):
             return data
     except Exception:

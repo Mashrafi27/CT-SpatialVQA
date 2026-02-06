@@ -117,6 +117,9 @@ def process_reports(
 
     if selected_cases and selected_cases.exists():
         selected = [Path(k).name for k in json.loads(selected_cases.read_text(encoding="utf-8"))]
+        # If selected list includes existing cases, drop them here.
+        if existing:
+            selected = [cid for cid in selected if cid not in existing]
     else:
         remaining = sorted(all_case_ids - existing)
         random.seed(seed)
