@@ -3,6 +3,7 @@ import json
 import time
 import random
 from pathlib import Path
+from typing import Optional
 from openai import OpenAI
 from tqdm import tqdm
 
@@ -43,7 +44,7 @@ Output as a valid JSON list:
 # ----------------------------
 # ✅ MAIN FUNCTION
 # ----------------------------
-def generate_spatial_QA(findings, impressions, model="gpt-4o-mini", max_retries=5, sleep_base=2.0, seed: int | None = None):
+def generate_spatial_QA(findings, impressions, model="gpt-4o-mini", max_retries=5, sleep_base=2.0, seed: Optional[int] = None):
     """Generate spatial QA pairs from a CT report using OpenAI API."""
     full_prompt = (
         BASE_PROMPT
