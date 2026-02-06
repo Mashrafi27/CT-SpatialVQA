@@ -82,8 +82,8 @@ def generate_spatial_QA(findings, impressions, model="gpt-4o-mini", max_retries=
 # ----------------------------
 def process_reports(
     reports_json: Path,
-    selected_cases: Path | None,
-    existing_cases: Path | None,
+    selected_cases: Optional[Path],
+    existing_cases: Optional[Path],
     output_json: Path,
     target_total: int,
     seed: int,
