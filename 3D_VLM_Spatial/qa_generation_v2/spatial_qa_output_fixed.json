@@ -2,80 +2,404 @@
   "valid_100_a_1.nii.gz": {
     "qa_pairs": [
       {
-        "error": "Invalid JSON output",
-        "raw_output": "```json\n[\n  {\n    \"question\": \"Where is the hypodense nodule located?\",\n    \"answer\": \"In the right thyroid lobe.\"\n  },\n  {\n    \"question\": \"What is the laterality of the parenchymal fibrosis areas causing structural distortion?\",\n    \"answer\": \"In both lungs.\"\n  },\n  {\n    \"question\": \"What is the vertical position of the lymph nodes in relation to the trachea?\",\n    \"answer\": \"In the upper-lower paratracheal area.\"\n  },\n  {\n    \"question\": \"Where are the subcapsular parenchymal calcifications located in the liver?\",\n    \"answer\": \"In the posterior right lobe of the liver.\"\n  },\n  {\n    \"question\": \"What is the laterality of the traction bronchiectasis observed?\",\n    \"answer\": \"In both lungs.\"\n  },\n  {\n    \"question\": \"What is the spatial extent of the pleural thickening-effusion?\",\n    \"answer\": \"Bilateral pleural thickening-effusion was not detected.\"\n  },\n  {\n    \"question\": \"What is the position of the calcific atherosclerotic changes?\",\n    \"answer\": \"In the thoracic aorta and coronary artery walls.\"\n  },\n  {\n    \"question\": \"Where are the multiple lymph nodes observed?\",\n    \"answer\": \"In the mediastinal, upper-lower paratracheal, aorticopulmonary window, prevascular area, and subcarinal area.\"\n  },\n  {\n    \"question\": \"What is the vertical position of the thoracic esophagus calibration?\",\n    \"answer\": \"Normal, with no significant pathological wall thickening detected.\"\n  },\n  {\n    \"question\": \"What is the laterality of the peribronchial thickenings observed?\",\n    \"answer\": \"In both lungs.\"\n  }\n]\n```"
+        "question": "Where is the hypodense nodule located?",
+        "answer": "In the right thyroid lobe."
+      },
+      {
+        "question": "What is the laterality of the parenchymal fibrosis areas causing structural distortion?",
+        "answer": "In both lungs."
+      },
+      {
+        "question": "What is the vertical position of the lymph nodes in relation to the trachea?",
+        "answer": "In the upper-lower paratracheal area."
+      },
+      {
+        "question": "Where are the subcapsular parenchymal calcifications located in the liver?",
+        "answer": "In the posterior right lobe of the liver."
+      },
+      {
+        "question": "What is the laterality of the traction bronchiectasis observed?",
+        "answer": "In both lungs."
+      },
+      {
+        "question": "What is the spatial extent of the pleural thickening-effusion?",
+        "answer": "Bilateral pleural thickening-effusion was not detected."
+      },
+      {
+        "question": "What is the position of the calcific atherosclerotic changes?",
+        "answer": "In the thoracic aorta and coronary artery walls."
+      },
+      {
+        "question": "Where are the multiple lymph nodes observed?",
+        "answer": "In the mediastinal, upper-lower paratracheal, aorticopulmonary window, prevascular area, and subcarinal area."
+      },
+      {
+        "question": "What is the vertical position of the thoracic esophagus calibration?",
+        "answer": "Normal, with no significant pathological wall thickening detected."
+      },
+      {
+        "question": "What is the laterality of the peribronchial thickenings observed?",
+        "answer": "In both lungs."
       }
     ]
   },
   "valid_101_a_1.nii.gz": {
     "qa_pairs": [
       {
-        "error": "Invalid JSON output",
-        "raw_output": "```json\n[\n  {\n    \"question\": \"Where was the largest parenchymal nodule located in the lungs?\",\n    \"answer\": \"In the upper lobe of the right lung.\"\n  },\n  {\n    \"question\": \"What was observed in the center of both lungs?\",\n    \"answer\": \"Minimal peribronchial thickening.\"\n  },\n  {\n    \"question\": \"Where were the pleuroparenchymal sequelae density increases observed?\",\n    \"answer\": \"In the middle lobe of the right lung and the inferior lingular segment of the left lung.\"\n  },\n  {\n    \"question\": \"Where were bulla formations observed in the lungs?\",\n    \"answer\": \"In both lungs apical.\"\n  },\n  {\n    \"question\": \"Where was a simple cyst observed in the kidneys?\",\n    \"answer\": \"In the upper pole of the left kidney.\"\n  },\n  {\n    \"question\": \"What was the condition of the bilateral adrenal gland calibration?\",\n    \"answer\": \"Normal.\"\n  },\n  {\n    \"question\": \"Were any lymph nodes detected in the mediastinal and bilateral hilar regions?\",\n    \"answer\": \"No lymph node was detected in pathological size and appearance.\"\n  },\n  {\n    \"question\": \"What was the condition of the trachea and lumen of both main bronchi?\",\n    \"answer\": \"They are open with no occlusive pathology detected.\"\n  }\n]\n```"
+        "question": "Where was the largest parenchymal nodule located in the lungs?",
+        "answer": "In the upper lobe of the right lung."
+      },
+      {
+        "question": "What was observed in the center of both lungs?",
+        "answer": "Minimal peribronchial thickening."
+      },
+      {
+        "question": "Where were the pleuroparenchymal sequelae density increases observed?",
+        "answer": "In the middle lobe of the right lung and the inferior lingular segment of the left lung."
+      },
+      {
+        "question": "Where were bulla formations observed in the lungs?",
+        "answer": "In both lungs apical."
+      },
+      {
+        "question": "Where was a simple cyst observed in the kidneys?",
+        "answer": "In the upper pole of the left kidney."
+      },
+      {
+        "question": "What was the condition of the bilateral adrenal gland calibration?",
+        "answer": "Normal."
+      },
+      {
+        "question": "Were any lymph nodes detected in the mediastinal and bilateral hilar regions?",
+        "answer": "No lymph node was detected in pathological size and appearance."
+      },
+      {
+        "question": "What was the condition of the trachea and lumen of both main bronchi?",
+        "answer": "They are open with no occlusive pathology detected."
       }
     ]
   },
   "valid_101_b_1.nii.gz": {
     "qa_pairs": [
       {
-        "error": "Invalid JSON output",
-        "raw_output": "```json\n[\n  {\"question\": \"Where is the trachea located in relation to the midline?\", \"answer\": \"The trachea is in the midline.\"},\n  {\"question\": \"Which side of the diaphragm is elevated?\", \"answer\": \"The left hemidiaphragm is elevated.\"},\n  {\"question\": \"Where are the bulla formations located in the lungs?\", \"answer\": \"Bulla formations are located at the apex of both lungs.\"},\n  {\"question\": \"In which segments of the lungs were pleuroparenchymal sequelae density increases observed?\", \"answer\": \"Pleuroparenchymal sequelae density increases were observed in the right lung middle lobe, left lung upper lobe inferior lingular, and left lung lower lobe basal segment.\"},\n  {\"question\": \"Where is the simple cortical cyst located in the kidney?\", \"answer\": \"The simple cortical cyst is located in the upper pole of the left kidney.\"},\n  {\"question\": \"What is the location of the minimal peribronchial thickening observed in the lungs?\", \"answer\": \"Minimal peribronchial thickening was observed in the center of both lungs.\"},\n  {\"question\": \"Are there any enlarged lymph nodes detected in the prevascular or pre-paratracheal regions?\", \"answer\": \"No enlarged lymph nodes were detected in the prevascular or pre-paratracheal regions.\"},\n  {\"question\": \"What is the condition of the bilateral adrenal gland calibration?\", \"answer\": \"Bilateral adrenal gland calibration was normal.\"},\n  {\"question\": \"Is there any mass lesion or active infiltration detected in the lungs?\", \"answer\": \"No mass lesion or active infiltration was detected in both lungs.\"}\n]\n```"
+        "question": "Where is the trachea located in relation to the midline?",
+        "answer": "The trachea is in the midline."
+      },
+      {
+        "question": "Which side of the diaphragm is elevated?",
+        "answer": "The left hemidiaphragm is elevated."
+      },
+      {
+        "question": "Where are the bulla formations located in the lungs?",
+        "answer": "Bulla formations are located at the apex of both lungs."
+      },
+      {
+        "question": "In which segments of the lungs were pleuroparenchymal sequelae density increases observed?",
+        "answer": "Pleuroparenchymal sequelae density increases were observed in the right lung middle lobe, left lung upper lobe inferior lingular, and left lung lower lobe basal segment."
+      },
+      {
+        "question": "Where is the simple cortical cyst located in the kidney?",
+        "answer": "The simple cortical cyst is located in the upper pole of the left kidney."
+      },
+      {
+        "question": "What is the location of the minimal peribronchial thickening observed in the lungs?",
+        "answer": "Minimal peribronchial thickening was observed in the center of both lungs."
+      },
+      {
+        "question": "Are there any enlarged lymph nodes detected in the prevascular or pre-paratracheal regions?",
+        "answer": "No enlarged lymph nodes were detected in the prevascular or pre-paratracheal regions."
+      },
+      {
+        "question": "What is the condition of the bilateral adrenal gland calibration?",
+        "answer": "Bilateral adrenal gland calibration was normal."
+      },
+      {
+        "question": "Is there any mass lesion or active infiltration detected in the lungs?",
+        "answer": "No mass lesion or active infiltration was detected in both lungs."
       }
     ]
   },
   "valid_102_a_1.nii.gz": {
     "qa_pairs": [
       {
-        "error": "Invalid JSON output",
-        "raw_output": "```json\n[\n  {\"question\": \"Where is the mass located in the right lung?\", \"answer\": \"In the thickest part of the right lung, completely surrounding the pleura at its apex.\"},\n  {\"question\": \"What is the vertical position of the reticular density increase in the right lung?\", \"answer\": \"In the upper lobe of the right lung.\"},\n  {\"question\": \"Where are the effusion areas located?\", \"answer\": \"Between the pleural leaves on the right.\"},\n  {\"question\": \"What is the location of the consolidation area with air bronchograms?\", \"answer\": \"In the middle lobe of the right lung.\"},\n  {\"question\": \"Where are the soft tissue densities with central necrotic appearance found?\", \"answer\": \"In the lower paratracheal area.\"},\n  {\"question\": \"Which side of the lung shows parenchymal fibrosis and bulla formation?\", \"answer\": \"In the upper lobe of the left lung.\"},\n  {\"question\": \"Where are the millimetric parenchymal nodules observed?\", \"answer\": \"In the upper and lower lobes of the left lung.\"},\n  {\"question\": \"What is the size and location of the parenchymal nodule in the right lung?\", \"answer\": \"A 5 mm diameter parenchymal nodule in the middle lobe of the right lung.\"},\n  {\"question\": \"Where are the lymphadenopathies located in relation to the celiac and superior mesenteric arteries?\", \"answer\": \"At the level of the celiac and superior mesenteric arteries.\"},\n  {\"question\": \"What is the spatial relationship of the malignant mass in the right lung?\", \"answer\": \"Surrounding the pleura in the apical region of the upper lobe of the right lung.\"}\n]\n```"
+        "question": "Where is the mass located in the right lung?",
+        "answer": "In the thickest part of the right lung, completely surrounding the pleura at its apex."
+      },
+      {
+        "question": "What is the vertical position of the reticular density increase in the right lung?",
+        "answer": "In the upper lobe of the right lung."
+      },
+      {
+        "question": "Where are the effusion areas located?",
+        "answer": "Between the pleural leaves on the right."
+      },
+      {
+        "question": "What is the location of the consolidation area with air bronchograms?",
+        "answer": "In the middle lobe of the right lung."
+      },
+      {
+        "question": "Where are the soft tissue densities with central necrotic appearance found?",
+        "answer": "In the lower paratracheal area."
+      },
+      {
+        "question": "Which side of the lung shows parenchymal fibrosis and bulla formation?",
+        "answer": "In the upper lobe of the left lung."
+      },
+      {
+        "question": "Where are the millimetric parenchymal nodules observed?",
+        "answer": "In the upper and lower lobes of the left lung."
+      },
+      {
+        "question": "What is the size and location of the parenchymal nodule in the right lung?",
+        "answer": "A 5 mm diameter parenchymal nodule in the middle lobe of the right lung."
+      },
+      {
+        "question": "Where are the lymphadenopathies located in relation to the celiac and superior mesenteric arteries?",
+        "answer": "At the level of the celiac and superior mesenteric arteries."
+      },
+      {
+        "question": "What is the spatial relationship of the malignant mass in the right lung?",
+        "answer": "Surrounding the pleura in the apical region of the upper lobe of the right lung."
       }
     ]
   },
   "valid_103_a_1.nii.gz": {
     "qa_pairs": [
       {
-        "error": "Invalid JSON output",
-        "raw_output": "```json\n[\n  {\n    \"question\": \"Where are the lymph nodes measuring 19x11 mm located?\",\n    \"answer\": \"The lymph nodes are located in the upper-lower paratracheal, prevascular, precarinal, and subcarinal localizations.\"\n  },\n  {\n    \"question\": \"In which area of the lungs are the patchy areas of consolidation extending to the periphery observed?\",\n    \"answer\": \"The patchy areas of consolidation extending to the periphery are observed in the perihilar area of both lungs.\"\n  },\n  {\n    \"question\": \"What is the thickness of the free fluid observed between the pleural leaves on the right side?\",\n    \"answer\": \"The thickness of the free fluid observed between the pleural leaves on the right side is 24 mm.\"\n  },\n  {\n    \"question\": \"What is the thickness of the free fluid observed between the pleural leaves on the left side?\",\n    \"answer\": \"The thickness of the free fluid observed between the pleural leaves on the left side is 5 mm.\"\n  },\n  {\n    \"question\": \"Where are the smooth interseptal thickenings most prominent?\",\n    \"answer\": \"The smooth interseptal thickenings are most prominent in the lower lobes of both lungs.\"\n  },\n  {\n    \"question\": \"Where is the prosthetic material observed?\",\n    \"answer\": \"The prosthetic material is observed in the aortic valve.\"\n  },\n  {\n    \"question\": \"Where is the post-op suture material located?\",\n    \"answer\": \"The post-op suture material is located on the wall of the ascending aorta.\"\n  },\n  {\n    \"question\": \"Where are the metallic suture materials of sternotomy observed?\",\n    \"answer\": \"The metallic suture materials of sternotomy are observed in the sternum.\"\n  }\n]\n```"
+        "question": "Where are the lymph nodes measuring 19x11 mm located?",
+        "answer": "The lymph nodes are located in the upper-lower paratracheal, prevascular, precarinal, and subcarinal localizations."
+      },
+      {
+        "question": "In which area of the lungs are the patchy areas of consolidation extending to the periphery observed?",
+        "answer": "The patchy areas of consolidation extending to the periphery are observed in the perihilar area of both lungs."
+      },
+      {
+        "question": "What is the thickness of the free fluid observed between the pleural leaves on the right side?",
+        "answer": "The thickness of the free fluid observed between the pleural leaves on the right side is 24 mm."
+      },
+      {
+        "question": "What is the thickness of the free fluid observed between the pleural leaves on the left side?",
+        "answer": "The thickness of the free fluid observed between the pleural leaves on the left side is 5 mm."
+      },
+      {
+        "question": "Where are the smooth interseptal thickenings most prominent?",
+        "answer": "The smooth interseptal thickenings are most prominent in the lower lobes of both lungs."
+      },
+      {
+        "question": "Where is the prosthetic material observed?",
+        "answer": "The prosthetic material is observed in the aortic valve."
+      },
+      {
+        "question": "Where is the post-op suture material located?",
+        "answer": "The post-op suture material is located on the wall of the ascending aorta."
+      },
+      {
+        "question": "Where are the metallic suture materials of sternotomy observed?",
+        "answer": "The metallic suture materials of sternotomy are observed in the sternum."
       }
     ]
   },
   "valid_104_a_1.nii.gz": {
     "qa_pairs": [
       {
-        "error": "Invalid JSON output",
-        "raw_output": "```json\n[\n  {\n    \"question\": \"Where are the minimal bronchiectasis located in the lungs?\",\n    \"answer\": \"At the central level in both lungs.\"\n  },\n  {\n    \"question\": \"What is the laterality of the bronchiectasis observed in the lungs?\",\n    \"answer\": \"Bilateral.\"\n  },\n  {\n    \"question\": \"Where are the calcific plaques observed?\",\n    \"answer\": \"In the coronary arteries.\"\n  },\n  {\n    \"question\": \"What is the vertical position of the osteophytes observed in the vertebrae?\",\n    \"answer\": \"In the thoracic vertebrae.\"\n  },\n  {\n    \"question\": \"Where are the millimetric stones observed?\",\n    \"answer\": \"In the gallbladder.\"\n  },\n  {\n    \"question\": \"What is the spatial relationship of the fibrotic densities to the lung parenchyma?\",\n    \"answer\": \"Adjacent to the lung parenchyma.\"\n  },\n  {\n    \"question\": \"Is there any pleural effusion or thickening detected in the scan?\",\n    \"answer\": \"No, pleural effusion or thickening was not detected.\"\n  },\n  {\n    \"question\": \"What is the condition of the thoracic esophagus as described in the report?\",\n    \"answer\": \"The thoracic esophagus calibration was normal with no significant tumoral wall thickening detected.\"\n  },\n  {\n    \"question\": \"Are there any enlarged lymph nodes detected in the prevascular, pre-paratracheal, subcarinal, or bilateral hilar-axillary regions?\",\n    \"answer\": \"No, enlarged lymph nodes in these regions were not detected.\"\n  }\n]\n```"
+        "question": "Where are the minimal bronchiectasis located in the lungs?",
+        "answer": "At the central level in both lungs."
+      },
+      {
+        "question": "What is the laterality of the bronchiectasis observed in the lungs?",
+        "answer": "Bilateral."
+      },
+      {
+        "question": "Where are the calcific plaques observed?",
+        "answer": "In the coronary arteries."
+      },
+      {
+        "question": "What is the vertical position of the osteophytes observed in the vertebrae?",
+        "answer": "In the thoracic vertebrae."
+      },
+      {
+        "question": "Where are the millimetric stones observed?",
+        "answer": "In the gallbladder."
+      },
+      {
+        "question": "What is the spatial relationship of the fibrotic densities to the lung parenchyma?",
+        "answer": "Adjacent to the lung parenchyma."
+      },
+      {
+        "question": "Is there any pleural effusion or thickening detected in the scan?",
+        "answer": "No, pleural effusion or thickening was not detected."
+      },
+      {
+        "question": "What is the condition of the thoracic esophagus as described in the report?",
+        "answer": "The thoracic esophagus calibration was normal with no significant tumoral wall thickening detected."
+      },
+      {
+        "question": "Are there any enlarged lymph nodes detected in the prevascular, pre-paratracheal, subcarinal, or bilateral hilar-axillary regions?",
+        "answer": "No, enlarged lymph nodes in these regions were not detected."
       }
     ]
   },
   "valid_105_a_1.nii.gz": {
     "qa_pairs": [
       {
-        "error": "Invalid JSON output",
-        "raw_output": "```json\n[\n  {\n    \"question\": \"Where are the sequelae fibroatelectatic changes observed?\",\n    \"answer\": \"In the upper lobes of both lungs.\"\n  },\n  {\n    \"question\": \"On which side is the nodular ground glass density observed in the upper lobe apical segment?\",\n    \"answer\": \"On the right side, in the lateral subpleural region.\"\n  },\n  {\n    \"question\": \"Where are the two nonspecific millimetric pulmonary nodules located?\",\n    \"answer\": \"In the posterior segment of the right lung upper lobe.\"\n  },\n  {\n    \"question\": \"What type of changes are observed in both lungs?\",\n    \"answer\": \"Diffuse emphysematous changes.\"\n  },\n  {\n    \"question\": \"Where are the sclerotic changes observed?\",\n    \"answer\": \"In the lower cervical vertebral corpuscles.\"\n  },\n  {\n    \"question\": \"Are there any enlarged lymph nodes detected in the prevascular or pre-paratracheal regions?\",\n    \"answer\": \"No enlarged lymph nodes were detected in the prevascular or pre-paratracheal regions.\"\n  },\n  {\n    \"question\": \"What is the condition of the bilateral adrenal glands?\",\n    \"answer\": \"The bilateral adrenal glands were normal and no space-occupying lesion was detected.\"\n  },\n  {\n    \"question\": \"Where are osteophytic taperings observed?\",\n    \"answer\": \"In the thoracic vertebrae.\"\n  },\n  {\n    \"question\": \"Is there any space-occupying lesion detected in the liver?\",\n    \"answer\": \"No space-occupying lesion was detected in the liver.\"\n  }\n]\n```"
+        "question": "Where are the sequelae fibroatelectatic changes observed?",
+        "answer": "In the upper lobes of both lungs."
+      },
+      {
+        "question": "On which side is the nodular ground glass density observed in the upper lobe apical segment?",
+        "answer": "On the right side, in the lateral subpleural region."
+      },
+      {
+        "question": "Where are the two nonspecific millimetric pulmonary nodules located?",
+        "answer": "In the posterior segment of the right lung upper lobe."
+      },
+      {
+        "question": "What type of changes are observed in both lungs?",
+        "answer": "Diffuse emphysematous changes."
+      },
+      {
+        "question": "Where are the sclerotic changes observed?",
+        "answer": "In the lower cervical vertebral corpuscles."
+      },
+      {
+        "question": "Are there any enlarged lymph nodes detected in the prevascular or pre-paratracheal regions?",
+        "answer": "No enlarged lymph nodes were detected in the prevascular or pre-paratracheal regions."
+      },
+      {
+        "question": "What is the condition of the bilateral adrenal glands?",
+        "answer": "The bilateral adrenal glands were normal and no space-occupying lesion was detected."
+      },
+      {
+        "question": "Where are osteophytic taperings observed?",
+        "answer": "In the thoracic vertebrae."
+      },
+      {
+        "question": "Is there any space-occupying lesion detected in the liver?",
+        "answer": "No space-occupying lesion was detected in the liver."
       }
     ]
   },
   "valid_106_a_1.nii.gz": {
     "qa_pairs": [
       {
-        "error": "Invalid JSON output",
-        "raw_output": "```json\n[\n  {\n    \"question\": \"Where are the atheroma plaques located in the coronary artery?\",\n    \"answer\": \"In the left coronary artery.\"\n  },\n  {\n    \"question\": \"Which regions contain lymphadenopathies according to the report?\",\n    \"answer\": \"The prevascular region, paratracheal region, and subcarinal region.\"\n  },\n  {\n    \"question\": \"Where is the endobronchial mass located in the lung?\",\n    \"answer\": \"In the left lung upper lobe lingular segment bronchus.\"\n  },\n  {\n    \"question\": \"In which direction does the endobronchial mass extend?\",\n    \"answer\": \"Towards the superior and inferior subsegment bronchi.\"\n  },\n  {\n    \"question\": \"Where is the irregularly circumscribed nodule located in the lung?\",\n    \"answer\": \"In the posterior part of the left lung upper lobe lingular segment.\"\n  },\n  {\n    \"question\": \"Which lung lobe shows budding tree appearances?\",\n    \"answer\": \"The left lung upper lobe lingular segment.\"\n  },\n  {\n    \"question\": \"Where is the mass located in the adrenal glands?\",\n    \"answer\": \"In the left adrenal gland.\"\n  },\n  {\n    \"question\": \"What is observed in the bladder wall according to the report?\",\n    \"answer\": \"A diffuse thickness increase is observed in the bladder wall.\"\n  }\n]\n```"
+        "question": "Where are the atheroma plaques located in the coronary artery?",
+        "answer": "In the left coronary artery."
+      },
+      {
+        "question": "Which regions contain lymphadenopathies according to the report?",
+        "answer": "The prevascular region, paratracheal region, and subcarinal region."
+      },
+      {
+        "question": "Where is the endobronchial mass located in the lung?",
+        "answer": "In the left lung upper lobe lingular segment bronchus."
+      },
+      {
+        "question": "In which direction does the endobronchial mass extend?",
+        "answer": "Towards the superior and inferior subsegment bronchi."
+      },
+      {
+        "question": "Where is the irregularly circumscribed nodule located in the lung?",
+        "answer": "In the posterior part of the left lung upper lobe lingular segment."
+      },
+      {
+        "question": "Which lung lobe shows budding tree appearances?",
+        "answer": "The left lung upper lobe lingular segment."
+      },
+      {
+        "question": "Where is the mass located in the adrenal glands?",
+        "answer": "In the left adrenal gland."
+      },
+      {
+        "question": "What is observed in the bladder wall according to the report?",
+        "answer": "A diffuse thickness increase is observed in the bladder wall."
       }
     ]
   },
   "valid_106_a_3.nii.gz": {
     "qa_pairs": [
       {
-        "error": "Invalid JSON output",
-        "raw_output": "```json\n[\n  {\n    \"question\": \"Where are the atheroma plaques located in the coronary artery?\",\n    \"answer\": \"In the left coronary artery.\"\n  },\n  {\n    \"question\": \"Which regions contain lymphadenopathies according to the report?\",\n    \"answer\": \"The prevascular region, paratracheal region, and subcarinal region.\"\n  },\n  {\n    \"question\": \"Where is the endobronchial mass located in the lung?\",\n    \"answer\": \"In the left lung upper lobe lingular segment bronchus.\"\n  },\n  {\n    \"question\": \"In which direction does the endobronchial mass extend?\",\n    \"answer\": \"Towards the superior and inferior subsegment bronchi.\"\n  },\n  {\n    \"question\": \"Where is the irregularly circumscribed nodule located in the lung?\",\n    \"answer\": \"In the posterior part of the left lung upper lobe lingular segment.\"\n  },\n  {\n    \"question\": \"Which adrenal gland contains a mass, and what is its size?\",\n    \"answer\": \"The left adrenal gland contains a mass measuring approximately 52x70 mm.\"\n  },\n  {\n    \"question\": \"What is observed in the bladder wall according to the report?\",\n    \"answer\": \"A diffuse thickness increase is observed in the bladder wall.\"\n  },\n  {\n    \"question\": \"Are there any nodules mentioned in both lungs?\",\n    \"answer\": \"Yes, there are several millimetric nonspecific nodules in both lungs.\"\n  },\n  {\n    \"question\": \"What is the condition of the right adrenal gland as per the report?\",\n    \"answer\": \"The right adrenal gland is normal.\"\n  },\n  {\n    \"question\": \"Where are the budding tree appearances observed in the lung?\",\n    \"answer\": \"In the left lung upper lobe lingular segment.\"\n  }\n]\n```"
+        "question": "Where are the atheroma plaques located in the coronary artery?",
+        "answer": "In the left coronary artery."
+      },
+      {
+        "question": "Which regions contain lymphadenopathies according to the report?",
+        "answer": "The prevascular region, paratracheal region, and subcarinal region."
+      },
+      {
+        "question": "Where is the endobronchial mass located in the lung?",
+        "answer": "In the left lung upper lobe lingular segment bronchus."
+      },
+      {
+        "question": "In which direction does the endobronchial mass extend?",
+        "answer": "Towards the superior and inferior subsegment bronchi."
+      },
+      {
+        "question": "Where is the irregularly circumscribed nodule located in the lung?",
+        "answer": "In the posterior part of the left lung upper lobe lingular segment."
+      },
+      {
+        "question": "Which adrenal gland contains a mass, and what is its size?",
+        "answer": "The left adrenal gland contains a mass measuring approximately 52x70 mm."
+      },
+      {
+        "question": "What is observed in the bladder wall according to the report?",
+        "answer": "A diffuse thickness increase is observed in the bladder wall."
+      },
+      {
+        "question": "Are there any nodules mentioned in both lungs?",
+        "answer": "Yes, there are several millimetric nonspecific nodules in both lungs."
+      },
+      {
+        "question": "What is the condition of the right adrenal gland as per the report?",
+        "answer": "The right adrenal gland is normal."
+      },
+      {
+        "question": "Where are the budding tree appearances observed in the lung?",
+        "answer": "In the left lung upper lobe lingular segment."
       }
     ]
   },
   "valid_106_a_4.nii.gz": {
     "qa_pairs": [
       {
-        "error": "Invalid JSON output",
-        "raw_output": "```json\n[\n  {\n    \"question\": \"Where are the atheroma plaques located in the coronary artery?\",\n    \"answer\": \"In the left coronary artery.\"\n  },\n  {\n    \"question\": \"Which regions contain lymphadenopathies according to the report?\",\n    \"answer\": \"The prevascular region, paratracheal region, and subcarinal region.\"\n  },\n  {\n    \"question\": \"Where is the endobronchial mass located in the left lung?\",\n    \"answer\": \"In the left lung upper lobe lingular segment bronchus.\"\n  },\n  {\n    \"question\": \"What is the vertical extent of the endobronchial mass in the left lung?\",\n    \"answer\": \"It extends towards the superior and inferior subsegment bronchi.\"\n  },\n  {\n    \"question\": \"Where is the irregularly circumscribed nodule located in the left lung?\",\n    \"answer\": \"In the posterior part of the left lung upper lobe lingular segment.\"\n  },\n  {\n    \"question\": \"Which adrenal gland contains a mass, and what is its size?\",\n    \"answer\": \"The left adrenal gland contains a mass measuring approximately 52x70 mm.\"\n  },\n  {\n    \"question\": \"What is the condition of the bladder wall as described in the report?\",\n    \"answer\": \"There is a diffuse thickness increase in the bladder wall.\"\n  },\n  {\n    \"question\": \"Are there any nodules present in both lungs, and if so, how are they described?\",\n    \"answer\": \"Yes, there are several millimetric nonspecific nodules in both lungs.\"\n  },\n  {\n    \"question\": \"What is the condition of the neural foramina as described in the report?\",\n    \"answer\": \"The neural foramina are open.\"\n  },\n  {\n    \"question\": \"Where are the atheromatous plaques located in the abdominal region?\",\n    \"answer\": \"In the abdominal aorta and iliac arteries.\"\n  }\n]\n```"
+        "question": "Where are the atheroma plaques located in the coronary artery?",
+        "answer": "In the left coronary artery."
+      },
+      {
+        "question": "Which regions contain lymphadenopathies according to the report?",
+        "answer": "The prevascular region, paratracheal region, and subcarinal region."
+      },
+      {
+        "question": "Where is the endobronchial mass located in the left lung?",
+        "answer": "In the left lung upper lobe lingular segment bronchus."
+      },
+      {
+        "question": "What is the vertical extent of the endobronchial mass in the left lung?",
+        "answer": "It extends towards the superior and inferior subsegment bronchi."
+      },
+      {
+        "question": "Where is the irregularly circumscribed nodule located in the left lung?",
+        "answer": "In the posterior part of the left lung upper lobe lingular segment."
+      },
+      {
+        "question": "Which adrenal gland contains a mass, and what is its size?",
+        "answer": "The left adrenal gland contains a mass measuring approximately 52x70 mm."
+      },
+      {
+        "question": "What is the condition of the bladder wall as described in the report?",
+        "answer": "There is a diffuse thickness increase in the bladder wall."
+      },
+      {
+        "question": "Are there any nodules present in both lungs, and if so, how are they described?",
+        "answer": "Yes, there are several millimetric nonspecific nodules in both lungs."
+      },
+      {
+        "question": "What is the condition of the neural foramina as described in the report?",
+        "answer": "The neural foramina are open."
+      },
+      {
+        "question": "Where are the atheromatous plaques located in the abdominal region?",
+        "answer": "In the abdominal aorta and iliac arteries."
       }
     ]
   }
