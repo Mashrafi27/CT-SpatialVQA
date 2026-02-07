@@ -1,0 +1,11 @@
+{
+  "reports": "3D_VLM_Spatial/validation_reports_output.json",
+  "existing_files": [
+    "3D_VLM_Spatial/spatial_qa_output.json"
+  ],
+  "target_total": 1000,
+  "existing_count": 368,
+  "sampled_count": 632,
+  "total_selected": 1000,
+  "seed": 42
+}
