@@ -114,6 +114,54 @@ def extract_text(response) -> str:
     return "\n".join(chunks)
 
 
+def _strip_code_fences(text: str) -> str:
+    cleaned = text.strip()
+    if cleaned.startswith("```"):
+        cleaned = cleaned.strip("`\n")
+        if cleaned.startswith("json\n"):
+            cleaned = cleaned[5:]
+    return cleaned.strip()
+
+
+def _extract_json_list(text: str) -> str | None:
+    """Extract the first JSON list from a blob of text."""
+    if not text:
+        return None
+    start = text.find("[")
+    end = text.rfind("]")
+    if start == -1 or end == -1 or end <= start:
+        return None
+    return text[start : end + 1]
+
+
+def parse_json_response(text: str) -> list:
+    """Best-effort parse of model JSON list output."""
+    cleaned = _strip_code_fences(text)
+    # 1) direct parse
+    try:
+        parsed = json.loads(cleaned)
+        if isinstance(parsed, list):
+            return parsed
+    except Exception:
+        pass
+    # 2) extract list
+    extracted = _extract_json_list(cleaned)
+    if extracted:
+        try:
+            parsed = json.loads(extracted)
+            if isinstance(parsed, list):
+                return parsed
+        except Exception:
+            pass
+    # 3) escape raw newlines and retry
+    escaped = cleaned.replace("\r\n", "\n").replace("\n", "\\n")
+    extracted = _extract_json_list(escaped) or escaped
+    parsed = json.loads(extracted)
+    if not isinstance(parsed, list):
+        raise ValueError("Response is not a list")
+    return parsed
+
+
 def main() -> None:
     args = parse_args()
 
@@ -156,19 +204,15 @@ def main() -> None:
                         generation_config=GENERATION_CONFIG,
                     )
                     text = extract_text(response)
-                    if text.startswith("```"):
-                        text = text.strip("`\n")
-                        if text.startswith("json\n"):
-                            text = text[5:]
-                    parsed = json.loads(text)
-                    if not isinstance(parsed, list):  # pragma: no cover
-                        raise ValueError("Response is not a list")
+                    parsed = parse_json_response(text)
                     case_results.extend(parsed)
                     break
                 except Exception as exc:  # pragma: no cover
-                    if isinstance(exc, json.JSONDecodeError):
-                        print(f"[WARN] JSON decode failed for case {case_id} batch starting idx "
-                              f"{qa_pairs.index(batch[0])} -- raw response:\\n{text}")
+                    if isinstance(exc, json.JSONDecodeError) or isinstance(exc, ValueError):
+                        print(
+                            f"[WARN] JSON decode failed for case {case_id} batch starting idx "
+                            f"{qa_pairs.index(batch[0])} -- raw response:\\n{text}"
+                        )
                     if attempt >= 3:
                         raise
                     time.sleep(2 ** attempt)
