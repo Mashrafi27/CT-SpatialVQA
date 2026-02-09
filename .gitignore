@@ -3,7 +3,7 @@
 
 # Downloaded data volumes
 3D_VLM_Spatial/data_volumes/
-
+3D_VLM_Spatial/processed_volumes_v2_med3dvlm/
 # Hugging Face cache directories
 cached_datasets/
 datasets--*/
