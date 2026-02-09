@@ -49,7 +49,7 @@ def generate_spatial_QA(findings, impressions):
     )
 
     response = client.chat.completions.create(
-        model="gpt-4o-mini",  # Or "gpt-4o" for higher accuracy
+        model="gpt-4o",  # Or "gpt-4o" for higher accuracy
         messages=[
             {"role": "system", "content": "You are a precise radiology assistant."},
             {"role": "user", "content": full_prompt},
