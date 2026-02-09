@@ -34,11 +34,10 @@ Respond strictly as JSON with the schema:
   {{
     "index": <QA index starting at 1 in this batch>,
     "is_spatial": true/false,
-    "is_relevant": true/false,
-    "reasoning": "brief justification referencing image evidence"
+    "is_relevant": true/false
   }}, ...
 ]
-Avoid additional narration.
+Avoid additional narration. Return ONLY the JSON list, no extra text.
 
 Case ID: {case_id}
 Findings: {findings}
@@ -134,6 +133,23 @@ def _extract_json_list(text: str) -> str | None:
     return text[start : end + 1]
 
 
+def _repair_truncated_list(text: str) -> str | None:
+    """Best-effort repair when output is cut off before closing bracket."""
+    start = text.find("[")
+    if start == -1:
+        return None
+    # grab up to last closing brace
+    end = text.rfind("}")
+    if end == -1 or end <= start:
+        return None
+    candidate = text[start : end + 1]
+    # strip trailing commas before closing
+    candidate = candidate.rstrip()
+    if candidate.endswith(","):
+        candidate = candidate[:-1]
+    return candidate + "]"
+
+
 def parse_json_response(text: str) -> list:
     """Best-effort parse of model JSON list output."""
     cleaned = _strip_code_fences(text)
@@ -160,6 +176,22 @@ def parse_json_response(text: str) -> list:
     if not isinstance(parsed, list):
         raise ValueError("Response is not a list")
     return parsed
+
+
+def parse_json_response_lenient(text: str) -> list | None:
+    """Lenient parse that attempts to repair truncated JSON."""
+    cleaned = _strip_code_fences(text)
+    # try repair on raw and cleaned text
+    for blob in (cleaned, cleaned.replace("\r\n", "\n")):
+        repaired = _repair_truncated_list(blob)
+        if repaired:
+            try:
+                parsed = json.loads(repaired)
+                if isinstance(parsed, list):
+                    return parsed
+            except Exception:
+                continue
+    return None
 
 
 def main() -> None:
@@ -213,8 +245,30 @@ def main() -> None:
                             f"[WARN] JSON decode failed for case {case_id} batch starting idx "
                             f"{qa_pairs.index(batch[0])} -- raw response:\\n{text}"
                         )
+                        # lenient repair for truncated output
+                        repaired = parse_json_response_lenient(text)
+                        if repaired is not None:
+                            case_results.extend(repaired)
+                            break
                     if attempt >= 3:
-                        raise
+                        # fall back with parse error placeholders and continue
+                        case_results.extend(
+                            {
+                                "index": i + 1,
+                                "is_spatial": None,
+                                "is_relevant": None,
+                                "reasoning": f"PARSE_ERROR: {text[:500]}",
+                            }
+                            for i in range(len(batch))
+                        )
+                        break
+                    # tighten prompt on retry
+                    if attempt == 2:
+                        prompt = (
+                            prompt
+                            + "\n\nIMPORTANT: Return ONLY a valid JSON list. No extra text. "
+                            + "Do NOT include trailing commas. Ensure the list is complete."
+                        )
                     time.sleep(2 ** attempt)
             if args.sleep:
                 time.sleep(args.sleep)
