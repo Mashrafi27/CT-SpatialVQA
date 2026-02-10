@@ -9,7 +9,7 @@ import os
 import sys
 import time
 from pathlib import Path
-from typing import Dict, Iterable, List, Sequence
+from typing import Dict, Iterable, List, Sequence, cast
 
 try:
     import google.generativeai as genai
@@ -203,7 +203,16 @@ def main() -> None:
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel(args.model)
 
-    qa_data: Dict[str, dict] = json.loads(args.qa.read_text())
+    qa_data = json.loads(args.qa.read_text())
+    if isinstance(qa_data, list):
+        qa_dict: Dict[str, dict] = {}
+        for item in qa_data:
+            case_id = item.get("case_id") or item.get("file_name") or item.get("case")
+            if not case_id:
+                continue
+            qa_dict[case_id] = item
+        qa_data = qa_dict
+    qa_data = cast(Dict[str, dict], qa_data)
     reports: Dict[str, dict] = json.loads(args.reports.read_text())
     if args.output.exists():
         try:

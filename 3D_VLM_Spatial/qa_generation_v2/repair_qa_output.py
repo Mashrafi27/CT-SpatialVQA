@@ -36,6 +36,8 @@ def try_parse(raw: str):
     try:
         data = json.loads(raw)
         if isinstance(data, list):
+            if len(data) == 1 and isinstance(data[0], list):
+                return data[0]
             return data
     except Exception:
         pass
@@ -45,6 +47,8 @@ def try_parse(raw: str):
     try:
         data = json.loads(cleaned)
         if isinstance(data, list):
+            if len(data) == 1 and isinstance(data[0], list):
+                return data[0]
             return data
     except Exception:
         pass
@@ -55,6 +59,8 @@ def try_parse(raw: str):
         try:
             data = json.loads(extracted)
             if isinstance(data, list):
+                if len(data) == 1 and isinstance(data[0], list):
+                    return data[0]
                 return data
         except Exception:
             pass
@@ -65,6 +71,8 @@ def try_parse(raw: str):
     try:
         data = json.loads(extracted_nl)
         if isinstance(data, list):
+            if len(data) == 1 and isinstance(data[0], list):
+                return data[0]
             return data
     except Exception:
         return None
