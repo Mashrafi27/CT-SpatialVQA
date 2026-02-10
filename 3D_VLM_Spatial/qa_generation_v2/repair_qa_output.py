@@ -83,15 +83,32 @@ def main():
     obj = json.loads(inp.read_text())
     repaired = 0
     total = 0
-    for k, v in obj.items():
-        total += 1
-        qa = v.get("qa_pairs", [])
+
+    def maybe_repair(entry: dict) -> bool:
+        qa = entry.get("qa_pairs", [])
         if qa and isinstance(qa, list) and isinstance(qa[0], dict) and qa[0].get("error"):
             raw = qa[0].get("raw_output", "")
             parsed = try_parse(raw)
             if parsed is not None:
-                v["qa_pairs"] = parsed
+                entry["qa_pairs"] = parsed
+                return True
+        return False
+
+    if isinstance(obj, dict):
+        for _, v in obj.items():
+            total += 1
+            if maybe_repair(v):
                 repaired += 1
+    elif isinstance(obj, list):
+        for entry in obj:
+            if not isinstance(entry, dict):
+                continue
+            total += 1
+            if maybe_repair(entry):
+                repaired += 1
+    else:
+        raise SystemExit("Unsupported JSON structure: expected dict or list.")
+
     out.write_text(json.dumps(obj, indent=2, ensure_ascii=False))
     print(f"Repaired {repaired}/{total} entries -> {out}")
 
