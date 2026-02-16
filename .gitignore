@@ -26,8 +26,10 @@ checkpoints/
 3D_VLM_Spatial/dataset/resampled_radfm/
 3D_VLM_Spatial/dataset/ctchat_embeddings/
 # CT-CHAT local model assets
+3D_VLM_Spatial/preprocess/__pycache__/
 benchmarking/inference/ct-chat/CT_CLIP_encoder/
 benchmarking/inference/ct-chat/models/
 3D_VLM_Spatial/dataset/
 benchmarking/inference/ct2rep/models/
+3D_VLM_Spatial/preprocess/med3dvlm_npy
 benchmarking/inference/reg2rg/
