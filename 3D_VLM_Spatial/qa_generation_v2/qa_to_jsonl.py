@@ -10,7 +10,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
-from typing import Dict, Iterable
+from typing import Dict, Iterable, Optional
 
 
 def iter_jsonl(path: Path) -> Iterable[dict]:
@@ -73,6 +73,43 @@ def build_image_map_from_nifti(root: Path) -> Dict[str, str]:
     return mapping
 
 
+def resolve_ctrate_path(case_id: str, root: Path) -> Optional[str]:
+    name = case_id.strip().strip('"').strip("'")
+    if name.endswith(".nii.gz"):
+        stem = name[:-7]
+    elif name.endswith(".nii"):
+        stem = name[:-4]
+    else:
+        stem = name
+        name = f"{name}.nii.gz"
+
+    tokens = stem.split("_")
+    if len(tokens) >= 3 and tokens[0].lower() == "valid":
+        patient = "_".join(tokens[:2])
+        series = "_".join(tokens[:3])
+        candidate = root / patient / series / name
+        if candidate.is_file():
+            return str(candidate)
+    return None
+
+
+def build_image_map_from_case_ids(root: Path, case_ids: Iterable[str]) -> Dict[str, str]:
+    mapping: Dict[str, str] = {}
+    # First, try deterministic CT-RATE layout
+    for cid in case_ids:
+        path = resolve_ctrate_path(cid, root)
+        if path:
+            mapping[cid] = path
+    # Fallback: recursive scan for any remaining IDs
+    missing = [cid for cid in case_ids if cid not in mapping]
+    if missing:
+        scanned = build_image_map_from_nifti(root)
+        for cid in missing:
+            if cid in scanned:
+                mapping[cid] = scanned[cid]
+    return mapping
+
+
 def main() -> None:
     args = parse_args()
     qa_data = json.loads(args.qa_json.read_text(encoding="utf-8"))
@@ -81,7 +118,8 @@ def main() -> None:
     if args.image_map_jsonl:
         image_map = build_image_map_from_jsonl(args.image_map_jsonl)
     if args.nifti_root:
-        image_map = build_image_map_from_nifti(args.nifti_root)
+        # Prefer deterministic CT-RATE layout from case_ids; fallback to scan.
+        image_map = build_image_map_from_case_ids(args.nifti_root, qa_data.keys())
 
     if not image_map:
         raise SystemExit("No image mapping provided. Use --image-map-jsonl or --nifti-root.")
