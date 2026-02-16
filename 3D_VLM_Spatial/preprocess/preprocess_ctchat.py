@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
-"""Preprocess CT NIfTI volumes for CT-CHAT by encoding CT-CLIP embeddings.
+"""Preprocess CT NIfTI volumes for CT-CHAT.
 
 Matches benchmarking/inference/ct-chat/encode_embeddings.py:
 - resample to target spacing (0.75, 0.75, 1.5)
 - clip HU to [-1000, 1000]
 - normalize to [-1, 1] by /1000
 - center crop/pad to 480x480x240
-- encode with CTViT and save .npz (key: arr)
+
+By default, encodes CT-CLIP embeddings (CTViT) and saves .npz (key: arr).
+Use --basic-only to save the preprocessed volume as .npy and skip embeddings.
 """
 from __future__ import annotations
 
@@ -29,9 +31,10 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--nifti-root", type=Path, required=True, help="Root of raw NIfTI volumes (valid_fixed)")
     p.add_argument("--output-root", type=Path, required=True, help="Directory to save .npz embeddings")
     p.add_argument("--output-jsonl", type=Path, required=True, help="Updated JSONL with image_path pointing to .npz")
-    p.add_argument("--encoder-ckpt", type=Path, required=True, help="CT-CLIP encoder checkpoint")
+    p.add_argument("--encoder-ckpt", type=Path, default=None, help="CT-CLIP encoder checkpoint")
     p.add_argument("--device", default="cuda", help="cuda, cuda:0, cpu")
     p.add_argument("--limit", type=int, default=None, help="Limit number of samples")
+    p.add_argument("--basic-only", action="store_true", help="Only preprocess volume; skip CT-CLIP encoding")
     return p.parse_args()
 
 
@@ -59,13 +62,13 @@ def resolve_nifti(case_id: str, root: Path) -> Path:
     return root / name
 
 
-def derive_out_path(case_id: str, out_root: Path) -> Path:
+def derive_out_path(case_id: str, out_root: Path, ext: str = ".npz") -> Path:
     name = Path(case_id).name
     if name.endswith(".nii.gz"):
-        name = name.replace(".nii.gz", ".npz")
-    elif not name.endswith(".npz"):
-        name = f"{name}.npz"
-    stem = name.replace(".npz", "")
+        name = name.replace(".nii.gz", ext)
+    elif not name.endswith(ext):
+        name = f"{name}{ext}"
+    stem = name.replace(ext, "")
     tokens = stem.split("_")
     if len(tokens) >= 3 and tokens[0] == "valid":
         patient = "_".join(tokens[:2])
@@ -176,7 +179,11 @@ def main() -> None:
     args.output_jsonl.parent.mkdir(parents=True, exist_ok=True)
 
     device = torch.device(args.device)
-    image_encoder = load_ctvit(args.encoder_ckpt, device)
+    image_encoder = None
+    if not args.basic_only:
+        if args.encoder_ckpt is None:
+            raise SystemExit("--encoder-ckpt is required unless --basic-only is set.")
+        image_encoder = load_ctvit(args.encoder_ckpt, device)
 
     updated = []
     for idx, rec in enumerate(tqdm(list(iter_jsonl(args.input_jsonl)), desc="Encode CT-CHAT")):
@@ -189,12 +196,17 @@ def main() -> None:
         if not src.is_file():
             raise FileNotFoundError(f"Missing source NIfTI: {src}")
 
-        out_path = derive_out_path(str(case_id), args.output_root)
+        ext = ".npy" if args.basic_only else ".npz"
+        out_path = derive_out_path(str(case_id), args.output_root, ext=ext)
         if not out_path.is_file():
             image = nii_to_tensor(src).to(device=device)
-            with torch.no_grad():
-                encoded = image_encoder(image.unsqueeze(0), return_encoded_tokens=True)
-            np.savez(out_path, arr=encoded.cpu().detach().numpy())
+            if args.basic_only:
+                vol = image.squeeze(0).cpu().numpy()
+                np.save(out_path, vol.astype(np.float32))
+            else:
+                with torch.no_grad():
+                    encoded = image_encoder(image.unsqueeze(0), return_encoded_tokens=True)
+                np.savez(out_path, arr=encoded.cpu().detach().numpy())
 
         new_rec = dict(rec)
         new_rec["image_path"] = str(out_path.resolve())

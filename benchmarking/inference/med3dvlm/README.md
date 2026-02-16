@@ -38,6 +38,58 @@ python run_custom_eval.py \
 
 Inputs must contain `image_path` (either absolute, or relative to `--image-root`) and `question`. If the path looks like `valid_1_a_1.nii.gz`, the script automatically resolves it to `<root>/valid_1/valid_1_a/valid_1_a_1.nii.gz`. Paths ending in `.npy` (produced by the preprocessing script) are also supported. The script adds `<im_patch>` tokens automatically and stores predictions as JSONL with the original metadata. `--model-path` can point to a local directory (`Med3DVLM/models/Med3DVLM-Qwen-2.5-7B`) or a Hugging Face repo id (`MagicXin/Med3DVLM-Qwen-2.5-7B`).
 
+## Current Run (QA v2 Full)
+
+We use the Hugging Face checkpoint:
+
+`MagicXin/Med3DVLM-Qwen-2.5-7B`
+
+Preprocess (case-level JSONL):
+
+```bash
+python 3D_VLM_Spatial/preprocess/preprocess_med3dvlm.py \
+  --input-jsonl 3D_VLM_Spatial/qa_generation_v2/spatial_qa_filtered_full_cases.jsonl \
+  --output-root 3D_VLM_Spatial/preprocess/med3dvlm_npy \
+  --output-jsonl 3D_VLM_Spatial/qa_generation_v2/spatial_qa_filtered_full_cases_med3dvlm.jsonl \
+  --depth 128 --height 256 --width 256
+```
+
+Map preprocessed paths back to QA-level JSONL:
+
+```bash
+python - <<'PY'
+import json
+from pathlib import Path
+
+case_map = {}
+for line in Path("3D_VLM_Spatial/qa_generation_v2/spatial_qa_filtered_full_cases_med3dvlm.jsonl").open():
+    r = json.loads(line)
+    case_map[r["case_id"]] = r["image_path"]
+
+inp = Path("3D_VLM_Spatial/qa_generation_v2/spatial_qa_filtered_full_nifti.jsonl")
+out = Path("3D_VLM_Spatial/qa_generation_v2/spatial_qa_filtered_full_nifti_med3dvlm.jsonl")
+
+with inp.open() as f, out.open("w") as g:
+    for line in f:
+        r = json.loads(line)
+        r["image_path"] = case_map[r["case_id"]]
+        g.write(json.dumps(r) + "\n")
+print("Wrote:", out)
+PY
+```
+
+Inference:
+
+```bash
+python benchmarking/inference/med3dvlm/run_custom_eval.py \
+  --dataset 3D_VLM_Spatial/qa_generation_v2/spatial_qa_filtered_full_nifti_med3dvlm.jsonl \
+  --output 3D_VLM_Spatial/reports/med3dvlm_predictions_full.jsonl \
+  --model-path MagicXin/Med3DVLM-Qwen-2.5-7B \
+  --device cuda:0 \
+  --dtype bfloat16 \
+  --max-new-tokens 256
+```
+
 ## CT-RATE Preprocessing Workflow
 
 Med3DVLM expects 128×256×256 tensors (like the M3D-Cap preparation). Use the helper scripts in this repo before running inference:
