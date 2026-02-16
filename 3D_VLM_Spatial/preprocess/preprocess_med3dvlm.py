@@ -43,19 +43,39 @@ def iter_jsonl(path: Path) -> Iterable[dict]:
 
 
 def resolve_path(raw_path: str, root: Optional[Path]) -> Path:
-    candidate = Path(raw_path)
+    cleaned = str(raw_path).strip().strip('"').strip("'")
+    candidate = Path(cleaned)
     if candidate.is_file():
         return candidate
     if root is None:
         return candidate
-    name = candidate.name or raw_path
-    stem = name.replace(".nii.gz", "")
+    name = candidate.name or cleaned
+    if name.endswith(".nii.gz"):
+        stem = name[:-7]
+    elif name.endswith(".nii"):
+        stem = name[:-4]
+    else:
+        stem = name
     tokens = stem.split("_")
-    if len(tokens) >= 3 and tokens[0] == "valid":
+    if len(tokens) >= 3 and tokens[0].lower() == "valid":
         patient = "_".join(tokens[:2])
         series = "_".join(tokens[:3])
-        return root / patient / series / name
-    return root / name
+        preferred = root / patient / series / name
+        if preferred.is_file():
+            return preferred
+        if not name.endswith((".nii.gz", ".nii")):
+            alt = root / patient / series / f"{name}.nii.gz"
+            if alt.is_file():
+                return alt
+        return preferred
+    fallback = root / name
+    if fallback.is_file():
+        return fallback
+    if not name.endswith((".nii.gz", ".nii")):
+        alt = root / f"{name}.nii.gz"
+        if alt.is_file():
+            return alt
+    return fallback
 
 
 def derive_out_path(output_root: Path, raw_path: str) -> Path:
