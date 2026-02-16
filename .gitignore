@@ -11,10 +11,10 @@ datasets--*/
 # Binary artifacts / logs
 *.log
 *.tmp
-
+*.ipynb
 # Downloaded NIfTI volumes for CT-RATE
 3D_VLM_Spatial/dataset/data_volumes/
-
+3D_VLM_Spatial/preprocess/_smoke_outputs/
 checkpoints/
 # Processed tensors
 3D_VLM_Spatial/processed_volumes/
