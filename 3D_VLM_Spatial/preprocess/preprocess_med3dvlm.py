@@ -154,7 +154,7 @@ def main() -> None:
         sitk_img = sitk.ReadImage(str(src))
         vol = sitk.GetArrayFromImage(sitk_img)  # (D,H,W)
         vol = normalize_minmax(vol)
-        vol = crop_foreground(vol, args.foreground_threshold)
+        # Crop disabled for speed; keep full volume before resize
         vol = resize_array_to_size(vol, (args.depth, args.height, args.width))
 
         out_path = derive_out_path(args.output_root, str(raw_path))
