@@ -32,4 +32,9 @@ benchmarking/inference/ct-chat/models/
 3D_VLM_Spatial/dataset/
 benchmarking/inference/ct2rep/models/
 3D_VLM_Spatial/preprocess/med3dvlm_npy
+3D_VLM_Spatial/preprocess/m3d_npy/
+3D_VLM_Spatial/preprocess/medevalkit_npz/
+3D_VLM_Spatial/preprocess/merlin_npy/
+3D_VLM_Spatial/preprocess/radfm_npy/
+3D_VLM_Spatial/preprocess/vila_m3_npy/
 benchmarking/inference/reg2rg/
