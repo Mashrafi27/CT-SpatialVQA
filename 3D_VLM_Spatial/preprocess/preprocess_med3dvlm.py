@@ -109,6 +109,12 @@ def crop_foreground(arr: np.ndarray, threshold: float) -> np.ndarray:
     coords = np.where(mask)
     z_min, y_min, x_min = (int(c.min()) for c in coords)
     z_max, y_max, x_max = (int(c.max()) for c in coords)
+    if (z_min, y_min, x_min) == (0, 0, 0) and (
+        z_max == arr.shape[0] - 1
+        and y_max == arr.shape[1] - 1
+        and x_max == arr.shape[2] - 1
+    ):
+        return arr
     return arr[z_min:z_max + 1, y_min:y_max + 1, x_min:x_max + 1]
 
 
