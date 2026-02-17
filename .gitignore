@@ -7,7 +7,7 @@
 # Hugging Face cache directories
 cached_datasets/
 datasets--*/
-
+*.tar.gz
 # Binary artifacts / logs
 *.log
 *.tmp
