@@ -29,7 +29,23 @@ SYSTEM_PROMPT = (
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Run Merlin (report gen) on VQA JSONL")
     p.add_argument("--dataset", type=Path, required=True, help="JSONL with case_id/question[/answer]")
-    p.add_argument("--nifti-root", type=Path, required=True, help="Root folder containing resampled NIfTI volumes")
+    p.add_argument(
+        "--nifti-root",
+        type=Path,
+        default=None,
+        help="Root folder containing original NIfTI volumes (required if not using preprocessed .npy)",
+    )
+    p.add_argument(
+        "--npy-root",
+        type=Path,
+        default=None,
+        help="Root folder containing preprocessed .npy volumes (optional)",
+    )
+    p.add_argument(
+        "--use-npy",
+        action="store_true",
+        help="Prefer preprocessed .npy volumes when available",
+    )
     p.add_argument("--output", type=Path, required=True, help="Output JSONL for predictions")
     p.add_argument("--device", type=str, default="cuda:0", help="Device for inference")
     p.add_argument("--max-new-tokens", type=int, default=64, help="Max new tokens to generate")
@@ -82,6 +98,31 @@ def resolve_nifti_path(rec: Dict, root: Path) -> Path:
     return expand_valid_path(name)
 
 
+def resolve_npy_path(rec: Dict, root: Path | None) -> Path | None:
+    if root is None:
+        return None
+
+    def expand_valid_path(name: str) -> Path:
+        stem = name.replace(".nii.gz", "").replace(".nii", "").replace(".npy", "")
+        tokens = stem.split("_")
+        if len(tokens) >= 3 and tokens[0] == "valid":
+            patient = "_".join(tokens[:2])  # valid_1
+            series = "_".join(tokens[:3])   # valid_1_a
+            return root / patient / series / f"{stem}.npy"
+        return root / f"{stem}.npy"
+
+    if "image_path" in rec and rec["image_path"]:
+        p = Path(rec["image_path"])
+        if p.suffix == ".npy" and p.is_absolute():
+            if p.is_file():
+                return p
+            return expand_valid_path(p.name)
+
+    case_id = str(rec.get("case_id") or "")
+    name = Path(case_id).name
+    return expand_valid_path(name)
+
+
 def center_pad_crop(volume: np.ndarray, target_shape: tuple[int, int, int]) -> np.ndarray:
     depth, height, width = volume.shape
     t_depth, t_height, t_width = target_shape
@@ -111,6 +152,19 @@ def center_pad_crop(volume: np.ndarray, target_shape: tuple[int, int, int]) -> n
         start_h:start_h + t_height,
         start_w:start_w + t_width,
     ]
+
+
+def load_volume_from_npy(npy_path: Path, device: torch.device) -> torch.Tensor:
+    arr = np.load(str(npy_path))
+    arr = np.asarray(arr)
+    # Expect D,H,W or 1,D,H,W; normalize to D,H,W
+    if arr.ndim == 4 and arr.shape[0] == 1:
+        arr = arr[0]
+    if arr.ndim != 3:
+        raise ValueError(f"Unexpected npy shape {arr.shape} for {npy_path}")
+    arr = arr.astype("float32")
+    vol = torch.from_numpy(arr)[None, None]  # [1,1,D,H,W]
+    return vol.to(device)
 
 
 def load_volume(nifti_path: Path, device: torch.device) -> torch.Tensor:
@@ -166,10 +220,19 @@ def main() -> None:
     mode = "a" if args.resume else "w"
     with args.output.open(mode) as out_f, torch.no_grad():
         for rec in tqdm(records, desc="Running Merlin"):
-            nifti_path = resolve_nifti_path(rec, args.nifti_root)
-            if not nifti_path.is_file():
-                raise FileNotFoundError(f"Missing NIfTI: {nifti_path}")
-            vol = load_volume(nifti_path, device)
+            vol = None
+            nifti_path: Path | None = None
+            if args.use_npy:
+                npy_path = resolve_npy_path(rec, args.npy_root)
+                if npy_path is not None and npy_path.is_file():
+                    vol = load_volume_from_npy(npy_path, device)
+            if vol is None:
+                if args.nifti_root is None:
+                    raise FileNotFoundError("No NIfTI root provided and .npy not found.")
+                nifti_path = resolve_nifti_path(rec, args.nifti_root)
+                if not nifti_path.is_file():
+                    raise FileNotFoundError(f"Missing NIfTI: {nifti_path}")
+                vol = load_volume(nifti_path, device)
 
             question = rec.get("question") or "Describe the findings in this CT."
             prompt = SYSTEM_PROMPT.format(question=question)
@@ -193,7 +256,7 @@ def main() -> None:
 
             out_rec = {
                 "case_id": rec.get("case_id"),
-                "image_path": str(nifti_path),
+                "image_path": str(nifti_path) if nifti_path else rec.get("image_path"),
                 "question": question,
                 "prediction": prediction,
             }
