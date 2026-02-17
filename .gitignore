@@ -37,4 +37,5 @@ benchmarking/inference/ct2rep/models/
 3D_VLM_Spatial/preprocess/merlin_npy/
 3D_VLM_Spatial/preprocess/radfm_npy/
 3D_VLM_Spatial/preprocess/vila_m3_npy/
+3D_VLM_Spatial/preprocess/ctchat_basic_npy/
 benchmarking/inference/reg2rg/
