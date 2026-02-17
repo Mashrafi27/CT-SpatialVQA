@@ -14,11 +14,6 @@ echo "Dataset: $DATA"
 echo "Output:  $OUT"
 echo "Root:    $ROOT"
 echo "Model:   $MODEL"
-if [[ "$CHUNK" -gt 0 ]]; then
-  echo "Chunk:   $CHUNK"
-else
-  echo "Chunk:   full (no limit)"
-fi
 echo "Stage:   $STAGE"
 echo "Cache:   $CACHE_DIR"
 echo "Total:   $TOTAL"
