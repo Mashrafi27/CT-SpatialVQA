@@ -65,8 +65,7 @@ The demo automatically downloads the requested Hugging Face checkpoint (must be 
 We will reuse the `3D_VLM_Spatial/spatial_qa_processed.jsonl` questions and CT volumes prepared for Med3DVLM. Planned steps:
 
 1. [ ] Implement a slicer/preprocessor that exports CT-RATE volumes into the format expected by `m3` (likely MHA/PNG stacks) while keeping case IDs aligned with our JSONL loader.
-2. [ ] Extend `m3/demo/gradio_m3.py` or add a new `benchmarking/inference/vila-m3/run_custom_eval.py` that ingests one QA pair at a time and queries a chosen VILA-M3 checkpoint via the MONAI agent interface.
-3. [ ] Capture outputs in `3D_VLM_Spatial/reports/vila-m3_predictions.jsonl`, then score them with the Gemini rubric we already use for Med3DVLM.
+2. [ ] Capture outputs in `3D_VLM_Spatial/reports/vila-m3_predictions.jsonl`, then score them with the Gemini rubric we already use for Med3DVLM.
 
 ## Notes / TODO
 
