@@ -222,6 +222,7 @@ def main() -> None:
     if args.limit and args.limit > 0:
         total = min(total, args.limit)
 
+    slice_cache = {}
     with Path(args.dataset).open() as f_in, output_path.open("a") as f_out:
         for idx, line in enumerate(tqdm(f_in, total=total, desc="Running Lingshu")):
             if not line.strip():
@@ -235,21 +236,25 @@ def main() -> None:
             if (case_id, question) in processed:
                 continue
 
-            slice_rgbs = None
-            image_path = ex.get("image_path")
-            if image_path:
-                slice_rgbs = load_preprocessed(Path(image_path), args.num_slices)
+            if case_id in slice_cache:
+                slice_rgbs = slice_cache[case_id]
+            else:
+                slice_rgbs = None
+                image_path = ex.get("image_path")
+                if image_path:
+                    slice_rgbs = load_preprocessed(Path(image_path), args.num_slices)
 
-            if slice_rgbs is None:
-                nifti_path = derive_nifti_path(nifti_root, case_id)
-                if not nifti_path.exists():
-                    raise FileNotFoundError(f"Missing NIfTI: {nifti_path}")
-                vol = load_volume(nifti_path)
-                slice_idxs = sample_indices(vol.shape[0], args.num_slices)
-                slice_rgbs = [
-                    make_rgb_window(vol[i], args.resize, args.resize_longest, args.pad_square)
-                    for i in slice_idxs
-                ]
+                if slice_rgbs is None:
+                    nifti_path = derive_nifti_path(nifti_root, case_id)
+                    if not nifti_path.exists():
+                        raise FileNotFoundError(f"Missing NIfTI: {nifti_path}")
+                    vol = load_volume(nifti_path)
+                    slice_idxs = sample_indices(vol.shape[0], args.num_slices)
+                    slice_rgbs = [
+                        make_rgb_window(vol[i], args.resize, args.resize_longest, args.pad_square)
+                        for i in slice_idxs
+                    ]
+                slice_cache[case_id] = slice_rgbs
 
             messages = build_messages(slice_rgbs, args.instruction, question, args.query_suffix)
             text = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
