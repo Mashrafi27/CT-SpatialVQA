@@ -154,6 +154,36 @@ def load_volume(nifti_path: Path) -> np.ndarray:
     return vol
 
 
+def _downsample_slices(slices: List[np.ndarray], keep: int) -> List[np.ndarray]:
+    if keep <= 0 or keep >= len(slices):
+        return slices
+    if keep == 1:
+        return [slices[len(slices) // 2]]
+    idxs = np.linspace(0, len(slices) - 1, keep)
+    return [slices[int(round(i))] for i in idxs]
+
+
+def load_preprocessed(image_path: Path, keep_slices: int) -> List[np.ndarray] | None:
+    if not image_path.exists():
+        return None
+    if image_path.suffix == ".npz":
+        data = np.load(image_path)
+        if "slices" not in data:
+            raise ValueError(f"Missing 'slices' in {image_path}")
+        slices = data["slices"]
+        if slices.ndim != 4 or slices.shape[-1] != 3:
+            raise ValueError(f"Unexpected slices shape {slices.shape} in {image_path}")
+        slice_list = [slices[i] for i in range(slices.shape[0])]
+        return _downsample_slices(slice_list, keep_slices)
+    if image_path.suffix == ".npy":
+        vol = np.load(image_path)
+        if vol.ndim != 3:
+            raise ValueError(f"Unexpected volume shape {vol.shape} in {image_path}")
+        slice_idxs = sample_indices(vol.shape[0], keep_slices)
+        return [make_rgb_window(vol[i]) for i in slice_idxs]
+    return None
+
+
 def iter_jsonl(path: Path) -> Iterable[dict]:
     with path.open() as f:
         for line in f:
@@ -205,18 +235,21 @@ def main() -> None:
             if (case_id, question) in processed:
                 continue
 
-            nifti_path = derive_nifti_path(nifti_root, case_id)
-            if not nifti_path.exists():
-                image_path = ex.get("image_path")
-                if image_path and Path(image_path).exists():
-                    vol = np.load(image_path)
-                else:
-                    raise FileNotFoundError(f"Missing NIfTI: {nifti_path}")
-            else:
-                vol = load_volume(nifti_path)
+            slice_rgbs = None
+            image_path = ex.get("image_path")
+            if image_path:
+                slice_rgbs = load_preprocessed(Path(image_path), args.num_slices)
 
-            slice_idxs = sample_indices(vol.shape[0], args.num_slices)
-            slice_rgbs = [make_rgb_window(vol[i], args.resize, args.resize_longest, args.pad_square) for i in slice_idxs]
+            if slice_rgbs is None:
+                nifti_path = derive_nifti_path(nifti_root, case_id)
+                if not nifti_path.exists():
+                    raise FileNotFoundError(f"Missing NIfTI: {nifti_path}")
+                vol = load_volume(nifti_path)
+                slice_idxs = sample_indices(vol.shape[0], args.num_slices)
+                slice_rgbs = [
+                    make_rgb_window(vol[i], args.resize, args.resize_longest, args.pad_square)
+                    for i in slice_idxs
+                ]
 
             messages = build_messages(slice_rgbs, args.instruction, question, args.query_suffix)
             text = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
