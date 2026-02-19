@@ -35,6 +35,11 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--device", default="cuda", help="cuda, cuda:0, cpu")
     p.add_argument("--limit", type=int, default=None, help="Limit number of samples")
     p.add_argument("--basic-only", action="store_true", help="Only preprocess volume; skip CT-CLIP encoding")
+    p.add_argument(
+        "--use-basic-npy",
+        action="store_true",
+        help="If image_path points to a preprocessed .npy (D,H,W), load it instead of reprocessing NIfTI.",
+    )
     return p.parse_args()
 
 
@@ -192,14 +197,28 @@ def main() -> None:
         case_id = rec.get("case_id") or rec.get("image_path")
         if not case_id:
             raise ValueError("Missing case_id/image_path")
+        image = None
+        if args.use_basic_npy:
+            image_path = rec.get("image_path")
+            if image_path:
+                npy_path = Path(image_path)
+                if npy_path.suffix == ".npy" and npy_path.is_file():
+                    vol = np.load(npy_path).astype(np.float32)
+                    if vol.ndim != 3:
+                        raise ValueError(f"Expected (D,H,W) in {npy_path}, got {vol.shape}")
+                    image = torch.tensor(vol).unsqueeze(0)
+
         src = resolve_nifti(str(case_id), args.nifti_root)
-        if not src.is_file():
-            raise FileNotFoundError(f"Missing source NIfTI: {src}")
+        if image is None:
+            if not src.is_file():
+                raise FileNotFoundError(f"Missing source NIfTI: {src}")
 
         ext = ".npy" if args.basic_only else ".npz"
         out_path = derive_out_path(str(case_id), args.output_root, ext=ext)
         if not out_path.is_file():
-            image = nii_to_tensor(src).to(device=device)
+            if image is None:
+                image = nii_to_tensor(src)
+            image = image.to(device=device)
             if args.basic_only:
                 vol = image.squeeze(0).cpu().numpy()
                 np.save(out_path, vol.astype(np.float32))

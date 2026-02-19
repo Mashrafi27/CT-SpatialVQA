@@ -25,7 +25,7 @@ PROMPT_TEMPLATE = """You are a medical QA evaluator.
 For each item determine if the model prediction semantically matches the ground-truth answer.
 Consider synonyms and equivalent medical phrasing as correct, but require the same clinical fact.
 Respond strictly as JSON list where each element is:
-{{"index": <int>, "is_correct": true/false, "reasoning": "short justification"}}
+{{"index": <int>, "is_correct": true/false}}
 
 Batch:
 {batch}

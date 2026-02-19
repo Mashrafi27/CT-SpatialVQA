@@ -25,9 +25,9 @@ except Exception as exc:  # pragma: no cover
     raise SystemExit("Missing nibabel. Install with: pip install nibabel") from exc
 
 DEFAULT_WINDOWS: List[Tuple[int, int]] = [
-    (-1024, 1024),
-    (-135, 215),
-    (0, 80),
+    (-1225, 1025),  # bone/lung (ww=2250, wl=-100)
+    (-135, 215),    # soft tissue (ww=350, wl=40)
+    (0, 80),        # brain (ww=80, wl=40)
 ]
 
 
@@ -38,7 +38,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--output-root", type=Path, required=True, help="Where to save .npz slices")
     p.add_argument("--output-jsonl", type=Path, required=True, help="Updated JSONL path")
     p.add_argument("--num-slices", type=int, default=85)
-    p.add_argument("--resize", type=int, default=0)
+    p.add_argument("--resize", type=int, default=896)
     p.add_argument("--resize-longest", type=int, default=0)
     p.add_argument("--pad-square", action="store_true")
     p.add_argument("--limit", type=int, default=0, help="Only process first N records (0 = all)")
