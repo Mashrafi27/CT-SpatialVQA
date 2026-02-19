@@ -87,8 +87,12 @@ def load_existing_output(path: Path) -> Optional[List[dict]]:
 
 
 def extract_text(response) -> str:
-    if getattr(response, "text", None):
-        return response.text
+    try:
+        if getattr(response, "text", None):
+            return response.text
+    except Exception:
+        # Some responses raise when text is blocked (e.g., copyright).
+        pass
     parts = []
     for candidate in getattr(response, "candidates", []) or []:
         content = getattr(candidate, "content", None)
@@ -198,6 +202,20 @@ def judge_with_model(
                 time.sleep(sleep)
             continue
         text = strip_code_fence(extract_text(response))
+        if not text.strip():
+            for record in batch:
+                item = {
+                    "case_id": record.get("case_id"),
+                    "question": record.get("question"),
+                    "answer": record.get("answer"),
+                    "prediction": record.get(prediction_field),
+                    "is_correct": None,
+                    "reasoning": "BLOCKED_OR_EMPTY_RESPONSE",
+                }
+                judgments.append(item)
+            if sleep:
+                time.sleep(sleep)
+            continue
         text = sanitize_json(text)
         try:
             parsed = json.loads(text)
