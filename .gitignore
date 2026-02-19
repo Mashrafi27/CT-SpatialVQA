@@ -18,6 +18,7 @@ datasets--*/
 3D_VLM_Spatial/preprocess/_smoke_outputs/
 checkpoints/
 # Processed tensors
+3D_VLM_Spatial/preprocess/medgemma_npz_896/
 3D_VLM_Spatial/processed_volumes/
 3D_VLM_Spatial/reports/vista3d_cache/
 3D_VLM_Spatial/reports/vista3d_cache/
