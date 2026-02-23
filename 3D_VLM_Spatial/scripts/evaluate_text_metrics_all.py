@@ -3,7 +3,6 @@
 
 Metrics:
 - Sentence-BERT cosine similarity
-- BERTScore (P/R/F1)
 - BLEU (sacrebleu)
 - ROUGE (rouge1/rouge2/rougeL)
 - METEOR (nltk)
@@ -18,7 +17,6 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 import numpy as np
-import torch
 from tqdm import tqdm
 
 
@@ -60,9 +58,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--lower", action="store_true")
 
     parser.add_argument("--sbert-model", default="all-MiniLM-L6-v2")
-    parser.add_argument("--bertscore-model", default="roberta-base")
     parser.add_argument("--no-sbert", action="store_true")
-    parser.add_argument("--no-bertscore", action="store_true")
     parser.add_argument("--no-bleu", action="store_true")
     parser.add_argument("--no-rouge", action="store_true")
     parser.add_argument("--no-meteor", action="store_true")
@@ -120,24 +116,6 @@ def compute_sbert(preds: List[str], refs: List[str], model, batch_size: int = 64
     return {"sbert_cosine": float(np.mean(sims))}
 
 
-def compute_bertscore(preds: List[str], refs: List[str], scorer, batch_size: int = 32) -> Dict[str, float]:
-    p_all, r_all, f1_all = [], [], []
-    for start in tqdm(range(0, len(preds), batch_size), desc="BERTScore batches", leave=False):
-        end = start + batch_size
-        p, r, f1 = scorer.score(preds[start:end], refs[start:end])
-        p_all.append(p)
-        r_all.append(r)
-        f1_all.append(f1)
-    p = torch.cat(p_all)
-    r = torch.cat(r_all)
-    f1 = torch.cat(f1_all)
-    return {
-        "bertscore_precision": float(p.mean()),
-        "bertscore_recall": float(r.mean()),
-        "bertscore_f1": float(f1.mean()),
-    }
-
-
 def compute_bleu(preds: List[str], refs: List[str]) -> Dict[str, float]:
     import sacrebleu
     for _ in tqdm(range(1), desc="BLEU", leave=False):
@@ -193,11 +171,6 @@ def main() -> None:
         from sentence_transformers import SentenceTransformer
         sbert_model = SentenceTransformer(args.sbert_model)
 
-    bert_scorer = None
-    if not args.no_bertscore:
-        from bert_score import BERTScorer
-        bert_scorer = BERTScorer(model_type=args.bertscore_model, lang="en", rescale_with_baseline=False)
-
     rouge_scorer = None
     if not args.no_rouge:
         from rouge_score import rouge_scorer as rouge_scorer_mod
@@ -245,8 +218,6 @@ def main() -> None:
 
         if sbert_model is not None:
             row.update(compute_sbert(preds, refs, sbert_model))
-        if bert_scorer is not None:
-            row.update(compute_bertscore(preds, refs, bert_scorer))
         if not args.no_bleu:
             row.update(compute_bleu(preds, refs))
         if rouge_scorer is not None:

@@ -40,3 +40,6 @@
 [submodule "benchmarking/inference/reg2rg/repo_fresh"]
 	path = benchmarking/inference/reg2rg/repo_fresh
 	url = https://github.com/zhi-xuan-chen/Reg2RG.git
+[submodule "benchmarking/inference/alignscore/repo"]
+	path = benchmarking/inference/alignscore/repo
+	url = https://github.com/yuh-zha/AlignScore.git

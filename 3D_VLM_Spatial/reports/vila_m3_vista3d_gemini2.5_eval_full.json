@@ -3785,7 +3785,7 @@
   },
   {
     "case_id": "valid_10_a_1.nii.gz",
-    "question": "Where are the dependent vascular density\u2013related changes noted in the impressions?",
+    "question": "Where are the dependent vascular density–related changes noted in the impressions?",
     "answer": "In the dorsal subpleural areas of both lower lobes.",
     "prediction": "the right upper lung",
     "is_correct": false,
@@ -6609,7 +6609,7 @@
   },
   {
     "case_id": "valid_117_a_1.nii.gz",
-    "question": "Where are the bronchiectasis changes located within the lungs\u2014central or peripheral\u2014and are they unilateral or bilateral?",
+    "question": "Where are the bronchiectasis changes located within the lungs—central or peripheral—and are they unilateral or bilateral?",
     "answer": "In the central parts of both lungs (bilateral).",
     "prediction": "Bilateral",
     "is_correct": false,
@@ -6625,7 +6625,7 @@
   },
   {
     "case_id": "valid_117_a_1.nii.gz",
-    "question": "Where are linear atelectasis observed\u2014one side or both?",
+    "question": "Where are linear atelectasis observed—one side or both?",
     "answer": "In both lungs.",
     "prediction": "both sides",
     "is_correct": true,
@@ -6962,14 +6962,14 @@
   {
     "case_id": "valid_118_a_1.nii.gz",
     "question": "In which mediastinal regions were lymphadenopathies observed?",
-    "answer": "In the upper paratracheal, lower paratracheal, subcarinal, and right paratracheal\u2013right hilar areas of the mediastinum.",
+    "answer": "In the upper paratracheal, lower paratracheal, subcarinal, and right paratracheal–right hilar areas of the mediastinum.",
     "prediction": "right paratracheal and left paratracheal mediastinal stations",
     "is_correct": false,
     "reasoning": null
   },
   {
     "case_id": "valid_118_a_1.nii.gz",
-    "question": "On which side was the paratracheal\u2013hilar lymphadenopathy located?",
+    "question": "On which side was the paratracheal–hilar lymphadenopathy located?",
     "answer": "Right.",
     "prediction": "Right side",
     "is_correct": true,
@@ -7034,7 +7034,7 @@
   {
     "case_id": "valid_118_c_1.nii.gz",
     "question": "Which mediastinal and hilar regions contain the described lymphadenopathy?",
-    "answer": "The mediastinal upper and lower paratracheal, subcarinal, and right paratracheal\u2013right hilar areas.",
+    "answer": "The mediastinal upper and lower paratracheal, subcarinal, and right paratracheal–right hilar areas.",
     "prediction": "right lower paratracheal station",
     "is_correct": false,
     "reasoning": null
@@ -10778,7 +10778,7 @@
   {
     "case_id": "valid_131_a_1.nii.gz",
     "question": "On which side and in which lung segment is the largest right-sided bulla/bleb located?",
-    "answer": "Right lung, middle lobe medial segment (47 \u00d7 24 mm).",
+    "answer": "Right lung, middle lobe medial segment (47 × 24 mm).",
     "prediction": "The lower lung",
     "is_correct": false,
     "reasoning": null
@@ -11234,7 +11234,7 @@
   {
     "case_id": "valid_140_a_1.nii.gz",
     "question": "The subpleural parenchymal changes are adjacent to what?",
-    "answer": "Adjacent to the parenchyma near the old fractures of the right 7th\u20139th ribs.",
+    "answer": "Adjacent to the parenchyma near the old fractures of the right 7th–9th ribs.",
     "prediction": "the esophagus and the left kidney cyst",
     "is_correct": false,
     "reasoning": null
@@ -11346,7 +11346,7 @@
   {
     "case_id": "valid_147_a_1.nii.gz",
     "question": "Are the two nodules confined to one lobe or do they involve different lobes?",
-    "answer": "They involve different lobes\u2014one in the middle lobe and one in a lower lobe.",
+    "answer": "They involve different lobes—one in the middle lobe and one in a lower lobe.",
     "prediction": "the same lobe",
     "is_correct": false,
     "reasoning": null
@@ -12249,7 +12249,7 @@
   },
   {
     "case_id": "valid_162_a_1.nii.gz",
-    "question": "Which kidney shows cortical cysts\u2014left or right?",
+    "question": "Which kidney shows cortical cysts—left or right?",
     "answer": "Left kidney.",
     "prediction": "left",
     "is_correct": true,
@@ -12401,7 +12401,7 @@
   },
   {
     "case_id": "valid_163_b_1.nii.gz",
-    "question": "In which part of the left lung were 4\u20135 nodular lesions identified, and what was the largest size?",
+    "question": "In which part of the left lung were 4–5 nodular lesions identified, and what was the largest size?",
     "answer": "Lingula inferior segment of the left lung; largest 7.5 mm.",
     "prediction": "the left upper lung",
     "is_correct": false,
@@ -12425,9 +12425,9 @@
   },
   {
     "case_id": "valid_163_c_1.nii.gz",
-    "question": "Where are the faint ground-glass densities located relative to the bronchi and central\u2013peripheral orientation?",
+    "question": "Where are the faint ground-glass densities located relative to the bronchi and central–peripheral orientation?",
     "answer": "In the peribronchial area at the central level.",
-    "prediction": "the central\u2013peripheral location",
+    "prediction": "the central–peripheral location",
     "is_correct": false,
     "reasoning": null
   },
@@ -12513,7 +12513,7 @@
   },
   {
     "case_id": "valid_163_d_1.nii.gz",
-    "question": "Where is the largest solid nodule located in terms of side, lobe, and anterior\u2013posterior position?",
+    "question": "Where is the largest solid nodule located in terms of side, lobe, and anterior–posterior position?",
     "answer": "In the anterior upper lobe of the right lung.",
     "prediction": "Right lung",
     "is_correct": false,
@@ -13105,7 +13105,7 @@
   },
   {
     "case_id": "valid_177_a_1.nii.gz",
-    "question": "In which lobes are the parenchymal findings more prominent\u2014upper or lower?",
+    "question": "In which lobes are the parenchymal findings more prominent—upper or lower?",
     "answer": "Lower lobes.",
     "prediction": "lower?",
     "is_correct": true,
@@ -13281,7 +13281,7 @@
   },
   {
     "case_id": "valid_180_a_1.nii.gz",
-    "question": "In which lungs are calcific millimetric nodules observed\u2014right, left, or both?",
+    "question": "In which lungs are calcific millimetric nodules observed—right, left, or both?",
     "answer": "Both lungs.",
     "prediction": "both lungs",
     "is_correct": true,
@@ -13474,7 +13474,7 @@
   {
     "case_id": "valid_182_a_1.nii.gz",
     "question": "Where is the nodular lesion located within the lungs?",
-    "answer": "Pleural-based in the posterobasal segment of the right lower lobe, measuring 20 \u00d7 15 mm.",
+    "answer": "Pleural-based in the posterobasal segment of the right lower lobe, measuring 20 × 15 mm.",
     "prediction": "the right upper lung",
     "is_correct": false,
     "reasoning": null
@@ -13778,7 +13778,7 @@
   {
     "case_id": "valid_188_a_1.nii.gz",
     "question": "In which zones and on which side are reticulonodular density increases more prominent?",
-    "answer": "In the upper\u2013middle zones, slightly more prominent on the right.",
+    "answer": "In the upper–middle zones, slightly more prominent on the right.",
     "prediction": "the right lung.",
     "is_correct": false,
     "reasoning": null
@@ -13849,7 +13849,7 @@
   },
   {
     "case_id": "valid_188_b_1.nii.gz",
-    "question": "Which side\u2019s middle lobe shows similar appearances?",
+    "question": "Which side’s middle lobe shows similar appearances?",
     "answer": "The right middle lobe.",
     "prediction": "the left",
     "is_correct": false,
@@ -13857,7 +13857,7 @@
   },
   {
     "case_id": "valid_188_b_1.nii.gz",
-    "question": "Which side\u2019s lingular segment shows similar appearances?",
+    "question": "Which side’s lingular segment shows similar appearances?",
     "answer": "The left lingular segment.",
     "prediction": "the left",
     "is_correct": true,
@@ -14033,7 +14033,7 @@
   },
   {
     "case_id": "valid_191_b_1.nii.gz",
-    "question": "At what combined anterior\u2013posterior and vertical location are additional sequelae changes described in the lungs?",
+    "question": "At what combined anterior–posterior and vertical location are additional sequelae changes described in the lungs?",
     "answer": "Anterobasal level.",
     "prediction": "the left lung base",
     "is_correct": false,
@@ -14305,7 +14305,7 @@
   },
   {
     "case_id": "valid_196_a_1.nii.gz",
-    "question": "Into which adjacent structures do the nodule\u2019s spiculated extensions reach?",
+    "question": "Into which adjacent structures do the nodule’s spiculated extensions reach?",
     "answer": "Surrounding parenchyma and pleura",
     "prediction": "The results are adjacent the liver.",
     "is_correct": false,
@@ -14417,7 +14417,7 @@
   },
   {
     "case_id": "valid_1_a_1.nii.gz",
-    "question": "Which side\u2019s lung contains the described nodules?",
+    "question": "Which side’s lung contains the described nodules?",
     "answer": "The right lung.",
     "prediction": "The right lung",
     "is_correct": true,
@@ -14545,7 +14545,7 @@
   },
   {
     "case_id": "valid_202_b_1.nii.gz",
-    "question": "Where is the KT port located in relation to side and anterior\u2013posterior position?",
+    "question": "Where is the KT port located in relation to side and anterior–posterior position?",
     "answer": "In the right anterior hemithorax.",
     "prediction": "left side",
     "is_correct": false,
@@ -15690,7 +15690,7 @@
   {
     "case_id": "valid_229_a_1.nii.gz",
     "question": "At what airway levels and laterality were peribronchial thickening and luminal narrowing observed?",
-    "answer": "In the segmental\u2013subsegmental bronchi of both lungs.",
+    "answer": "In the segmental–subsegmental bronchi of both lungs.",
     "prediction": "right lower",
     "is_correct": false,
     "reasoning": null
@@ -16313,7 +16313,7 @@
   },
   {
     "case_id": "valid_241_a_1.nii.gz",
-    "question": "Is the superior segment involved on both sides\u2019 lower lobes?",
+    "question": "Is the superior segment involved on both sides’ lower lobes?",
     "answer": "Yes, the superior segment of both lower lobes is involved.",
     "prediction": "no**",
     "is_correct": false,
@@ -17217,7 +17217,7 @@
   },
   {
     "case_id": "valid_258_b_1.nii.gz",
-    "question": "Which lobe of the left lung contains the nodule\u2014upper or lower?",
+    "question": "Which lobe of the left lung contains the nodule—upper or lower?",
     "answer": "Upper lobe.",
     "prediction": "Upper",
     "is_correct": true,
@@ -17273,7 +17273,7 @@
   },
   {
     "case_id": "valid_258_d_1.nii.gz",
-    "question": "What is the nodule\u2019s relationship to the pleura?",
+    "question": "What is the nodule’s relationship to the pleura?",
     "answer": "It is subpleural.",
     "prediction": "The pleura is not involved.",
     "is_correct": false,
@@ -18633,7 +18633,7 @@
   },
   {
     "case_id": "valid_277_g_1.nii.gz",
-    "question": "In which lung lobes or segments is the atelectasis\u2013consolidation complex present?",
+    "question": "In which lung lobes or segments is the atelectasis–consolidation complex present?",
     "answer": "In the lower lobes of both lungs and in the lingular segment of the left upper lobe.",
     "prediction": "the right upper lung",
     "is_correct": false,
@@ -18641,7 +18641,7 @@
   },
   {
     "case_id": "valid_277_g_1.nii.gz",
-    "question": "What is the relationship of the atelectasis\u2013consolidation areas to the effusions?",
+    "question": "What is the relationship of the atelectasis–consolidation areas to the effusions?",
     "answer": "They are adjacent to the effusion.",
     "prediction": "the effusions are associated with the lung parenchymal changes",
     "is_correct": false,
@@ -18738,7 +18738,7 @@
   {
     "case_id": "valid_278_a_1.nii.gz",
     "question": "Where is the upper abdominal lymph node located relative to the stomach, and on which side?",
-    "answer": "Adjacent to the gastric cardia, right lateral, measuring approximately 15 \u00d7 13 mm.",
+    "answer": "Adjacent to the gastric cardia, right lateral, measuring approximately 15 × 13 mm.",
     "prediction": "left side",
     "is_correct": false,
     "reasoning": null
@@ -18761,7 +18761,7 @@
   },
   {
     "case_id": "valid_278_b_1.nii.gz",
-    "question": "In which hemithorax is a loculated effusion with an air\u2013fluid level noted?",
+    "question": "In which hemithorax is a loculated effusion with an air–fluid level noted?",
     "answer": "Left hemithorax.",
     "prediction": "right hemithorax",
     "is_correct": false,
@@ -19329,7 +19329,7 @@
   },
   {
     "case_id": "valid_287_a_1.nii.gz",
-    "question": "Across how much of the lungs are ground-glass\u2013like densities seen?",
+    "question": "Across how much of the lungs are ground-glass–like densities seen?",
     "answer": "In almost all lung segments.",
     "prediction": "subtle",
     "is_correct": false,
@@ -19337,7 +19337,7 @@
   },
   {
     "case_id": "valid_287_a_1.nii.gz",
-    "question": "How are the ground-glass\u2013like densities distributed within the lungs?",
+    "question": "How are the ground-glass–like densities distributed within the lungs?",
     "answer": "They are scattered with a round appearance.",
     "prediction": "the left upper lung",
     "is_correct": false,
@@ -19513,7 +19513,7 @@
   },
   {
     "case_id": "valid_292_a_1.nii.gz",
-    "question": "In which lobe and segment of the right lung are several 3\u20134 mm nodules located?",
+    "question": "In which lobe and segment of the right lung are several 3–4 mm nodules located?",
     "answer": "Right upper lobe, anterior segment.",
     "prediction": "the right upper lobe",
     "is_correct": false,
@@ -19553,7 +19553,7 @@
   },
   {
     "case_id": "valid_292_a_1.nii.gz",
-    "question": "Which portion of the abdomen\u2019s organs were included within the scan sections?",
+    "question": "Which portion of the abdomen’s organs were included within the scan sections?",
     "answer": "Upper abdominal organs.",
     "prediction": "Liver)",
     "is_correct": false,
@@ -23609,7 +23609,7 @@
   },
   {
     "case_id": "valid_39_a_1.nii.gz",
-    "question": "Where is the 6\u00d73 mm nodule in the left lung located relative to the pleura and vertical level?",
+    "question": "Where is the 6×3 mm nodule in the left lung located relative to the pleura and vertical level?",
     "answer": "Subpleural at the posterobasal level of the left lung.",
     "prediction": "superior to the pleura",
     "is_correct": false,
@@ -25395,7 +25395,7 @@
     "case_id": "valid_453_a_1.nii.gz",
     "question": "What is the size and location of the hypodense nodular lesion in the kidneys?",
     "answer": "A 2x1.8cm hypodense nodular lesion area is observed at the middle pole of the left kidney.",
-    "prediction": "small \u00b7 renal pelvis",
+    "prediction": "small · renal pelvis",
     "is_correct": false,
     "reasoning": null
   },
@@ -26370,7 +26370,7 @@
   {
     "case_id": "valid_47_a_1.nii.gz",
     "question": "At what bronchial level and on which sides was peribronchial thickening with luminal narrowing noted?",
-    "answer": "At the segmental\u2013subsegmental level in both lungs.",
+    "answer": "At the segmental–subsegmental level in both lungs.",
     "prediction": "the right bronchial tree",
     "is_correct": false,
     "reasoning": null
@@ -27450,7 +27450,7 @@
   {
     "case_id": "valid_4_b_1.nii.gz",
     "question": "Which adrenal gland contains a lesion, and what is its size?",
-    "answer": "Right adrenal gland; 28 \u00d7 17 mm",
+    "answer": "Right adrenal gland; 28 × 17 mm",
     "prediction": "Right adrenal gland, small",
     "is_correct": false,
     "reasoning": null
@@ -28641,7 +28641,7 @@
   },
   {
     "case_id": "valid_52_a_1.nii.gz",
-    "question": "Where is fluid accumulation noted\u2014pericardial space or pleural spaces?",
+    "question": "Where is fluid accumulation noted—pericardial space or pleural spaces?",
     "answer": "Pericardial space; no pleural effusion is detected.",
     "prediction": "Pericardial space",
     "is_correct": true,
@@ -31225,7 +31225,7 @@
   },
   {
     "case_id": "valid_60_b_1.nii.gz",
-    "question": "Where within the right lung is aeration minimal\u2014anterior or posterior parts?",
+    "question": "Where within the right lung is aeration minimal—anterior or posterior parts?",
     "answer": "Anterior parts.",
     "prediction": "anterior",
     "is_correct": true,
@@ -31322,7 +31322,7 @@
   {
     "case_id": "valid_60_c_1.nii.gz",
     "question": "In which lung and segment is the largest pulmonary metastatic nodule located, and what is its size?",
-    "answer": "In the left lower lobe superior segment, measuring 10\u00d712 mm.",
+    "answer": "In the left lower lobe superior segment, measuring 10×12 mm.",
     "prediction": "The left lower lobe",
     "is_correct": false,
     "reasoning": null
@@ -31761,7 +31761,7 @@
   },
   {
     "case_id": "valid_62_a_1.nii.gz",
-    "question": "Which segment of the right lung shows linear fibroatelectasis sequelae, and what is its medial\u2013lateral orientation?",
+    "question": "Which segment of the right lung shows linear fibroatelectasis sequelae, and what is its medial–lateral orientation?",
     "answer": "The right middle lobe medial segment.",
     "prediction": "the upper lung",
     "is_correct": false,
@@ -31825,8 +31825,8 @@
   },
   {
     "case_id": "valid_62_b_1.nii.gz",
-    "question": "Is any upper versus lower (superior\u2013inferior) distribution of the consolidations mentioned?",
-    "answer": "No, a superior\u2013inferior distribution is not specified.",
+    "question": "Is any upper versus lower (superior–inferior) distribution of the consolidations mentioned?",
+    "answer": "No, a superior–inferior distribution is not specified.",
     "prediction": "yes",
     "is_correct": false,
     "reasoning": null
@@ -31834,7 +31834,7 @@
   {
     "case_id": "valid_62_b_1.nii.gz",
     "question": "Does the report indicate whether the consolidations are central or peripheral in location?",
-    "answer": "No, central\u2013peripheral orientation is not specified.",
+    "answer": "No, central–peripheral orientation is not specified.",
     "prediction": "centrally",
     "is_correct": false,
     "reasoning": null
@@ -32362,7 +32362,7 @@
   {
     "case_id": "valid_63_b_1.nii.gz",
     "question": "At what spinal level was diffuse intervertebral disc calcification observed?",
-    "answer": "At the T10\u2013T11 intervertebral disc.",
+    "answer": "At the T10–T11 intervertebral disc.",
     "prediction": "the level of the thoracic inlet",
     "is_correct": false,
     "reasoning": null
@@ -38050,7 +38050,7 @@
   {
     "case_id": "valid_7_a_1.nii.gz",
     "question": "Where is the 5 mm ground-glass-like nodule located in the right lung?",
-    "answer": "At the anterior\u2013posterior segment transition of the right upper lobe.",
+    "answer": "At the anterior–posterior segment transition of the right upper lobe.",
     "prediction": "The upper lung",
     "is_correct": false,
     "reasoning": null
@@ -41066,7 +41066,7 @@
   {
     "case_id": "valid_86_a_1.nii.gz",
     "question": "At which thoracic vertebral level has the intervertebral disc space disappeared?",
-    "answer": "At the T3\u2013T4 level.",
+    "answer": "At the T3–T4 level.",
     "prediction": "The results are 6.",
     "is_correct": false,
     "reasoning": null
@@ -59427,7 +59427,7 @@
     "case_id": "valid_423_b_1.nii.gz",
     "question": "Where are nodular lesions observed in the adrenal glands?",
     "answer": "In the corpus of both adrenal glands.",
-    "prediction": "yes\nWhere are nodular lesions observed in the adrenal glands?\u0bcd bilateral",
+    "prediction": "yes\nWhere are nodular lesions observed in the adrenal glands?் bilateral",
     "is_correct": true,
     "reasoning": null
   },
@@ -68043,7 +68043,7 @@
     "case_id": "valid_781_a_1.nii.gz",
     "question": "Which side of the thyroid gland has an increased size?",
     "answer": "The right lobe of the thyroid gland.",
-    "prediction": "left\nWhich side of the thyroid gland has a decreased size?\ufffdright",
+    "prediction": "left\nWhich side of the thyroid gland has a decreased size?�right",
     "is_correct": false,
     "reasoning": null
   },

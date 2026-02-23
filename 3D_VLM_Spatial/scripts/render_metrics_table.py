@@ -94,7 +94,6 @@ def main() -> None:
         ("LLM as Judge", ["-" for _ in model_order]),
         ("LLM as Jury", ["-" for _ in model_order]),
         ("SBERT Cosine Sim.", [fmt(get(m, "sbert_cosine"), args.precision) for m in model_order]),
-        ("BERTScore (F1)", [fmt(get(m, "bertscore_f1"), args.precision) for m in model_order]),
         ("BLEU", [fmt(get(m, "bleu"), args.precision) for m in model_order]),
         ("ROUGE-L", [fmt(get(m, "rougeL_f"), args.precision) for m in model_order]),
         ("METEOR", [fmt(get(m, "meteor"), args.precision) for m in model_order]),
@@ -117,7 +116,7 @@ def main() -> None:
     for i, (name, values) in enumerate(rows):
         line = " & ".join([name] + values) + " \\\\"
         lines.append(line)
-        if name in ("LLM as Jury", "BERTScore (F1)"):
+        if name in ("LLM as Jury",):
             lines.append("\\addlinespace")
     lines.append("\\bottomrule")
     lines.append("\\end{tabular}")

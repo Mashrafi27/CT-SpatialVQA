@@ -3,7 +3,6 @@
 
 Metrics:
 - Sentence-BERT cosine similarity
-- BERTScore (P/R/F1)
 - BLEU (sacrebleu)
 - ROUGE (rouge1/rouge2/rougeL)
 - METEOR (nltk)
@@ -29,11 +28,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--lower", action="store_true", help="Lowercase both sides")
     parser.add_argument("--per-item", type=Path, default=None, help="Optional JSONL with per-item metrics")
 
-    # SBERT / BERTScore
+    # SBERT
     parser.add_argument("--sbert-model", default="all-MiniLM-L6-v2", help="SentenceTransformer model")
-    parser.add_argument("--bertscore-model", default="roberta-base", help="BERTScore model name")
     parser.add_argument("--no-sbert", action="store_true", help="Disable SBERT cosine")
-    parser.add_argument("--no-bertscore", action="store_true", help="Disable BERTScore")
     parser.add_argument("--no-bleu", action="store_true", help="Disable BLEU")
     parser.add_argument("--no-rouge", action="store_true", help="Disable ROUGE")
     parser.add_argument("--no-meteor", action="store_true", help="Disable METEOR")
@@ -72,16 +69,6 @@ def compute_sbert(preds: List[str], refs: List[str], model_name: str) -> Dict[st
     ref_emb = model.encode(refs, show_progress_bar=False, convert_to_numpy=True, normalize_embeddings=True)
     sims = (pred_emb * ref_emb).sum(axis=1)
     return {"sbert_cosine": float(np.mean(sims))}
-
-
-def compute_bertscore(preds: List[str], refs: List[str], model_name: str) -> Dict[str, float]:
-    from bert_score import score
-    p, r, f1 = score(preds, refs, model_type=model_name, lang="en", verbose=False)
-    return {
-        "bertscore_precision": float(p.mean()),
-        "bertscore_recall": float(r.mean()),
-        "bertscore_f1": float(f1.mean()),
-    }
 
 
 def compute_bleu(preds: List[str], refs: List[str]) -> Dict[str, float]:
@@ -136,8 +123,6 @@ def main() -> None:
 
     if not args.no_sbert:
         metrics.update(compute_sbert(preds, refs, args.sbert_model))
-    if not args.no_bertscore:
-        metrics.update(compute_bertscore(preds, refs, args.bertscore_model))
     if not args.no_bleu:
         metrics.update(compute_bleu(preds, refs))
     if not args.no_rouge:
