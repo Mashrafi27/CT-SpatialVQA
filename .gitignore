@@ -30,6 +30,8 @@ checkpoints/
 # CT-CHAT local model assets
 3D_VLM_Spatial/preprocess/__pycache__/
 benchmarking/inference/ct-chat/CT_CLIP_encoder/
+benchmarking/inference/med3dvlm/Med3DVLM/
+
 benchmarking/inference/ct-chat/models/
 3D_VLM_Spatial/dataset/
 benchmarking/inference/ct2rep/models/
