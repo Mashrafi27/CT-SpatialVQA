@@ -12,11 +12,11 @@ This repository contains the evaluation framework, dataset, and benchmarking cod
 
 ### Key Contributions
 
-- **Spatial QA Benchmark**: A curated dataset of ~1,000 spatial reasoning questions derived from CT radiology reports with LLM-validated ground truth
-- **Multi-Model Evaluation**: Comprehensive evaluation of 8+ state-of-the-art 3D medical VLMs including Med3DVLM, CT-Chat, M3D, RadFM, MedGemma, Merlin, VILA-M3, and others
-- **Spatial Classification Framework**: Automated spatial vs. non-spatial question filtering using LLM judges (Gemini 2.0)
-- **Flexible Benchmarking Pipeline**: Modular evaluation infrastructure supporting multiple models, input formats, and evaluation metrics
-- **Reproducibility**: Complete preprocessing, inference, and evaluation scripts with detailed documentation
+- **CT-SpatialVQA Benchmark**: 9,077 spatially grounded QA pairs derived from 1,601 CT radiology reports, validated with LLM and human audit
+- **Multi-Model Evaluation**: Eight 3D medical VLMs evaluated: Med3DVLM, CT-Chat, M3D, RadFM, MedGemma-1.5, Merlin, VILA-M3, MedEvalKit
+- **LLM-as-Jury Protocol**: GPT-4o, Gemini 2.5 Flash, and Qwen-Plus provide independent judgments aggregated into a jury score
+- **Spatial Category Analysis**: Per-category performance across six spatial dimensions (laterality, vertical, depth, centricity, adjacency/containment, extent/boundaries)
+- **Reproducibility**: End-to-end preprocessing, inference, and evaluation scripts with report modularization
 
 ## 🎯 Research Questions
 
@@ -33,7 +33,7 @@ This work addresses:
 
 We utilize the **CT-RATE dataset** (CT Radiology Assessment Training Exam), a comprehensive collection of CT scans with expert radiologist reports. The dataset provides:
 
-- **~130 CT volumes** from various anatomical regions and pathologies
+- **1,601 CT volumes** from the CT-RATE test split
 - **Structured radiology reports** with findings and impressions sections
 - **Diverse pathologies** including tumors, infections, structural abnormalities
 - **English language reports** with detailed anatomical descriptions
@@ -50,13 +50,13 @@ From each case's findings and impressions, we generate spatial question-answer p
 
 ### Quality Assurance
 
-All QA pairs are validated using **Google Gemini 2.0 Flash** with custom prompts to ensure:
+All QA pairs are validated using **Gemini 2.5 Flash** with custom prompts to ensure:
 
 - **Spatial relevance**: Questions genuinely require spatial reasoning about anatomical location, orientation, or relative position
 - **Ground truth validity**: Answers are inferable from the imaging findings and radiologist annotations
 - **Non-redundancy**: Removal of textual paraphrasing or general knowledge questions
 
-**Final dataset**: ~1,000 high-quality spatial QA pairs with validated ground truth
+**Final dataset**: 9,077 high-quality spatial QA pairs with validated ground truth
 
 ## 🏗️ Repository Structure
 
@@ -64,7 +64,8 @@ All QA pairs are validated using **Google Gemini 2.0 Flash** with custom prompts
 MICCAI2026-3DMedVLMS/
 ├── 3D_VLM_Spatial/                    # Core benchmarking framework
 │   ├── dataset/                       # CT-RATE download & validation
-│   │   └── download_dataset.py       # Script to fetch CT volumes
+│   │   ├── download_dataset.py       # Script to fetch CT volumes
+│   │   └── valid_fixed/              # Expected download target
 │   │
 │   ├── preprocess/                    # Model-specific preprocessing
 │   │   ├── preprocess_m3d.py         # M3D: 256×256×32 NIfTI → .npy
@@ -76,28 +77,31 @@ MICCAI2026-3DMedVLMS/
 │   │
 │   ├── qa_generation_v2/             # QA pair generation pipeline
 │   │   ├── qa_generation.py          # Generate QA from reports
-│   │   ├── prepare_case_split.py     # Manage case sampling
-│   │   └── spatial_qa_*.jsonl        # Generated QA datasets
+│   │   ├── qa_to_jsonl.py            # Convert JSON → JSONL
+│   │   └── spatial_qa_filtered_full.* # Final QA datasets
+│   │
+│   ├── Spatial_categories/           # Spatial category assignments
+│   │   ├── get_qa_pairs_categories.py
+│   │   └── spatial_qa_filtered_full_with_categories.json
 │   │
 │   ├── reports/                      # Generated reports & judgments
-│   │   ├── gemini_judgments.json     # LLM spatial classification
-│   │   ├── *_predictions_*.jsonl    # Model outputs
-│   │   └── *_eval.json              # Evaluation metrics
+│   │   ├── predictions/              # *_predictions_full.jsonl
+│   │   ├── llm_eval/                 # *_gemini2.5_eval_full.json, *_gpt_eval.json, *_qwen_eval.json
+│   │   ├── metrics/                  # correctness_matrix_avg3.csv, category_performance.csv, text metrics
+│   │   ├── analysis/                 # dataset stats and summaries
+│   │   ├── plots/                    # figures + plot data
+│   │   └── human_eval/               # human evaluation summaries
 │   │
 │   ├── scripts/                      # Analysis & evaluation
-│   │   ├── filter_qa_pairs.py       # Remove non-spatial QAs
-│   │   ├── to_jsonl.py              # Convert JSON → JSONL
-│   │   ├── evaluate_predictions.py  # Exact-match accuracy
 │   │   ├── evaluate_with_gemini.py  # LLM-based evaluation
+│   │   ├── evaluate_with_gpt.py     # GPT-based evaluation
+│   │   ├── evaluate_with_qwen.py    # Qwen-based evaluation
 │   │   ├── evaluate_text_metrics.py # BLEU, ROUGE, METEOR
-│   │   ├── evaluate_with_alignscore.py # Factual consistency
 │   │   ├── build_correctness_matrix.py # Cross-model comparison
 │   │   └── plot_answer_length_distributions.py # Analysis
 │   │
 │   ├── README.md                    # Detailed 3D_VLM_Spatial guide
-│   ├── spatial_qa_output.json       # Master QA list
-│   ├── spatial_qa_filtered.json     # After spatial filtering
-│   └── validation_reports_output.json  # Radiology reports
+│   └── archive/                     # Older experiments & artifacts
 │
 ├── benchmarking/                     # Model inference harness
 │   ├── inference/
@@ -107,19 +111,12 @@ MICCAI2026-3DMedVLMS/
 │   │   ├── m3d/                      # M3D eval
 │   │   ├── merlin/                   # Merlin eval
 │   │   ├── radfm/                    # RadFM eval
-│   │   ├── ctchat/                   # CT-Chat eval
+│   │   ├── ct-chat/                  # CT-Chat eval
+│   │   ├── ct-clip/                  # CT-CLIP utilities
 │   │   ├── medgemma/                 # MedGemma eval
 │   │   ├── vila-m3/                  # VILA-M3 + VISTA3D eval
-│   │   └── [other-models]/
+│   │   └── [other-models]/           # Archived under 3D_VLM_Spatial/archive
 │   └── README.md                     # Benchmarking pipeline overview
-│
-├── checkpoints/                      # Model weights (downloaded separately)
-│   └── alignscore/                   # AlignScore weights
-│
-├── scripts/                          # Global utilities
-│
-├── Visualizations/                   # Generated plots & figures
-│
 └── [CSV files]                       # Model inventory & tracking
 ```
 
@@ -129,7 +126,7 @@ MICCAI2026-3DMedVLMS/
 
 ```bash
 # Clone repository
-git clone https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS.git
+git clone https://github.com/YOUR_ORG/MICCAI2026-3DMedVLMS.git
 cd MICCAI2026-3DMedVLMS
 
 # Create conda environment
@@ -147,26 +144,16 @@ cd benchmarking/inference/med3dvlm && pip install -r env/requirements.txt
 
 ```bash
 # Download CT-RATE volumes (requires access credentials)
-python 3D_VLM_Spatial/dataset/download_dataset.py \
-  --output-dir 3D_VLM_Spatial/dataset/data_volumes \
-  --split valid_fixed
+export HF_TOKEN=...   # Hugging Face access token
+python 3D_VLM_Spatial/dataset/download_dataset.py
 ```
 
-### 3. Generate/Filter QA Pairs
+### 3. QA Datasets
 
-```bash
-# Filter out non-spatial questions using Gemini
-python 3D_VLM_Spatial/scripts/filter_qa_pairs.py \
-  --qa-json 3D_VLM_Spatial/spatial_qa_output.json \
-  --judgments 3D_VLM_Spatial/reports/gemini_judgments.json \
-  --output 3D_VLM_Spatial/spatial_qa_filtered.json
+The finalized datasets used for benchmarking are stored in:
 
-# Convert to JSONL format for model inference
-python 3D_VLM_Spatial/scripts/to_jsonl.py \
-  --input 3D_VLM_Spatial/spatial_qa_filtered.json \
-  --output 3D_VLM_Spatial/spatial_qa_filtered.jsonl \
-  --image-root 3D_VLM_Spatial/dataset/data_volumes/dataset/valid_fixed
-```
+- `3D_VLM_Spatial/qa_generation_v2/spatial_qa_filtered_full.json`
+- `3D_VLM_Spatial/qa_generation_v2/spatial_qa_filtered_full_nifti_*.jsonl` (model-specific inputs)
 
 ### 4. Preprocess Data for Model
 
@@ -174,8 +161,8 @@ Example: M3D model (resize to 256×256×32, normalize, save as .npy)
 
 ```bash
 python 3D_VLM_Spatial/preprocess/preprocess_m3d.py \
-  --input-jsonl 3D_VLM_Spatial/spatial_qa_filtered.jsonl \
-  --nifti-root 3D_VLM_Spatial/dataset/data_volumes/dataset/valid_fixed \
+  --input-jsonl 3D_VLM_Spatial/qa_generation_v2/spatial_qa_filtered_full_nifti_m3d.jsonl \
+  --nifti-root data_volumes/dataset/valid_fixed \
   --output-root 3D_VLM_Spatial/preprocess/m3d_outputs \
   --output-jsonl 3D_VLM_Spatial/preprocess/m3d_processed.jsonl
 ```
@@ -186,9 +173,9 @@ Example: Med3DVLM inference
 
 ```bash
 python benchmarking/inference/med3dvlm/run_custom_eval.py \
-  --dataset 3D_VLM_Spatial/spatial_qa_filtered.jsonl \
+  --dataset 3D_VLM_Spatial/qa_generation_v2/spatial_qa_filtered_full_nifti_med3dvlm.jsonl \
   --model-path checkpoints/med3dvlm \
-  --output-dir 3D_VLM_Spatial/reports \
+  --output-dir 3D_VLM_Spatial/reports/predictions \
   --batch-size 4 \
   --gpu-id 0
 ```
@@ -196,28 +183,27 @@ python benchmarking/inference/med3dvlm/run_custom_eval.py \
 ### 6. Evaluate Results
 
 ```bash
-# Exact-match accuracy
-python 3D_VLM_Spatial/scripts/evaluate_predictions.py \
-  --predictions 3D_VLM_Spatial/reports/med3dvlm_predictions.jsonl \
-  --report 3D_VLM_Spatial/reports/med3dvlm_eval.json \
-  --show-mismatches
-
 # LLM-based evaluation (clinically-aware scoring)
 python 3D_VLM_Spatial/scripts/evaluate_with_gemini.py \
-  --predictions 3D_VLM_Spatial/reports/med3dvlm_predictions.jsonl \
-  --output 3D_VLM_Spatial/reports/med3dvlm_gemini_eval.json \
-  --model models/gemini-2.0-flash
+  --predictions 3D_VLM_Spatial/reports/predictions/med3dvlm_predictions_full.jsonl \
+  --output 3D_VLM_Spatial/reports/llm_eval/med3dvlm_gemini2.5_eval_full.json \
+  --model models/gemini-2.5-flash
 
-# AlignScore (factual consistency)
-python 3D_VLM_Spatial/scripts/evaluate_with_alignscore.py \
-  --predictions 3D_VLM_Spatial/reports/med3dvlm_predictions.jsonl \
-  --output 3D_VLM_Spatial/reports/med3dvlm_alignscore.json
+python 3D_VLM_Spatial/scripts/evaluate_with_gpt.py \
+  --predictions 3D_VLM_Spatial/reports/predictions/med3dvlm_predictions_full.jsonl \
+  --output 3D_VLM_Spatial/reports/llm_eval/med3dvlm_gpt_eval.json \
+  --model gpt-4o-mini
+
+python 3D_VLM_Spatial/scripts/evaluate_with_qwen.py \
+  --predictions 3D_VLM_Spatial/reports/predictions/med3dvlm_predictions_full.jsonl \
+  --output 3D_VLM_Spatial/reports/llm_eval/med3dvlm_qwen_eval.json \
+  --model qwen-plus
 
 # Build cross-model comparison matrix
 python 3D_VLM_Spatial/scripts/build_correctness_matrix.py \
-  --reports-dir 3D_VLM_Spatial/reports \
-  --pattern "*_predictions_*.jsonl" \
-  --output 3D_VLM_Spatial/reports/correctness_matrix.csv
+  --reports-dir 3D_VLM_Spatial/reports/llm_eval \
+  --pattern "*_eval*.json" \
+  --output 3D_VLM_Spatial/reports/metrics/correctness_matrix_avg3.csv
 ```
 
 ### 7. Visualize Results
@@ -225,26 +211,26 @@ python 3D_VLM_Spatial/scripts/build_correctness_matrix.py \
 ```bash
 # Generate answer length distributions
 python 3D_VLM_Spatial/scripts/plot_answer_length_distributions.py \
-  --dataset-json 3D_VLM_Spatial/spatial_qa_filtered.json \
-  --predictions-dir 3D_VLM_Spatial/reports \
+  --dataset-json 3D_VLM_Spatial/qa_generation_v2/spatial_qa_filtered_full.json \
+  --predictions-dir 3D_VLM_Spatial/reports/predictions \
   --pred-glob "*_predictions_full.jsonl" \
-  --output 3D_VLM_Spatial/reports/answer_length_distributions.png
+  --output 3D_VLM_Spatial/reports/plots/answer_length_distributions.png
 ```
 
 ## 📈 Evaluated Models
 
-| Model | Architecture | Input | Spatial QA Acc. | Notes |
-|-------|--------------|-------|-----------------|-------|
-| **Med3DVLM** | CLIP + 3D CNN | 3D volumes | - | State-of-the-art 3D medical VLM |
-| **CT-Chat** | Multimodal LLM | Multi-view slices | - | Radiologist-aligned VLM |
-| **M3D-LaMed** | 3D ViT + LLaMA | 256×256×32 voxels | - | 3D spatial encoding |
-| **RadFM** | Foundation Model | Radiograph patches | - | Radiology-specific pretraining |
-| **MedGemma-1.5** | Small LLM | Text + 2D images | - | Efficient medical LLM |
-| **Merlin** | Multi-task encoder | Multi-view CT | - | Report generation focused |
-| **VILA-M3 + VISTA3D** | Hybrid expert system | VISTA3D segmentation | - | 3D segmentation + 2D vision-language |
-| **[Additional models]** | - | - | - | Under evaluation |
+| Model | Architecture | Input | Notes |
+|-------|--------------|-------|-------|
+| **Med3DVLM** | CLIP + 3D CNN | 3D volumes | 3D medical VLM baseline |
+| **CT-Chat** | Multimodal LLM | Multi-view slices | Radiologist-aligned VLM |
+| **M3D** | 3D ViT + LLaMA | 256×256×32 voxels | 3D spatial encoding |
+| **RadFM** | Foundation Model | Radiograph patches | Radiology-specific pretraining |
+| **MedGemma-1.5** | Small LLM | Text + 2D images | Efficient medical LLM |
+| **Merlin** | Multi-task encoder | Multi-view CT | Report generation focused |
+| **VILA-M3 + VISTA3D** | Hybrid expert system | VISTA3D segmentation | 3D segmentation + 2D vision-language |
+| **MedEvalKit** | Multi-task model | Multi-view CT | Lingshu / MedEvalKit pipeline |
 
-> **Note**: Accuracy scores pending final evaluation runs. Check `3D_VLM_Spatial/reports/correctness_matrix.csv` for latest results.
+> **Note**: Accuracy scores are reported in `3D_VLM_Spatial/reports/metrics/correctness_matrix_avg3.csv`.
 
 ## 🔬 Methodology
 
@@ -252,18 +238,17 @@ python 3D_VLM_Spatial/scripts/plot_answer_length_distributions.py \
 
 1. **Extract from Reports**: Parse findings and impressions sections from radiologist reports
 2. **Generate Candidates**: Use templated prompts + LLM to generate spatial QA candidates
-3. **LLM Filtering**: Gemini 2.0 validates:
+3. **LLM Filtering**: Gemini 2.5 Flash validates:
    - **Spatial relevance**: Requires anatomical reasoning (position, distance, orientation)
    - **Ground truth validity**: Answerable from imaging findings alone
    - **Non-redundancy**: Not just textual paraphrasing
-4. **Final Dataset**: ~1,000 validated spatial QA pairs
+4. **Final Dataset**: 9,077 validated spatial QA pairs
 
 ### Evaluation Metrics
 
-- **Exact-Match Accuracy**: Normalized string matching (lowercase, punctuation-agnostic)
-- **LLM-Based Scoring**: Gemini judges clinical correctness accounting for medical synonyms
-- **Text Metrics**: BLEU, ROUGE-L, METEOR for answer quality
-- **Factual Consistency**: AlignScore measures factual alignment between prediction and image
+- **LLM-as-Jury**: GPT-4o, Gemini 2.5 Flash, and Qwen-Plus provide binary correctness judgments
+- **Semantic Similarity**: SBERT cosine similarity between predictions and references
+- **Text Metrics**: BLEU, ROUGE-L, METEOR for lexical overlap
 - **Cross-Model Analysis**: Confusion matrices, per-category performance, failure mode classification
 
 ### Input Representations Tested
@@ -288,7 +273,7 @@ For detailed setup and running instructions per model:
 
 ```json
 {
-  "image_path": "/abs/path/to/case001.nii.gz",
+  "image_path": "/PATH/TO/PROJECT/data_volumes/dataset/valid_fixed/case001.nii.gz",
   "question": "Which kidney contains the larger lesion?",
   "answer": "Right kidney"
 }
@@ -298,11 +283,10 @@ For detailed setup and running instructions per model:
 
 ```json
 {
-  "image_path": "/abs/path/to/case001.nii.gz",
+  "image_path": "/PATH/TO/PROJECT/data_volumes/dataset/valid_fixed/case001.nii.gz",
   "question": "Which kidney contains the larger lesion?",
   "answer": "Right kidney",
-  "prediction": "The right kidney has a larger lesion",
-  "correct": false
+  "prediction": "The right kidney has a larger lesion"
 }
 ```
 
@@ -312,7 +296,7 @@ For detailed setup and running instructions per model:
 - ✅ Complete preprocessing pipelines for each model
 - ✅ Frozen dataset with validation splits
 - ✅ Exact hyperparameters and model versions documented
-- ✅ W&B logging for all benchmark runs
+- ✅ Modular report outputs (predictions, LLM judgments, metrics, plots)
 
 ### Extensibility
 - ✅ Modular model interfaces for easy addition of new models
@@ -339,11 +323,9 @@ If you use this benchmark in your work, please cite:
 
 **Key referenced works**:
 - Med3DVLM: https://arxiv.org/abs/2503.20047
-- DeepTumorVQA: https://arxiv.org/pdf/2505.18915
 - Merlin: https://pmc.ncbi.nlm.nih.gov/articles/PMC11230513/
 - VILA-M3: https://openaccess.thecvf.com/content/CVPR2025/papers/Nath_VILA-M3_Enhancing_Vision-Language_Models_with_Medical_Expert_Knowledge_CVPR_2025_paper
 - RadFM: https://arxiv.org/abs/2511.18876
-- AlignScore: https://arxiv.org/abs/2305.05252
 
 ## 🔐 Requirements & Dependencies
 
@@ -352,6 +334,8 @@ Primary dependencies:
 - PyTorch 2.0+
 - CUDA 11.8+ (for GPU inference)
 - Google Generative AI SDK (for Gemini evaluation)
+- OpenAI client (for GPT-4o evaluation)
+- DashScope-compatible client (for Qwen evaluation)
 - SimpleITK (for NIfTI handling)
 - tqdm, numpy, pandas
 
@@ -368,8 +352,7 @@ See `requirements.txt` for the full dependency list.
 
 For questions, issues, or contributions:
 - Open an issue on GitHub
-- Contact: [author email]
-- Lab: [institution]
+- Contact: anonymized during review
 
 ## 📄 License
 
@@ -377,6 +360,6 @@ This project is released under the [MIT/Apache 2.0] License. Individual model co
 
 ---
 
-**Last Updated**: February 2026  
+**Last Updated**: February 26, 2026  
 **Paper Status**: Under Review (MICCAI 2026)  
 **Dataset Version**: v1.0 (Final)

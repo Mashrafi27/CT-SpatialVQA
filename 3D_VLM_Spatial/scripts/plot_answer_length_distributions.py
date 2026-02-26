@@ -22,6 +22,12 @@ def parse_args() -> argparse.Namespace:
         help="CT-SpatialVQA JSON (image_id -> qa_pairs).",
     )
     p.add_argument(
+        "--data-json",
+        type=Path,
+        default=None,
+        help="Optional precomputed data JSON (labels + series). If set, skips loading dataset/predictions.",
+    )
+    p.add_argument(
         "--predictions-dir",
         type=Path,
         default=Path("3D_VLM_Spatial/reports"),
@@ -53,6 +59,12 @@ def parse_args() -> argparse.Namespace:
         "--include-questions",
         action="store_true",
         help="Include question-length distribution above GT answers.",
+    )
+    p.add_argument(
+        "--save-data",
+        type=Path,
+        default=None,
+        help="Write computed labels/series to JSON for sharing/re-plotting.",
     )
     p.add_argument(
         "--log-x",
@@ -152,26 +164,44 @@ def main() -> None:
 
     labels: List[str] = []
     series: List[List[int]] = []
+    if args.data_json is not None:
+        payload = json.loads(args.data_json.read_text())
+        labels = payload["labels"]
+        series = payload["series"]
+        args.include_questions = bool(payload.get("include_questions", args.include_questions))
+    else:
+        # Ground-truth (and optionally questions)
+        if args.include_questions:
+            qlens = load_question_lengths(args.dataset_json)
+            labels.append("Questions")
+            series.append(qlens)
 
-    # Ground-truth (and optionally questions)
-    if args.include_questions:
-        qlens = load_question_lengths(args.dataset_json)
-        labels.append("Questions")
-        series.append(qlens)
+        gt = load_gt_lengths(args.dataset_json)
+        labels.append("GT Answers")
+        series.append(gt)
 
-    gt = load_gt_lengths(args.dataset_json)
-    labels.append("GT Answers")
-    series.append(gt)
+        # Predictions
+        files = sorted(args.predictions_dir.glob(args.pred_glob))
+        for path in files:
+            model_name = path.stem.replace("_predictions_full", "").replace("_predictions", "")
+            if args.models and model_name not in args.models:
+                continue
+            lengths = load_pred_lengths(path, args.prediction_field)
+            labels.append(label_map.get(model_name, model_name))
+            series.append(lengths)
 
-    # Predictions
-    files = sorted(args.predictions_dir.glob(args.pred_glob))
-    for path in files:
-        model_name = path.stem.replace("_predictions_full", "").replace("_predictions", "")
-        if args.models and model_name not in args.models:
-            continue
-        lengths = load_pred_lengths(path, args.prediction_field)
-        labels.append(label_map.get(model_name, model_name))
-        series.append(lengths)
+        if args.save_data is not None:
+            args.save_data.parent.mkdir(parents=True, exist_ok=True)
+            args.save_data.write_text(
+                json.dumps(
+                    {
+                        "labels": labels,
+                        "series": series,
+                        "include_questions": args.include_questions,
+                    },
+                    indent=2,
+                )
+            )
 
     if len(series) <= 1:
         raise SystemExit("No prediction files found for plotting.")

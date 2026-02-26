@@ -1,45 +1,27 @@
-[submodule "benchmarking/inference/merlin/repo"]
-	path = benchmarking/inference/merlin/repo
-	url = https://github.com/StanfordMIMI/Merlin.git
-[submodule "benchmarking/inference/brainmd/repo"]
-	path = benchmarking/inference/brainmd/repo
-	url = https://github.com/YuliWanghust/BrainMD.git
-[submodule "benchmarking/inference/deeptumorvqa/repo"]
-	path = benchmarking/inference/deeptumorvqa/repo
-	url = https://github.com/Schuture/DeepTumorVQA.git
-[submodule "benchmarking/inference/fila/repo"]
-	path = benchmarking/inference/fila/repo
-	url = https://github.com/alibaba-damo-academy/fvlm.git
-[submodule "benchmarking/inference/med3dvlm/Med3DVLM"]
-	path = benchmarking/inference/med3dvlm/Med3DVLM
-	url = https://github.com/mirthai/med3dvlm.git
-[submodule "benchmarking/inference/vila-m3/repo"]
-	path = benchmarking/inference/vila-m3/repo
-	url = https://github.com/Project-MONAI/VLM-Radiology-Agent-Framework
-[submodule "benchmarking/inference/m3d/repo"]
-	path = benchmarking/inference/m3d/repo
-	url = https://github.com/BAAI-DCAI/M3D
-[submodule "benchmarking/inference/radfm/repo"]
-	path = benchmarking/inference/radfm/repo
-	url = https://github.com/chaoyi-wu/RadFM
 [submodule "benchmarking/inference/ct-clip/repo"]
 	path = benchmarking/inference/ct-clip/repo
 	url = https://github.com/ibrahimethemhamamci/CT-CLIP
 [submodule "benchmarking/inference/ct-chat/repo"]
 	path = benchmarking/inference/ct-chat/repo
 	url = https://github.com/ibrahimethemhamamci/CT-CHAT
-[submodule "benchmarking/inference/medgemma/repo"]
-	path = benchmarking/inference/medgemma/repo
-	url = https://github.com/google-health/medgemma
-[submodule "benchmarking/inference/ct2rep/repo"]
-	path = benchmarking/inference/ct2rep/repo
-	url = https://github.com/ibrahimethemhamamci/CT2Rep.git
+[submodule "benchmarking/inference/merlin/repo"]
+	path = benchmarking/inference/merlin/repo
+	url = https://github.com/StanfordMIMI/Merlin.git
+[submodule "benchmarking/inference/m3d/repo"]
+	path = benchmarking/inference/m3d/repo
+	url = https://github.com/BAAI-DCAI/M3D
+[submodule "benchmarking/inference/med3dvlm/Med3DVLM"]
+	path = benchmarking/inference/med3dvlm/Med3DVLM
+	url = https://github.com/mirthai/med3dvlm.git
 [submodule "benchmarking/inference/medevalkit/repo"]
 	path = benchmarking/inference/medevalkit/repo
 	url = https://github.com/alibaba-damo-academy/MedEvalKit.git
-[submodule "benchmarking/inference/reg2rg/repo_fresh"]
-	path = benchmarking/inference/reg2rg/repo_fresh
-	url = https://github.com/zhi-xuan-chen/Reg2RG.git
-[submodule "benchmarking/inference/alignscore/repo"]
-	path = benchmarking/inference/alignscore/repo
-	url = https://github.com/yuh-zha/AlignScore.git
+[submodule "benchmarking/inference/medgemma/repo"]
+	path = benchmarking/inference/medgemma/repo
+	url = https://github.com/google-health/medgemma
+[submodule "benchmarking/inference/radfm/repo"]
+	path = benchmarking/inference/radfm/repo
+	url = https://github.com/chaoyi-wu/RadFM
+[submodule "benchmarking/inference/vila-m3/repo"]
+	path = benchmarking/inference/vila-m3/repo
+	url = https://github.com/Project-MONAI/VLM-Radiology-Agent-Framework

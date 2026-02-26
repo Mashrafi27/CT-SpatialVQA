@@ -1,0 +1,68 @@
+Overall QA progress:
+  Answered 304 / 967 (31.4%)
+
+Users by status:
+  completed_all: 5
+    in_progress: 4
+    not_started: 11
+
+Cases by status:
+      completed: 31
+        partial: 3
+    not_started: 66
+
+Per-user snapshot:
+User                   Status          Done Partial  Not       QA
+-----------------------------------------------------------------
+Annotator_1              completed_all      5       0    0    49/49
+Annotator_7   not_started        0       0    5     0/49
+Annotator_13          in_progress        0       1    4     2/47
+Annotator_19             completed_all      5       0    0    49/49
+Annotator_25             in_progress        3       1    1    32/50
+Annotator_31      not_started        0       0    5     0/48
+Annotator_37       not_started        0       0    5     0/49
+Annotator_43              completed_all      5       0    0    49/49
+Annotator_49                not_started        0       0    5     0/50
+Annotator_55       not_started        0       0    5     0/46
+Annotator_61        not_started        0       0    5     0/46
+Annotator_67        not_started        0       0    5     0/49
+Annotator_73         in_progress        1       0    4     7/47
+Annotator_79          not_started        0       0    5     0/49
+Annotator_85            not_started        0       0    5     0/50
+Annotator_91              in_progress        2       1    2    21/48
+Annotator_97           completed_all      5       0    0    48/48
+Annotator_103          not_started        0       0    5     0/47
+Annotator_109     completed_all      5       0    0    47/47
+Annotator_115          not_started        0       0    5     0/50
+
+Case detail (limited view):
+- Annotator_1 (completed_all)
+    Annotator_2: 10/10 -> completed
+    Annotator_3: 10/10 -> completed
+    Annotator_4: 10/10 -> completed
+    Annotator_5: 10/10 -> completed
+    Annotator_6: 9/9 -> completed
+- Annotator_7 (not_started)
+    Annotator_8: 0/10 -> not_started
+    Annotator_9: 0/10 -> not_started
+    Annotator_10: 0/9 -> not_started
+    Annotator_11: 0/10 -> not_started
+    Annotator_12: 0/10 -> not_started
+- Annotator_13 (in_progress)
+    Annotator_14: 2/9 -> partial
+    Annotator_15: 0/9 -> not_started
+    Annotator_16: 0/9 -> not_started
+    Annotator_17: 0/10 -> not_started
+    Annotator_18: 0/10 -> not_started
+- Annotator_19 (completed_all)
+    Annotator_20: 10/10 -> completed
+    Annotator_21: 9/9 -> completed
+    Annotator_22: 10/10 -> completed
+    Annotator_23: 10/10 -> completed
+    Annotator_24: 10/10 -> completed
+- Annotator_25 (in_progress)
+    Annotator_26: 10/10 -> completed
+    Annotator_27: 10/10 -> completed
+    Annotator_28: 10/10 -> completed
+    Annotator_29: 2/10 -> partial
+    Annotator_30: 0/10 -> not_started

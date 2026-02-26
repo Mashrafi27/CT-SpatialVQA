@@ -1,0 +1,840 @@
+{
+  "overall": {
+    "qa_answered": 304,
+    "qa_total": 967,
+    "qa_percent": 31.437435367114787,
+    "status_counts": {
+      "completed_all": 5,
+      "not_started": 11,
+      "in_progress": 4
+    },
+    "case_counts": {
+      "completed": 31,
+      "not_started": 66,
+      "partial": 3
+    },
+    "case_total": 100
+  },
+  "users": [
+    {
+      "name": "Annotator_1",
+      "status": "completed_all",
+      "cases_completed": 5,
+      "cases_partial": 0,
+      "cases_not_started": 0,
+      "qa_answered": 49,
+      "qa_total": 49,
+      "cases": [
+        {
+          "name": "Annotator_2",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_3",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_4",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_5",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_6",
+          "answered": 9,
+          "total": 9,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "name": "Annotator_7",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 49,
+      "cases": [
+        {
+          "name": "Annotator_8",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_9",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_10",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_11",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_12",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Annotator_13",
+      "status": "in_progress",
+      "cases_completed": 0,
+      "cases_partial": 1,
+      "cases_not_started": 4,
+      "qa_answered": 2,
+      "qa_total": 47,
+      "cases": [
+        {
+          "name": "Annotator_14",
+          "answered": 2,
+          "total": 9,
+          "status": "partial"
+        },
+        {
+          "name": "Annotator_15",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_16",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_17",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_18",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Annotator_19",
+      "status": "completed_all",
+      "cases_completed": 5,
+      "cases_partial": 0,
+      "cases_not_started": 0,
+      "qa_answered": 49,
+      "qa_total": 49,
+      "cases": [
+        {
+          "name": "Annotator_20",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_21",
+          "answered": 9,
+          "total": 9,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_22",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_23",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_24",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "name": "Annotator_25",
+      "status": "in_progress",
+      "cases_completed": 3,
+      "cases_partial": 1,
+      "cases_not_started": 1,
+      "qa_answered": 32,
+      "qa_total": 50,
+      "cases": [
+        {
+          "name": "Annotator_26",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_27",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_28",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_29",
+          "answered": 2,
+          "total": 10,
+          "status": "partial"
+        },
+        {
+          "name": "Annotator_30",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Annotator_31",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 48,
+      "cases": [
+        {
+          "name": "Annotator_32",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_33",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_34",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_35",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_36",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Annotator_37",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 49,
+      "cases": [
+        {
+          "name": "Annotator_38",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_39",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_40",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_41",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_42",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Annotator_43",
+      "status": "completed_all",
+      "cases_completed": 5,
+      "cases_partial": 0,
+      "cases_not_started": 0,
+      "qa_answered": 49,
+      "qa_total": 49,
+      "cases": [
+        {
+          "name": "Annotator_44",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_45",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_46",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_47",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_48",
+          "answered": 9,
+          "total": 9,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "name": "Annotator_49",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 50,
+      "cases": [
+        {
+          "name": "Annotator_50",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_51",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_52",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_53",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_54",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Annotator_55",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 46,
+      "cases": [
+        {
+          "name": "Annotator_56",
+          "answered": 0,
+          "total": 8,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_57",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_58",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_59",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_60",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Annotator_61",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 46,
+      "cases": [
+        {
+          "name": "Annotator_62",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_63",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_64",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_65",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_66",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Annotator_67",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 49,
+      "cases": [
+        {
+          "name": "Annotator_68",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_69",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_70",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_71",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_72",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Annotator_73",
+      "status": "in_progress",
+      "cases_completed": 1,
+      "cases_partial": 0,
+      "cases_not_started": 4,
+      "qa_answered": 7,
+      "qa_total": 47,
+      "cases": [
+        {
+          "name": "Annotator_74",
+          "answered": 7,
+          "total": 7,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_75",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_76",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_77",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_78",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Annotator_79",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 49,
+      "cases": [
+        {
+          "name": "Annotator_80",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_81",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_82",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_83",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_84",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Annotator_85",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 50,
+      "cases": [
+        {
+          "name": "Annotator_86",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_87",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_88",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_89",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_90",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Annotator_91",
+      "status": "in_progress",
+      "cases_completed": 2,
+      "cases_partial": 1,
+      "cases_not_started": 2,
+      "qa_answered": 21,
+      "qa_total": 48,
+      "cases": [
+        {
+          "name": "Annotator_92",
+          "answered": 9,
+          "total": 9,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_93",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_94",
+          "answered": 2,
+          "total": 10,
+          "status": "partial"
+        },
+        {
+          "name": "Annotator_95",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_96",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Annotator_97",
+      "status": "completed_all",
+      "cases_completed": 5,
+      "cases_partial": 0,
+      "cases_not_started": 0,
+      "qa_answered": 48,
+      "qa_total": 48,
+      "cases": [
+        {
+          "name": "Annotator_98",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_99",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_100",
+          "answered": 9,
+          "total": 9,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_101",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_102",
+          "answered": 9,
+          "total": 9,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "name": "Annotator_103",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 47,
+      "cases": [
+        {
+          "name": "Annotator_104",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_105",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_106",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_107",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_108",
+          "answered": 0,
+          "total": 9,
+          "status": "not_started"
+        }
+      ]
+    },
+    {
+      "name": "Annotator_109",
+      "status": "completed_all",
+      "cases_completed": 5,
+      "cases_partial": 0,
+      "cases_not_started": 0,
+      "qa_answered": 47,
+      "qa_total": 47,
+      "cases": [
+        {
+          "name": "Annotator_110",
+          "answered": 9,
+          "total": 9,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_111",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_112",
+          "answered": 9,
+          "total": 9,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_113",
+          "answered": 10,
+          "total": 10,
+          "status": "completed"
+        },
+        {
+          "name": "Annotator_114",
+          "answered": 9,
+          "total": 9,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "name": "Annotator_115",
+      "status": "not_started",
+      "cases_completed": 0,
+      "cases_partial": 0,
+      "cases_not_started": 5,
+      "qa_answered": 0,
+      "qa_total": 50,
+      "cases": [
+        {
+          "name": "Annotator_116",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_117",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_118",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_119",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        },
+        {
+          "name": "Annotator_120",
+          "answered": 0,
+          "total": 10,
+          "status": "not_started"
+        }
+      ]
+    }
+  ]
+}
