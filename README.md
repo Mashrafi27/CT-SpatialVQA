@@ -1,336 +1,909 @@
-# Benchmarking 3D Medical Vision-Language Models for Spatial Understanding
-
-> **A comprehensive evaluation framework for assessing spatial reasoning capabilities in 3D medical vision-language models using volumetric CT imaging.**
-
-![Paper Status](https://img.shields.io/badge/Status-MICCAI%202026-blue)
-![Dataset](https://img.shields.io/badge/Dataset-CT--RATE-green)
-![Models](https://img.shields.io/badge/Models-8%2B-orange)
-
-## 📋 Overview
-
-This repository contains the evaluation framework, dataset, and benchmarking code for assessing how well 3D medical vision-language models (VLMs) understand spatial relationships in volumetric CT imaging. We introduce a curated **spatial QA benchmark** that evaluates models on their ability to reason about anatomical positions, distances, laterality, and inter-organ relationships—critical capabilities for clinical deployment.
-
-### Key Contributions
-
-- **CT-SpatialVQA Benchmark**: 9,077 spatially grounded QA pairs derived from 1,601 CT radiology reports, validated with LLM and human audit
-- **Multi-Model Evaluation**: Eight 3D medical VLMs evaluated: Med3DVLM, CT-Chat, M3D, RadFM, MedGemma-1.5, Merlin, VILA-M3, MedEvalKit
-- **LLM-as-Jury Protocol**: GPT-4o, Gemini 2.5 Flash, and Qwen-Plus provide independent judgments aggregated into a jury score
-- **Spatial Category Analysis**: Per-category performance across six spatial dimensions (laterality, vertical, depth, centricity, adjacency/containment, extent/boundaries)
-- **Reproducibility**: End-to-end preprocessing, inference, and evaluation scripts with report modularization
-
-## 🎯 Research Questions
-
-This work addresses:
-
-1. **Do 3D medical VLMs understand spatial relationships?** How well do they localize findings and reason about anatomical positions?
-2. **What types of spatial reasoning are challenging?** Laterality, distance comparison, volumetric assessment, or complex multi-organ reasoning?
-3. **How do different model architectures compare** on spatial understanding despite similar overall medical VLM capabilities?
-4. **What role does input representation play?** How do different 3D slicing strategies (axial, coronal, sagittal) affect spatial reasoning?
-
-## 🔄 Spatial VQA Pipeline
-
-![CT Spatial VQA Pipeline](Figures/ct_spatial_vqa_pipeline.png)
-
-## 📊 Dataset
-
-### CT-RATE Source
-
-We utilize the **CT-RATE dataset** (CT Radiology Assessment Training Exam), a comprehensive collection of CT scans with expert radiologist reports. The dataset provides:
-
-- **1,601 CT volumes** from the CT-RATE test split
-- **Structured radiology reports** with findings and impressions sections
-- **Diverse pathologies** including tumors, infections, structural abnormalities
-- **English language reports** with detailed anatomical descriptions
-
-### Spatial QA Pairs
-
-From each case's findings and impressions, we generate spatial question-answer pairs targeting:
-
-- **Laterality reasoning**: "Which lung contains the lesion?"
-- **Distance & proximity**: "What is the spatial relationship between the nodule and the pleura?"
-- **Volumetric assessment**: "Which lesion is larger in volume?"
-- **Anatomical localization**: "In which segment of the liver is the lesion located?"
-- **Multi-organ comparisons**: "Is the right kidney larger than the left?"
-
-### Quality Assurance
-
-All QA pairs are validated using **Gemini 2.5 Flash** with custom prompts to ensure:
-
-- **Spatial relevance**: Questions genuinely require spatial reasoning about anatomical location, orientation, or relative position
-- **Ground truth validity**: Answers are inferable from the imaging findings and radiologist annotations
-- **Non-redundancy**: Removal of textual paraphrasing or general knowledge questions
-
-**Final dataset**: 9,077 high-quality spatial QA pairs with validated ground truth
-
-## 📂 Quick Project Overview
-
-- **`QA_generation/`** – Dataset generation pipeline (GPT-4 + Gemini filtering)
-- **`benchmarking/`** – Model inference harnesses (8 VLM implementations)
-- **`3D_VLM_Spatial/`** – Dataset loading, preprocessing, evaluation scripts
-- **`Figures/`** – Paper visualizations (pipeline, results, category analysis)
-- **`MICCAI2026.pdf`** – Final paper manuscript
-
-**For detailed technical setup**: See [QA_generation/README.md](QA_generation/README.md) and [benchmarking/README.md](benchmarking/README.md)
-
-## 🚀 Quick Start
-
-### 1. Environment Setup
-
-```bash
-# Clone repository
-git clone https://github.com/YOUR_ORG/MICCAI2026-3DMedVLMS.git
-cd MICCAI2026-3DMedVLMS
-
-# Create conda environment
-conda create -n vl-med-3d python=3.11 -y
-conda activate vl-med-3d
-
-# Install core dependencies
-pip install -r requirements.txt
-
-# Install model-specific dependencies (optional, per model)
-cd benchmarking/inference/med3dvlm && pip install -r env/requirements.txt
-```
-
-### 2. Download Dataset
-
-```bash
-# Download CT-RATE volumes (requires access credentials)
-export HF_TOKEN=...   # Hugging Face access token
-python 3D_VLM_Spatial/dataset/download_dataset.py
-```
-
-### 3. QA Datasets
-
-The finalized datasets used for benchmarking are stored in:
-
-- `3D_VLM_Spatial/qa_generation_v2/spatial_qa_filtered_full.json`
-- `3D_VLM_Spatial/qa_generation_v2/spatial_qa_filtered_full_nifti_*.jsonl` (model-specific inputs)
-
-### 4. Preprocess Data for Model
-
-Example: M3D model (resize to 256×256×32, normalize, save as .npy)
-
-```bash
-python 3D_VLM_Spatial/preprocess/preprocess_m3d.py \
-  --input-jsonl 3D_VLM_Spatial/qa_generation_v2/spatial_qa_filtered_full_nifti_m3d.jsonl \
-  --nifti-root data_volumes/dataset/valid_fixed \
-  --output-root 3D_VLM_Spatial/preprocess/m3d_outputs \
-  --output-jsonl 3D_VLM_Spatial/preprocess/m3d_processed.jsonl
-```
-
-### 5. Run Model Inference
-
-Example: Med3DVLM inference
-
-```bash
-python benchmarking/inference/med3dvlm/run_custom_eval.py \
-  --dataset 3D_VLM_Spatial/qa_generation_v2/spatial_qa_filtered_full_nifti_med3dvlm.jsonl \
-  --model-path checkpoints/med3dvlm \
-  --output-dir 3D_VLM_Spatial/reports/predictions \
-  --batch-size 4 \
-  --gpu-id 0
-```
-
-### 6. Evaluate Results
-
-```bash
-# LLM-based evaluation (clinically-aware scoring)
-python 3D_VLM_Spatial/scripts/evaluate_with_gemini.py \
-  --predictions 3D_VLM_Spatial/reports/predictions/med3dvlm_predictions_full.jsonl \
-  --output 3D_VLM_Spatial/reports/llm_eval/med3dvlm_gemini2.5_eval_full.json \
-  --model models/gemini-2.5-flash
-
-python 3D_VLM_Spatial/scripts/evaluate_with_gpt.py \
-  --predictions 3D_VLM_Spatial/reports/predictions/med3dvlm_predictions_full.jsonl \
-  --output 3D_VLM_Spatial/reports/llm_eval/med3dvlm_gpt_eval.json \
-  --model gpt-4o-mini
-
-python 3D_VLM_Spatial/scripts/evaluate_with_qwen.py \
-  --predictions 3D_VLM_Spatial/reports/predictions/med3dvlm_predictions_full.jsonl \
-  --output 3D_VLM_Spatial/reports/llm_eval/med3dvlm_qwen_eval.json \
-  --model qwen-plus
-
-# Build cross-model comparison matrix
-python 3D_VLM_Spatial/scripts/build_correctness_matrix.py \
-  --reports-dir 3D_VLM_Spatial/reports/llm_eval \
-  --pattern "*_eval*.json" \
-  --output 3D_VLM_Spatial/reports/metrics/correctness_matrix_avg3.csv
-```
-
-### 7. Visualize Results
-
-```bash
-# Generate answer length distributions
-python 3D_VLM_Spatial/scripts/plot_answer_length_distributions.py \
-  --dataset-json 3D_VLM_Spatial/qa_generation_v2/spatial_qa_filtered_full.json \
-  --predictions-dir 3D_VLM_Spatial/reports/predictions \
-  --pred-glob "*_predictions_full.jsonl" \
-  --output 3D_VLM_Spatial/reports/plots/answer_length_distributions.png
-```
-
-## 📈 Evaluated Models
-
-| Model | Architecture | Input | Notes |
-|-------|--------------|-------|-------|
-| **Med3DVLM** | CLIP + 3D CNN | 3D volumes | 3D medical VLM baseline |
-| **CT-Chat** | Multimodal LLM | Multi-view slices | Radiologist-aligned VLM |
-| **M3D** | 3D ViT + LLaMA | 256×256×32 voxels | 3D spatial encoding |
-| **RadFM** | Foundation Model | Radiograph patches | Radiology-specific pretraining |
-| **MedGemma-1.5** | Small LLM | Text + 2D images | Efficient medical LLM |
-| **Merlin** | Multi-task encoder | Multi-view CT | Report generation focused |
-| **VILA-M3 + VISTA3D** | Hybrid expert system | VISTA3D segmentation | 3D segmentation + 2D vision-language |
-| **MedEvalKit** | Multi-task model | Multi-view CT | Lingshu / MedEvalKit pipeline |
-
-> **Note**: Accuracy scores are reported in `3D_VLM_Spatial/reports/metrics/correctness_matrix_avg3.csv`.
-
-## 🔬 Methodology
-
-### QA Generation & Validation Pipeline
-
-1. **Extract from Reports**: Parse findings and impressions sections from radiologist reports
-2. **Generate Candidates**: Use templated prompts + LLM to generate spatial QA candidates
-3. **LLM Filtering**: Gemini 2.5 Flash validates:
-   - **Spatial relevance**: Requires anatomical reasoning (position, distance, orientation)
-   - **Ground truth validity**: Answerable from imaging findings alone
-   - **Non-redundancy**: Not just textual paraphrasing
-4. **Final Dataset**: 9,077 validated spatial QA pairs
-
-### Evaluation Metrics
-
-- **LLM-as-Jury**: GPT-4o, Gemini 2.5 Flash, and Qwen-Plus provide binary correctness judgments
-- **Semantic Similarity**: SBERT cosine similarity between predictions and references
-- **Text Metrics**: BLEU, ROUGE-L, METEOR for lexical overlap
-- **Cross-Model Analysis**: Confusion matrices, per-category performance, failure mode classification
-
-### Input Representations Tested
-
-- **3D Voxels**: Full volumetric encoding (preferred for spatial understanding)
-- **Multi-view Slices**: Axial, coronal, sagittal projections (2D-friendly models)
-- **Segmentation-Augmented**: VISTA3D expert segmentation overlays (VILA-M3)
-- **Slice Grids**: Combined views in canvas format (visual context)
-
-## 📊 Spatial Category Performance
-
-![Category Radar Plot](Figures/category_radar_plot.pdf)
-
-*Model comparison across 6 spatial reasoning dimensions: laterality, vertical position, anterior-posterior relations, medial-lateral orientation, adjacency/containment, and extent/boundaries.*
-
-## 🛠️ Detailed Guides
-
-For detailed setup and running instructions per model:
-
-- [QA_generation/README.md](QA_generation/README.md) – Complete QA dataset generation pipeline
-- [benchmarking/README.md](benchmarking/README.md) – Model-specific inference & evaluation setup
-- [3D_VLM_Spatial/README.md](3D_VLM_Spatial/README.md) – Dataset, preprocessing, core evaluation
-
-## 📸 Example Results
-
-**Model Predictions on CT Cases**:
-
-![CT Predictions Example 1](Figures/ct_qa_pred_1.png)
-
-**Radiologist Reports with QA Examples**:
-
-![CT Report QA Example](Figures/ct_rep_qa_1.png)
-
-**Answer Length Distribution**:
-
-![QA Prediction Distribution](Figures/qa_pred_dist.png)
-
-## 📝 Data Formats
-
-### Input: JSONL Format
-
-```json
-{
-  "image_path": "/PATH/TO/PROJECT/data_volumes/dataset/valid_fixed/case001.nii.gz",
-  "question": "Which kidney contains the larger lesion?",
-  "answer": "Right kidney"
-}
-```
-
-### Output: Predictions JSONL
-
-```json
-{
-  "image_path": "/PATH/TO/PROJECT/data_volumes/dataset/valid_fixed/case001.nii.gz",
-  "question": "Which kidney contains the larger lesion?",
-  "answer": "Right kidney",
-  "prediction": "The right kidney has a larger lesion"
-}
-```
-
-## 🔑 Key Features
-
-### Reproducibility
-- ✅ Complete preprocessing pipelines for each model
-- ✅ Frozen dataset with validation splits
-- ✅ Exact hyperparameters and model versions documented
-- ✅ Modular report outputs (predictions, LLM judgments, metrics, plots)
-
-### Extensibility
-- ✅ Modular model interfaces for easy addition of new models
-- ✅ Pluggable evaluation metrics (add custom scorers)
-- ✅ Flexible input format handling (JSONL, CSV, folder structures)
-
-### Transparency
-- ✅ LLM judge prompts fully documented
-- ✅ Failure mode analysis and error categorization
-- ✅ Per-question performance tracking
-
-## 📚 Citations
-
-If you use this benchmark in your work, please cite:
-
-```bibtex
-@inproceedings{MICCAI2026-3DMedVLMS,
-  title={Benchmarking 3D Medical Vision-Language Models for Spatial Understanding},
-  author={[Authors]},
-  booktitle={Medical Image Computing and Computer-Assisted Intervention (MICCAI)},
-  year={2026}
-}
-```
-
-**Key referenced works**:
-- Med3DVLM: https://arxiv.org/abs/2503.20047
-- Merlin: https://pmc.ncbi.nlm.nih.gov/articles/PMC11230513/
-- VILA-M3: https://openaccess.thecvf.com/content/CVPR2025/papers/Nath_VILA-M3_Enhancing_Vision-Language_Models_with_Medical_Expert_Knowledge_CVPR_2025_paper
-- RadFM: https://arxiv.org/abs/2511.18876
-
-## 🔐 Requirements & Dependencies
-
-Primary dependencies:
-- Python 3.11+
-- PyTorch 2.0+
-- CUDA 11.8+ (for GPU inference)
-- Google Generative AI SDK (for Gemini evaluation)
-- OpenAI client (for GPT-4o evaluation)
-- DashScope-compatible client (for Qwen evaluation)
-- SimpleITK (for NIfTI handling)
-- tqdm, numpy, pandas
-
-See `requirements.txt` for the full dependency list.
-
-## 📋 Acknowledgments
-
-- **CT-RATE Dataset** creators and radiologist annotators
-- **Model Teams**: Med3DVLM, CT-Chat, M3D-LaMed, RadFM, Merlin, VILA-M3 developers
-- **Evaluation Tools**: AlignScore authors, NLTK contributors
-- **Infrastructure**: HPC cluster support for large-scale benchmarking
-
-## 📧 Contact & Support
-
-For questions, issues, or contributions:
-- Open an issue on GitHub
-- Contact: anonymized during review
-
-## 📄 License
-
-This project is released under the [MIT/Apache 2.0] License. Individual model components maintain their original licenses (see respective `benchmarking/inference/<model>/` folders).
+<p align="center">
+    <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" align="center" width="30%">
+</p>
+<p align="center"><h1 align="center">CT-SpatialVQA</h1></p>
+<p align="center">
+	<em><code>❯ REPLACE-ME</code></em>
+</p>
+<p align="center">
+	<img src="https://img.shields.io/github/license/Mashrafi27/MICCAI2026-3DMedVLMS?style=default&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
+	<img src="https://img.shields.io/github/last-commit/Mashrafi27/MICCAI2026-3DMedVLMS?style=default&logo=git&logoColor=white&color=0080ff" alt="last-commit">
+	<img src="https://img.shields.io/github/languages/top/Mashrafi27/MICCAI2026-3DMedVLMS?style=default&color=0080ff" alt="repo-top-language">
+	<img src="https://img.shields.io/github/languages/count/Mashrafi27/MICCAI2026-3DMedVLMS?style=default&color=0080ff" alt="repo-language-count">
+</p>
+<p align="center"><!-- default option, no dependency badges. -->
+</p>
+<p align="center">
+	<!-- default option, no dependency badges. -->
+</p>
+<br>
+
+##  Table of Contents
+
+- [ Overview](#-overview)
+- [ Features](#-features)
+- [ Project Structure](#-project-structure)
+  - [ Project Index](#-project-index)
+- [ Getting Started](#-getting-started)
+  - [ Prerequisites](#-prerequisites)
+  - [ Installation](#-installation)
+  - [ Usage](#-usage)
+  - [ Testing](#-testing)
+- [ Project Roadmap](#-project-roadmap)
+- [ Contributing](#-contributing)
+- [ License](#-license)
+- [ Acknowledgments](#-acknowledgments)
 
 ---
 
-**Last Updated**: February 26, 2026  
-**Paper Status**: Under Review (MICCAI 2026)  
-**Dataset Version**: v1.0 (Final)
+##  Overview
+
+<code>❯ REPLACE-ME</code>
+
+---
+
+##  Features
+
+<code>❯ REPLACE-ME</code>
+
+---
+
+##  Project Structure
+
+```sh
+└── MICCAI2026-3DMedVLMS/
+    ├── Figures
+    │   ├── category_radar_plot.pdf
+    │   ├── ct_qa_pred_1.png
+    │   ├── ct_rep_qa_1.png
+    │   ├── ct_spatial_vqa_pipeline.png
+    │   └── qa_pred_dist.png
+    ├── MICCAI2026.pdf
+    ├── QA_generation
+    │   ├── README.md
+    │   ├── filter_qa_pairs.py
+    │   ├── human_eval
+    │   ├── llm_judge.py
+    │   ├── qa_generation.py
+    │   ├── qa_to_jsonl.py
+    │   ├── spatial_qa_filtered_full.json
+    │   ├── spatial_qa_output_full.json
+    │   └── validation_reports_output.json
+    ├── README.md
+    ├── README_3D_VLM_Spatial.md
+    ├── benchmarking
+    │   ├── README.md
+    │   ├── eval_scripts
+    │   ├── inference
+    │   ├── inputs
+    │   ├── preprocess
+    │   └── reports
+    └── dataset
+        ├── ct_spatialvqa
+        └── download_ctrate_dataset.py
+```
+
+
+###  Project Index
+<details open>
+	<summary><b><code>MICCAI2026-3DMEDVLMS/</code></b></summary>
+	<details> <!-- __root__ Submodule -->
+		<summary><b>__root__</b></summary>
+		<blockquote>
+			<table>
+			</table>
+		</blockquote>
+	</details>
+	<details> <!-- dataset Submodule -->
+		<summary><b>dataset</b></summary>
+		<blockquote>
+			<table>
+			<tr>
+				<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/dataset/download_ctrate_dataset.py'>download_ctrate_dataset.py</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			</table>
+			<details>
+				<summary><b>ct_spatialvqa</b></summary>
+				<blockquote>
+					<table>
+					<tr>
+						<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/dataset/ct_spatialvqa/spatial_qa_filtered_full.json'>spatial_qa_filtered_full.json</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					<tr>
+						<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/dataset/ct_spatialvqa/spatial_qa_filtered_full_nifti.jsonl'>spatial_qa_filtered_full_nifti.jsonl</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					<tr>
+						<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/dataset/ct_spatialvqa/spatial_qa_filtered_full_cases.jsonl'>spatial_qa_filtered_full_cases.jsonl</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					</table>
+				</blockquote>
+			</details>
+		</blockquote>
+	</details>
+	<details> <!-- benchmarking Submodule -->
+		<summary><b>benchmarking</b></summary>
+		<blockquote>
+			<details>
+				<summary><b>preprocess</b></summary>
+				<blockquote>
+					<table>
+					<tr>
+						<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/preprocess/preprocess_med3dvlm.py'>preprocess_med3dvlm.py</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					<tr>
+						<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/preprocess/preprocess_medgemma.py'>preprocess_medgemma.py</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					<tr>
+						<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/preprocess/preprocess_merlin.py'>preprocess_merlin.py</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					<tr>
+						<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/preprocess/preprocess_medevalkit.py'>preprocess_medevalkit.py</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					<tr>
+						<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/preprocess/preprocess_m3d.py'>preprocess_m3d.py</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					<tr>
+						<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/preprocess/preprocess_radfm.py'>preprocess_radfm.py</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					<tr>
+						<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/preprocess/preprocess_ctchat.py'>preprocess_ctchat.py</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					</table>
+				</blockquote>
+			</details>
+			<details>
+				<summary><b>eval_scripts</b></summary>
+				<blockquote>
+					<details>
+						<summary><b>scripts</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/eval_scripts/scripts/evaluate_with_qwen.py'>evaluate_with_qwen.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/eval_scripts/scripts/build_category_performance.py'>build_category_performance.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/eval_scripts/scripts/plot_answer_length_distributions.py'>plot_answer_length_distributions.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/eval_scripts/scripts/analyze_ct_spatialvqa.py'>analyze_ct_spatialvqa.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/eval_scripts/scripts/evaluate_with_gemini.py'>evaluate_with_gemini.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/eval_scripts/scripts/compute_llm_jury_accuracy.py'>compute_llm_jury_accuracy.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/eval_scripts/scripts/evaluate_text_metrics_all.py'>evaluate_text_metrics_all.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/eval_scripts/scripts/fix_gemini_parse_errors.py'>fix_gemini_parse_errors.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/eval_scripts/scripts/evaluate_with_gpt.py'>evaluate_with_gpt.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/eval_scripts/scripts/evaluate_text_metrics.py'>evaluate_text_metrics.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/eval_scripts/scripts/build_correctness_matrix.py'>build_correctness_matrix.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>spatial_categories</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/eval_scripts/spatial_categories/spatial_qa_filtered_full_with_categories.json'>spatial_qa_filtered_full_with_categories.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/eval_scripts/spatial_categories/spatial_qa_filtered_full.json'>spatial_qa_filtered_full.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/eval_scripts/spatial_categories/get_qa_pairs_categories.py'>get_qa_pairs_categories.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+				</blockquote>
+			</details>
+			<details>
+				<summary><b>reports</b></summary>
+				<blockquote>
+					<details>
+						<summary><b>predictions</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/predictions/medevalkit_predictions_full.jsonl'>medevalkit_predictions_full.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/predictions/med3dvlm_predictions_full.jsonl'>med3dvlm_predictions_full.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/predictions/radfm_predictions_full.jsonl'>radfm_predictions_full.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/predictions/medgemma_predictions_full.jsonl'>medgemma_predictions_full.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/predictions/merlin_predictions_full.jsonl'>merlin_predictions_full.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/predictions/ctchat_predictions_full.jsonl'>ctchat_predictions_full.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/predictions/m3d_predictions_full.jsonl'>m3d_predictions_full.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/predictions/vila_m3_vista3d_predictions_full.jsonl'>vila_m3_vista3d_predictions_full.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>plots</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/plots/answer_length_distributions_data.json'>answer_length_distributions_data.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>metrics</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/metrics/llm_jury_accuracy.json'>llm_jury_accuracy.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/metrics/text_metrics_summary.json'>text_metrics_summary.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>analysis</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/analysis/dataset_counts.txt'>dataset_counts.txt</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/analysis/ct_spatialvqa_analysis.json'>ct_spatialvqa_analysis.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>llm_eval</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/medgemma_qwen_eval.json'>medgemma_qwen_eval.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/radfm_qwen_eval.json'>radfm_qwen_eval.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/merlin_gpt_eval.json'>merlin_gpt_eval.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/ctchat_gemini2.5_eval_full.json'>ctchat_gemini2.5_eval_full.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/m3d_gemini2.5_eval_full.json'>m3d_gemini2.5_eval_full.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/merlin_gemini2.5_eval_full.json'>merlin_gemini2.5_eval_full.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/medevalkit_qwen_eval.json'>medevalkit_qwen_eval.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/medevalkit_gpt_eval.json'>medevalkit_gpt_eval.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/med3dvlm_qwen_eval.json'>med3dvlm_qwen_eval.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/vila_m3_vista3d_gemini2.5_eval_full.json'>vila_m3_vista3d_gemini2.5_eval_full.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/radfm_gemini2.5_eval_full.json'>radfm_gemini2.5_eval_full.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/medgemma_gemini2.5_eval_full.json'>medgemma_gemini2.5_eval_full.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/radfm_gpt_eval.json'>radfm_gpt_eval.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/vila_m3_vista3d_qwen_eval.json'>vila_m3_vista3d_qwen_eval.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/m3d_gpt_eval.json'>m3d_gpt_eval.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/med3dvlm_gpt_eval.json'>med3dvlm_gpt_eval.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/vila_m3_vista3d_gpt_eval.json'>vila_m3_vista3d_gpt_eval.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/merlin_qwen_eval.json'>merlin_qwen_eval.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/medgemma_gpt_eval.json'>medgemma_gpt_eval.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/m3d_qwen_eval.json'>m3d_qwen_eval.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/ctchat_qwen_eval.json'>ctchat_qwen_eval.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/medevalkit_gemini2.5_eval_full.json'>medevalkit_gemini2.5_eval_full.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/ctchat_gpt_eval.json'>ctchat_gpt_eval.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/reports/llm_eval/med3dvlm_gemini2.5_eval_full.json'>med3dvlm_gemini2.5_eval_full.json</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+				</blockquote>
+			</details>
+			<details>
+				<summary><b>inputs</b></summary>
+				<blockquote>
+					<details>
+						<summary><b>merlin</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inputs/merlin/spatial_qa_filtered_full_nifti_merlin.jsonl'>spatial_qa_filtered_full_nifti_merlin.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inputs/merlin/spatial_qa_filtered_full_cases_merlin.jsonl'>spatial_qa_filtered_full_cases_merlin.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>medevalkit</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inputs/medevalkit/spatial_qa_filtered_full_nifti_medevalkit.jsonl'>spatial_qa_filtered_full_nifti_medevalkit.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inputs/medevalkit/spatial_qa_filtered_full_cases_medevalkit.jsonl'>spatial_qa_filtered_full_cases_medevalkit.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>ctchat</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inputs/ctchat/spatial_qa_filtered_full_nifti_ctchat.jsonl'>spatial_qa_filtered_full_nifti_ctchat.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>radfm</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inputs/radfm/spatial_qa_filtered_full_nifti_radfm.jsonl'>spatial_qa_filtered_full_nifti_radfm.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inputs/radfm/spatial_qa_filtered_full_cases_radfm.jsonl'>spatial_qa_filtered_full_cases_radfm.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>med3dvlm</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inputs/med3dvlm/spatial_qa_filtered_full_nifti_med3dvlm.jsonl'>spatial_qa_filtered_full_nifti_med3dvlm.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inputs/med3dvlm/spatial_qa_filtered_full_cases_med3dvlm.jsonl'>spatial_qa_filtered_full_cases_med3dvlm.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>ctchat_basic</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inputs/ctchat_basic/spatial_qa_filtered_full_nifti_ctchat_basic.jsonl'>spatial_qa_filtered_full_nifti_ctchat_basic.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inputs/ctchat_basic/spatial_qa_filtered_full_cases_ctchat_basic.jsonl'>spatial_qa_filtered_full_cases_ctchat_basic.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>vila_m3</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inputs/vila_m3/spatial_qa_filtered_full_nifti_vila_m3.jsonl'>spatial_qa_filtered_full_nifti_vila_m3.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inputs/vila_m3/spatial_qa_filtered_full_cases_vila_m3.jsonl'>spatial_qa_filtered_full_cases_vila_m3.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>m3d</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inputs/m3d/spatial_qa_filtered_full_nifti_m3d.jsonl'>spatial_qa_filtered_full_nifti_m3d.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inputs/m3d/spatial_qa_filtered_full_cases_m3d.jsonl'>spatial_qa_filtered_full_cases_m3d.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>medgemma</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inputs/medgemma/spatial_qa_filtered_full_nifti_medgemma896.jsonl'>spatial_qa_filtered_full_nifti_medgemma896.jsonl</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+				</blockquote>
+			</details>
+			<details>
+				<summary><b>inference</b></summary>
+				<blockquote>
+					<details>
+						<summary><b>ct-chat</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/ct-chat/encode_embeddings.py'>encode_embeddings.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/ct-chat/requirements.txt'>requirements.txt</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/ct-chat/run_custom_eval.py'>run_custom_eval.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>merlin</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/merlin/requirements.txt'>requirements.txt</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/merlin/run_custom_eval.py'>run_custom_eval.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>vila-m3</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/vila-m3/run_vista3d_eval.py'>run_vista3d_eval.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/vila-m3/run_vista3d_loop.sh'>run_vista3d_loop.sh</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/vila-m3/requirements.txt'>requirements.txt</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/vila-m3/preprocess_resample_nifti.py'>preprocess_resample_nifti.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>medevalkit</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/medevalkit/requirements.txt'>requirements.txt</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/medevalkit/run_custom_eval.py'>run_custom_eval.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>radfm</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/radfm/requirements.txt'>requirements.txt</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/radfm/preprocess_radfm.py'>preprocess_radfm.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/radfm/run_custom_eval.py'>run_custom_eval.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>med3dvlm</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/med3dvlm/preprocess_ctrate.py'>preprocess_ctrate.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/med3dvlm/requirements.txt'>requirements.txt</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/med3dvlm/run_custom_eval.py'>run_custom_eval.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/med3dvlm/play.ipynb'>play.ipynb</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>m3d</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/m3d/requirements.txt'>requirements.txt</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/m3d/run_custom_eval.py'>run_custom_eval.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>medgemma</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/medgemma/requirements.txt'>requirements.txt</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/medgemma/run_custom_eval.py'>run_custom_eval.py</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+							<details>
+								<summary><b>notebooks</b></summary>
+								<blockquote>
+									<table>
+									<tr>
+										<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/benchmarking/inference/medgemma/notebooks/medgemma_ct_ourdata.ipynb'>medgemma_ct_ourdata.ipynb</a></b></td>
+										<td><code>❯ REPLACE-ME</code></td>
+									</tr>
+									</table>
+								</blockquote>
+							</details>
+						</blockquote>
+					</details>
+				</blockquote>
+			</details>
+		</blockquote>
+	</details>
+	<details> <!-- QA_generation Submodule -->
+		<summary><b>QA_generation</b></summary>
+		<blockquote>
+			<table>
+			<tr>
+				<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/QA_generation/validation_reports_output.json'>validation_reports_output.json</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/QA_generation/spatial_qa_filtered_full.json'>spatial_qa_filtered_full.json</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/QA_generation/qa_generation.py'>qa_generation.py</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/QA_generation/spatial_qa_output_full.json'>spatial_qa_output_full.json</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/QA_generation/filter_qa_pairs.py'>filter_qa_pairs.py</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/QA_generation/llm_judge.py'>llm_judge.py</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/QA_generation/qa_to_jsonl.py'>qa_to_jsonl.py</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			</table>
+			<details>
+				<summary><b>human_eval</b></summary>
+				<blockquote>
+					<table>
+					<tr>
+						<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/QA_generation/human_eval/progress.json'>progress.json</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					<tr>
+						<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/QA_generation/human_eval/users.json'>users.json</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					<tr>
+						<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/QA_generation/human_eval/gemini_human_disagreements.json'>gemini_human_disagreements.json</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					<tr>
+						<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/QA_generation/human_eval/summary.json'>summary.json</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					<tr>
+						<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/QA_generation/human_eval/assignments.json'>assignments.json</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					<tr>
+						<td><b><a href='https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/master/QA_generation/human_eval/summary.txt'>summary.txt</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					</table>
+				</blockquote>
+			</details>
+		</blockquote>
+	</details>
+</details>
+
+---
+##  Getting Started
+
+###  Prerequisites
+
+Before getting started with MICCAI2026-3DMedVLMS, ensure your runtime environment meets the following requirements:
+
+- **Programming Language:** Error detecting primary_language: {'py': 36, 'json': 39, 'jsonl': 26, 'txt': 10, 'sh': 1, 'ipynb': 2}
+- **Package Manager:** Pip
+
+
+###  Installation
+
+Install MICCAI2026-3DMedVLMS using one of the following methods:
+
+**Build from source:**
+
+1. Clone the MICCAI2026-3DMedVLMS repository:
+```sh
+❯ git clone https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS
+```
+
+2. Navigate to the project directory:
+```sh
+❯ cd MICCAI2026-3DMedVLMS
+```
+
+3. Install the project dependencies:
+
+
+**Using `pip`** &nbsp; [<img align="center" src="" />]()
+
+```sh
+❯ echo 'INSERT-INSTALL-COMMAND-HERE'
+```
+
+
+
+
+###  Usage
+Run MICCAI2026-3DMedVLMS using the following command:
+**Using `pip`** &nbsp; [<img align="center" src="" />]()
+
+```sh
+❯ echo 'INSERT-RUN-COMMAND-HERE'
+```
+
+
+###  Testing
+Run the test suite using the following command:
+**Using `pip`** &nbsp; [<img align="center" src="" />]()
+
+```sh
+❯ echo 'INSERT-TEST-COMMAND-HERE'
+```
+
+
+---
+##  Project Roadmap
+
+- [X] **`Task 1`**: <strike>Implement feature one.</strike>
+- [ ] **`Task 2`**: Implement feature two.
+- [ ] **`Task 3`**: Implement feature three.
+
+---
+
+##  Contributing
+
+- **💬 [Join the Discussions](https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/discussions)**: Share your insights, provide feedback, or ask questions.
+- **🐛 [Report Issues](https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/issues)**: Submit bugs found or log feature requests for the `MICCAI2026-3DMedVLMS` project.
+- **💡 [Submit Pull Requests](https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
+
+<details closed>
+<summary>Contributing Guidelines</summary>
+
+1. **Fork the Repository**: Start by forking the project repository to your github account.
+2. **Clone Locally**: Clone the forked repository to your local machine using a git client.
+   ```sh
+   git clone https://github.com/Mashrafi27/MICCAI2026-3DMedVLMS
+   ```
+3. **Create a New Branch**: Always work on a new branch, giving it a descriptive name.
+   ```sh
+   git checkout -b new-feature-x
+   ```
+4. **Make Your Changes**: Develop and test your changes locally.
+5. **Commit Your Changes**: Commit with a clear message describing your updates.
+   ```sh
+   git commit -m 'Implemented new feature x.'
+   ```
+6. **Push to github**: Push the changes to your forked repository.
+   ```sh
+   git push origin new-feature-x
+   ```
+7. **Submit a Pull Request**: Create a PR against the original project repository. Clearly describe the changes and their motivations.
+8. **Review**: Once your PR is reviewed and approved, it will be merged into the main branch. Congratulations on your contribution!
+</details>
+
+<details closed>
+<summary>Contributor Graph</summary>
+<br>
+<p align="left">
+   <a href="https://github.com{/Mashrafi27/MICCAI2026-3DMedVLMS/}graphs/contributors">
+      <img src="https://contrib.rocks/image?repo=Mashrafi27/MICCAI2026-3DMedVLMS">
+   </a>
+</p>
+</details>
+
+---
+
+##  License
+
+This project is protected under the [SELECT-A-LICENSE](https://choosealicense.com/licenses) License. For more details, refer to the [LICENSE](https://choosealicense.com/licenses/) file.
+
+---
+
+##  Acknowledgments
+
+- List any resources, contributors, inspiration, etc. here.
+
+---
