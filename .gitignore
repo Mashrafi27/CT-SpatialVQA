@@ -1,6 +1,6 @@
 # Local virtual environment
 .venv/
-
+MICCAI2026.pdf
 # Downloaded data volumes
 data_volumes/
 dataset/data_volumes/
