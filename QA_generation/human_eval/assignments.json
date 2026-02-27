@@ -1,138 +1,138 @@
 {
-  "Ahmed Aly": [
+  "Annotator_1": [
     "valid_49_a_1.nii.gz",
     "valid_4_b_1.nii.gz",
     "valid_160_a_1.nii.gz",
     "valid_233_a_1.nii.gz",
     "valid_67_a_1.nii.gz"
   ],
-  "Aigerim Zhusubalieva": [
+  "Annotator_2": [
     "valid_277_c_1.nii.gz",
     "valid_293_a_1.nii.gz",
     "valid_69_a_1.nii.gz",
     "valid_275_a_1.nii.gz",
     "valid_24_a_1.nii.gz"
   ],
-  "Alya Almsouti": [
+  "Annotator_3": [
     "valid_22_a_1.nii.gz",
     "valid_277_d_1.nii.gz",
     "valid_117_a_1.nii.gz",
     "valid_76_a_1.nii.gz",
     "valid_19_a_1.nii.gz"
   ],
-  "Amal Saqib": [
+  "Annotator_4": [
     "valid_28_a_1.nii.gz",
     "valid_75_a_1.nii.gz",
     "valid_96_a_1.nii.gz",
     "valid_239_a_1.nii.gz",
     "valid_254_a_1.nii.gz"
   ],
-  "Asif Hanif": [
+  "Annotator_5": [
     "valid_120_a_1.nii.gz",
     "valid_74_a_1.nii.gz",
     "valid_251_a_1.nii.gz",
     "valid_264_a_1.nii.gz",
     "valid_188_b_1.nii.gz"
   ],
-  "Ayana Mussabayeva": [
+  "Annotator_6": [
     "valid_80_a_1.nii.gz",
     "valid_153_a_1.nii.gz",
     "valid_274_a_1.nii.gz",
     "valid_170_a_1.nii.gz",
     "valid_62_a_1.nii.gz"
   ],
-  "Darya Taratynova": [
+  "Annotator_7": [
     "valid_91_a_1.nii.gz",
     "valid_107_a_1.nii.gz",
     "valid_13_a_1.nii.gz",
     "valid_258_b_1.nii.gz",
     "valid_7_b_1.nii.gz"
   ],
-  "Dongli He": [
+  "Annotator_8": [
     "valid_252_a_1.nii.gz",
     "valid_241_a_1.nii.gz",
     "valid_294_a_1.nii.gz",
     "valid_261_a_1.nii.gz",
     "valid_240_a_1.nii.gz"
   ],
-  "Hussain Alasamwi": [
+  "Annotator_9": [
     "valid_64_a_3.nii.gz",
     "valid_173_a_1.nii.gz",
     "valid_165_a_1.nii.gz",
     "valid_169_a_1.nii.gz",
     "valid_274_b_1.nii.gz"
   ],
-  "Mai A. Shaaban": [
+  "Annotator_10": [
     "valid_62_c_1.nii.gz",
     "valid_176_a_1.nii.gz",
     "valid_158_a_1.nii.gz",
     "valid_208_a_4.nii.gz",
     "valid_6_a_1.nii.gz"
   ],
-  "Mostafa Salem": [
+  "Annotator_11": [
     "valid_229_b_1.nii.gz",
     "valid_221_a_1.nii.gz",
     "valid_14_a_1.nii.gz",
     "valid_191_a_1.nii.gz",
     "valid_238_a_1.nii.gz"
   ],
-  "Numan Saeed": [
+  "Annotator_12": [
     "valid_167_a_1.nii.gz",
     "valid_208_a_5.nii.gz",
     "valid_116_a_1.nii.gz",
     "valid_123_a_1.nii.gz",
     "valid_255_a_1.nii.gz"
   ],
-  "Raza Imam": [
+  "Annotator_13": [
     "valid_260_a_1.nii.gz",
     "valid_163_b_1.nii.gz",
     "valid_212_a_1.nii.gz",
     "valid_180_b_1.nii.gz",
     "valid_107_b_1.nii.gz"
   ],
-  "Salma Hassan": [
+  "Annotator_14": [
     "valid_138_a_1.nii.gz",
     "valid_288_a_1.nii.gz",
     "valid_79_a_1.nii.gz",
     "valid_111_a_1.nii.gz",
     "valid_277_b_1.nii.gz"
   ],
-  "Shahad Hardan": [
+  "Annotator_15": [
     "valid_42_a_1.nii.gz",
     "valid_18_a_1.nii.gz",
     "valid_172_a_1.nii.gz",
     "valid_164_a_1.nii.gz",
     "valid_151_b_1.nii.gz"
   ],
-  "Tausifa Jan Saleem": [
+  "Annotator_16": [
     "valid_82_a_1.nii.gz",
     "valid_86_a_1.nii.gz",
     "valid_124_a_1.nii.gz",
     "valid_90_c_1.nii.gz",
     "valid_65_a_1.nii.gz"
   ],
-  "Umaima Rahman": [
+  "Annotator_17": [
     "valid_149_a_1.nii.gz",
     "valid_4_a_1.nii.gz",
     "valid_266_a_1.nii.gz",
     "valid_194_b_1.nii.gz",
     "valid_191_b_1.nii.gz"
   ],
-  "Ibrahim AlMakky": [
+  "Annotator_18": [
     "valid_179_a_1.nii.gz",
     "valid_257_a_1.nii.gz",
     "valid_41_b_1.nii.gz",
     "valid_47_a_1.nii.gz",
     "valid_277_a_1.nii.gz"
   ],
-  "Hu Wang": [
+  "Annotator_19": [
     "valid_207_a_1.nii.gz",
     "valid_217_a_1.nii.gz",
     "valid_256_a_1.nii.gz",
     "valid_20_a_1.nii.gz",
     "valid_285_a_1.nii.gz"
   ],
-  "Lotfi Mecharbat": [
+  "Annotator_20": [
     "valid_155_a_1.nii.gz",
     "valid_224_a_1.nii.gz",
     "valid_215_a_1.nii.gz",
