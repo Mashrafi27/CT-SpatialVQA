@@ -1,10 +1,5 @@
-# Lost in Volume: CT‑SpatialVQA
+<p align="center"><h1 align="center">CT-SPATIALVQA</h1></p>
 
-This repository accompanies our MICCAI 2026 submission **“Lost in Volume: The CT‑SpatialVQA Benchmark for Evaluating Semantic‑Spatial Understanding of 3D Medical Vision–Language Models.”**
-
-- Paper: `MICCAI2026.pdf`
-- Figures: `Figures/`
-- Dataset: `dataset/ct_spatialvqa/`
 
 ![CT‑SpatialVQA pipeline](Figures/ct_spatial_vqa_pipeline.png)
 
