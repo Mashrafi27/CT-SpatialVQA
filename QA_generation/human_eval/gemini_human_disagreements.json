@@ -1,0 +1,1042 @@
+[
+  {
+    "type": "spatial",
+    "case": "valid_4_b_1.nii.gz",
+    "question": "From what region to what boundary do the pleuroparenchymal opacities extend?",
+    "answer": "From the central lung regions to the pleura",
+    "index": 3,
+    "user": "Ahmed Aly",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_28_a_1.nii.gz",
+    "question": "What is the measured calibration of the pulmonary trunk?",
+    "answer": "33 mm",
+    "index": 1,
+    "user": "Amal Saqib",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_28_a_1.nii.gz",
+    "question": "What is the measured calibration of the left pulmonary artery?",
+    "answer": "29 mm",
+    "index": 2,
+    "user": "Amal Saqib",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_28_a_1.nii.gz",
+    "question": "What is the measured calibration of the right pulmonary artery?",
+    "answer": "28 mm",
+    "index": 3,
+    "user": "Amal Saqib",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_28_a_1.nii.gz",
+    "question": "What is the measured calibration of the aortic arch?",
+    "answer": "33 mm",
+    "index": 4,
+    "user": "Amal Saqib",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_49_a_1.nii.gz",
+    "question": "Are the dependent atelectatic changes unilateral or bilateral?",
+    "answer": "Bilateral (both lungs).",
+    "index": 5,
+    "user": "Ahmed Aly",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_49_a_1.nii.gz",
+    "question": "On which side are the calcific nodules observed in the lungs?",
+    "answer": "Right lung.",
+    "index": 1,
+    "user": "Ahmed Aly",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_49_a_1.nii.gz",
+    "question": "Do the calcific nodules involve the right upper lobe, right lower lobe, or both?",
+    "answer": "Both the right upper lobe and right lower lobe.",
+    "index": 3,
+    "user": "Ahmed Aly",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_49_a_1.nii.gz",
+    "question": "Where are the dependent atelectatic changes located in terms of lobes and segments?",
+    "answer": "Basal segments of the lower lobes of both lungs.",
+    "index": 4,
+    "user": "Ahmed Aly",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_62_c_1.nii.gz",
+    "question": "Is the distribution of the abnormalities peripheral or central within the lungs?",
+    "answer": "Predominantly peripheral, subpleural.",
+    "index": 2,
+    "user": "Mai A. Shaaban",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_65_a_1.nii.gz",
+    "question": "Which central airway structures are explicitly mentioned in the report?",
+    "answer": "The trachea and both main bronchi.",
+    "index": 1,
+    "user": "Tausifa Jan Saleem",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_65_a_1.nii.gz",
+    "question": "Which mediastinal and thoracic lymph node regions are specified as evaluated?",
+    "answer": "Prevascular, pre-paratracheal, subcarinal, and bilateral hilar-axillary regions.",
+    "index": 2,
+    "user": "Tausifa Jan Saleem",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_65_a_1.nii.gz",
+    "question": "When describing lung aeration, does the report refer to one lung or both?",
+    "answer": "Both lungs.",
+    "index": 3,
+    "user": "Tausifa Jan Saleem",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_65_a_1.nii.gz",
+    "question": "Which segment of the esophagus is evaluated in this thoracic study?",
+    "answer": "The thoracic esophagus.",
+    "index": 4,
+    "user": "Tausifa Jan Saleem",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_65_a_1.nii.gz",
+    "question": "Which aortic segment within the chest is specifically referenced by diameter?",
+    "answer": "The thoracic aorta.",
+    "index": 5,
+    "user": "Tausifa Jan Saleem",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_65_a_1.nii.gz",
+    "question": "Which central airway structures are explicitly mentioned in the report?",
+    "answer": "The trachea and both main bronchi.",
+    "index": 1,
+    "user": "Tausifa Jan Saleem",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_65_a_1.nii.gz",
+    "question": "Which mediastinal and thoracic lymph node regions are specified as evaluated?",
+    "answer": "Prevascular, pre-paratracheal, subcarinal, and bilateral hilar-axillary regions.",
+    "index": 2,
+    "user": "Tausifa Jan Saleem",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_65_a_1.nii.gz",
+    "question": "When describing lung aeration, does the report refer to one lung or both?",
+    "answer": "Both lungs.",
+    "index": 3,
+    "user": "Tausifa Jan Saleem",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_65_a_1.nii.gz",
+    "question": "Which segment of the esophagus is evaluated in this thoracic study?",
+    "answer": "The thoracic esophagus.",
+    "index": 4,
+    "user": "Tausifa Jan Saleem",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_67_a_1.nii.gz",
+    "question": "Which lung lobe contains the nodular lesions?",
+    "answer": "The right middle lobe.",
+    "index": 1,
+    "user": "Ahmed Aly",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_67_a_1.nii.gz",
+    "question": "Are the sequelae changes limited to one lung or present in both lungs?",
+    "answer": "They are present in both lungs.",
+    "index": 2,
+    "user": "Ahmed Aly",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_67_a_1.nii.gz",
+    "question": "Do the nodular lesions extend to the left lung or remain unilateral?",
+    "answer": "They remain unilateral, confined to the right lung's middle lobe.",
+    "index": 3,
+    "user": "Ahmed Aly",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_74_a_1.nii.gz",
+    "question": "Were nodular or infiltrative lesions detected within the lung parenchyma on either side?",
+    "answer": "No, none were detected in the lung parenchyma.",
+    "index": 5,
+    "user": "Asif Hanif",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_74_a_1.nii.gz",
+    "question": "Are the emphysematous changes unilateral or bilateral?",
+    "answer": "Bilateral, involving both apical levels.",
+    "index": 2,
+    "user": "Asif Hanif",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_74_a_1.nii.gz",
+    "question": "Are the emphysematous changes closer to the center or the periphery of the lungs?",
+    "answer": "Paracentral.",
+    "index": 3,
+    "user": "Asif Hanif",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_75_a_1.nii.gz",
+    "question": "In which lung and lobe is the patchy ground-glass density observed?",
+    "answer": "Left lung, lower lobe.",
+    "index": 1,
+    "user": "Amal Saqib",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_75_a_1.nii.gz",
+    "question": "Within the left lower lobe, is the finding located superiorly or inferiorly?",
+    "answer": "Superior.",
+    "index": 2,
+    "user": "Amal Saqib",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_75_a_1.nii.gz",
+    "question": "Within the left lower lobe, is the finding located anteriorly or posteriorly?",
+    "answer": "Posterior.",
+    "index": 3,
+    "user": "Amal Saqib",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_75_a_1.nii.gz",
+    "question": "Does the report describe the lung parenchymal abnormality on the right or left side?",
+    "answer": "Left side.",
+    "index": 4,
+    "user": "Amal Saqib",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_79_a_1.nii.gz",
+    "question": "Are emphysematous changes unilateral or bilateral, and where are they located?",
+    "answer": "Bilateral, involving both lungs.",
+    "index": 5,
+    "user": "Salma Hassan",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_79_a_1.nii.gz",
+    "question": "Where is bronchiectasis more prominently observed within the lungs?",
+    "answer": "In the medial segment of the right middle lobe.",
+    "index": 1,
+    "user": "Salma Hassan",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_79_a_1.nii.gz",
+    "question": "Where within the lungs is minimal bronchiectasis present overall?",
+    "answer": "In the central parts of both lungs.",
+    "index": 2,
+    "user": "Salma Hassan",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_79_a_1.nii.gz",
+    "question": "In which exact location do peribronchial thickening, structural distortion, and volume loss accompany bronchiectasis?",
+    "answer": "In the medial segment of the right middle lobe.",
+    "index": 3,
+    "user": "Salma Hassan",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_90_c_1.nii.gz",
+    "question": "Which airway lumens were specifically mentioned in the report?",
+    "answer": "The trachea and both main bronchi.",
+    "index": 1,
+    "user": "Tausifa Jan Saleem",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_96_a_1.nii.gz",
+    "question": "In which vessels were atherosclerotic wall calcifications observed?",
+    "answer": "In the descending aorta and the coronary arteries.",
+    "index": 3,
+    "user": "Amal Saqib",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_96_a_1.nii.gz",
+    "question": "Were any pleural effusions or pleural thickenings identified?",
+    "answer": "No, pleural effusion or pleural thickening was not detected.",
+    "index": 5,
+    "user": "Amal Saqib",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_96_a_1.nii.gz",
+    "question": "Where is the trachea positioned relative to the midline?",
+    "answer": "The trachea is in the midline.",
+    "index": 1,
+    "user": "Amal Saqib",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_96_a_1.nii.gz",
+    "question": "In which space is the minimal effusion around the heart located, and what is its deepest measurement?",
+    "answer": "In the pericardial space, measuring 6 mm at the deepest part.",
+    "index": 2,
+    "user": "Amal Saqib",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_111_a_1.nii.gz",
+    "question": "Are the pulmonary ground-glass density increases unilateral or bilateral?",
+    "answer": "Bilateral, present in both lungs.",
+    "index": 2,
+    "user": "Salma Hassan",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_111_a_1.nii.gz",
+    "question": "Are the pulmonary ground-glass density increases unilateral or bilateral?",
+    "answer": "Bilateral, present in both lungs.",
+    "index": 2,
+    "user": "Salma Hassan",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_111_a_1.nii.gz",
+    "question": "Which lobes show the ground-glass density increases?",
+    "answer": "Upper and lower lobes of both lungs.",
+    "index": 3,
+    "user": "Salma Hassan",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_120_a_1.nii.gz",
+    "question": "On which side was gynecomastia observed?",
+    "answer": "Bilateral",
+    "index": 1,
+    "user": "Asif Hanif",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_120_a_1.nii.gz",
+    "question": "What is the distribution of segmentary tubular bronchiectasis and minimal peribronchial thickening?",
+    "answer": "Present in both lungs",
+    "index": 5,
+    "user": "Asif Hanif",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_124_a_1.nii.gz",
+    "question": "Which parts of the central airways are specifically noted as open?",
+    "answer": "The trachea and both main bronchi.",
+    "index": 1,
+    "user": "Tausifa Jan Saleem",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_124_a_1.nii.gz",
+    "question": "Do the trachea or either main bronchus show occlusive pathology?",
+    "answer": "No; there is no occlusive pathology in the trachea or either main bronchus.",
+    "index": 2,
+    "user": "Tausifa Jan Saleem",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_124_a_1.nii.gz",
+    "question": "Are any masses or infiltrative lesions identified in either lung?",
+    "answer": "No, none in either lung.",
+    "index": 3,
+    "user": "Tausifa Jan Saleem",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_124_a_1.nii.gz",
+    "question": "Within the imaged sections, is there any increase in esophageal wall thickness?",
+    "answer": "No, there is no pathological wall thickness increase in the esophagus within the sections.",
+    "index": 5,
+    "user": "Tausifa Jan Saleem",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_138_a_1.nii.gz",
+    "question": "Are the parenchymal nodules in the lungs unilateral or bilateral?",
+    "answer": "Bilateral, present in both lungs.",
+    "index": 3,
+    "user": "Salma Hassan",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_138_a_1.nii.gz",
+    "question": "Is the linear atelectasis confined to one lung or present in both?",
+    "answer": "Present in both lungs.",
+    "index": 4,
+    "user": "Salma Hassan",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_138_a_1.nii.gz",
+    "question": "Are the nonspecific density increases described as dependent, and do they involve one or both lungs?",
+    "answer": "They are dependent and involve both lungs.",
+    "index": 5,
+    "user": "Salma Hassan",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_138_a_1.nii.gz",
+    "question": "Were any obstructive findings noted within the tracheobronchial lumen?",
+    "answer": "No, no obstructive pathology was detected in the lumen.",
+    "index": 2,
+    "user": "Salma Hassan",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_138_a_1.nii.gz",
+    "question": "Are the parenchymal nodules in the lungs unilateral or bilateral?",
+    "answer": "Bilateral, present in both lungs.",
+    "index": 3,
+    "user": "Salma Hassan",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_138_a_1.nii.gz",
+    "question": "Is the linear atelectasis confined to one lung or present in both?",
+    "answer": "Present in both lungs.",
+    "index": 4,
+    "user": "Salma Hassan",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_138_a_1.nii.gz",
+    "question": "Are the nonspecific density increases described as dependent, and do they involve one or both lungs?",
+    "answer": "They are dependent and involve both lungs.",
+    "index": 5,
+    "user": "Salma Hassan",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_160_a_1.nii.gz",
+    "question": "From which region do the stomach and abdominal structures herniate, and into which cavity do they extend?",
+    "answer": "From the hiatal region into the thorax.",
+    "index": 1,
+    "user": "Ahmed Aly",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_160_a_1.nii.gz",
+    "question": "On which side and in which lobes are traction bronchiectasis observed?",
+    "answer": "In the right lung, involving the upper and middle lobes.",
+    "index": 2,
+    "user": "Ahmed Aly",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_160_a_1.nii.gz",
+    "question": "In which lobe and segment are interseptal thickening and minimal ground-glass opacities located?",
+    "answer": "In the right lung middle lobe, lateral segment.",
+    "index": 3,
+    "user": "Ahmed Aly",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_160_a_1.nii.gz",
+    "question": "Relative to the pleura, where is the interseptal thickening situated in the right middle lobe lateral segment?",
+    "answer": "Subpleural.",
+    "index": 4,
+    "user": "Ahmed Aly",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_160_a_1.nii.gz",
+    "question": "Are sequelae fibrotic band formations unilateral or bilateral?",
+    "answer": "Bilateral, involving both lungs.",
+    "index": 5,
+    "user": "Ahmed Aly",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_163_b_1.nii.gz",
+    "question": "Where were air densities observed?",
+    "answer": "In the mediastinum.",
+    "index": 1,
+    "user": "Raza Imam",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "relevant",
+    "case": "valid_163_b_1.nii.gz",
+    "question": "Which lung and segment contains the 5.5 mm parenchymal nodule?",
+    "answer": "Right lung upper lobe anterior segment.",
+    "index": 3,
+    "user": "Raza Imam",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_163_b_1.nii.gz",
+    "question": "Where were air densities observed?",
+    "answer": "In the mediastinum.",
+    "index": 1,
+    "user": "Raza Imam",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "relevant",
+    "case": "valid_163_b_1.nii.gz",
+    "question": "Which lung and segment contains the 5.5 mm parenchymal nodule?",
+    "answer": "Right lung upper lobe anterior segment.",
+    "index": 3,
+    "user": "Raza Imam",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_163_b_1.nii.gz",
+    "question": "Where is the 4.6 mm nodule located within the right lung?",
+    "answer": "Lower lobe lateral basal segment of the right lung.",
+    "index": 5,
+    "user": "Raza Imam",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_239_a_1.nii.gz",
+    "question": "Which breast and which part contains the 7 mm oval soft tissue lesion, and where is it relative to the nipple?",
+    "answer": "The right breast, in the lateral part of the prepectoral area, just inferior to the nipple.",
+    "index": 1,
+    "user": "Amal Saqib",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_239_a_1.nii.gz",
+    "question": "In which lung and which fissure is the nodule smaller than 5 mm located?",
+    "answer": "In the right lung, within the major fissure.",
+    "index": 2,
+    "user": "Amal Saqib",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_241_a_1.nii.gz",
+    "question": "Are the reported areas of increased density confined to one lung or present in both lungs?",
+    "answer": "Present in both lungs.",
+    "index": 3,
+    "user": "Dongli He",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_241_a_1.nii.gz",
+    "question": "Do the described areas involve lower lobes rather than upper or middle lobes?",
+    "answer": "Yes, they are in the lower lobes.",
+    "index": 4,
+    "user": "Dongli He",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_241_a_1.nii.gz",
+    "question": "On the left side, do the findings include a posterior basal segment?",
+    "answer": "Yes, the posterobasal segment of the left lower lobe.",
+    "index": 5,
+    "user": "Dongli He",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_251_a_1.nii.gz",
+    "question": "Was any significant tumoral wall thickening detected in the thoracic esophagus?",
+    "answer": "No significant tumoral wall thickening was detected in the thoracic esophagus.",
+    "index": 4,
+    "user": "Asif Hanif",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_251_a_1.nii.gz",
+    "question": "Which central airways are reported as open?",
+    "answer": "The trachea and both main bronchi are open.",
+    "index": 1,
+    "user": "Asif Hanif",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_251_a_1.nii.gz",
+    "question": "In which mediastinal and hilar regions were enlarged lymph nodes not detected?",
+    "answer": "Prevascular, pre-paratracheal, subcarinal, and bilateral hilar-axillary regions.",
+    "index": 2,
+    "user": "Asif Hanif",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_251_a_1.nii.gz",
+    "question": "Were nodular or infiltrative lesions identified in either lung parenchyma?",
+    "answer": "No, none were detected in either lung parenchyma.",
+    "index": 5,
+    "user": "Asif Hanif",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_252_a_1.nii.gz",
+    "question": "Which thoracic region could not be optimally evaluated on this non-contrast exam?",
+    "answer": "The mediastinum.",
+    "index": 3,
+    "user": "Dongli He",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_252_a_1.nii.gz",
+    "question": "In which specified mediastinal and hilar regions were enlarged lymph nodes not detected?",
+    "answer": "Prevascular, pre-paratracheal, subcarinal, and bilateral hilar-axillary regions.",
+    "index": 4,
+    "user": "Dongli He",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_252_a_1.nii.gz",
+    "question": "Which central airway structures are described as open?",
+    "answer": "The trachea and both main bronchi.",
+    "index": 1,
+    "user": "Dongli He",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_252_a_1.nii.gz",
+    "question": "In which part of the airways was occlusive pathology specifically not detected?",
+    "answer": "In the lumens of the trachea and both main bronchi.",
+    "index": 2,
+    "user": "Dongli He",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_252_a_1.nii.gz",
+    "question": "Which thoracic region could not be optimally evaluated on this non-contrast exam?",
+    "answer": "The mediastinum.",
+    "index": 3,
+    "user": "Dongli He",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_252_a_1.nii.gz",
+    "question": "In which specified mediastinal and hilar regions were enlarged lymph nodes not detected?",
+    "answer": "Prevascular, pre-paratracheal, subcarinal, and bilateral hilar-axillary regions.",
+    "index": 4,
+    "user": "Dongli He",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_252_a_1.nii.gz",
+    "question": "Across which sides of the lungs was aeration assessed, and were any nodular or infiltrative lesions seen there?",
+    "answer": "Aeration was assessed in both lungs, and no nodular or infiltrative lesions were detected in the lung parenchyma.",
+    "index": 5,
+    "user": "Dongli He",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_254_a_1.nii.gz",
+    "question": "In the left lung, which segment of the upper lobe is affected?",
+    "answer": "Anterior segment of the left upper lobe.",
+    "index": 4,
+    "user": "Amal Saqib",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_261_a_1.nii.gz",
+    "question": "In which anatomic compartment are the millimetric lymph nodes reported?",
+    "answer": "In the mediastinum.",
+    "index": 1,
+    "user": "Dongli He",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_261_a_1.nii.gz",
+    "question": "Are enlarged lymph nodes present in the prevascular, pre-paratracheal, subcarinal, or bilateral hilar-axillary regions?",
+    "answer": "No, no enlarged lymph nodes are detected in those regions.",
+    "index": 3,
+    "user": "Dongli He",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_261_a_1.nii.gz",
+    "question": "Are the reticular density increases limited to one lung or present in both lungs?",
+    "answer": "They are present in both lungs.",
+    "index": 4,
+    "user": "Dongli He",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_261_a_1.nii.gz",
+    "question": "In which anatomic compartment are the millimetric lymph nodes reported?",
+    "answer": "In the mediastinum.",
+    "index": 1,
+    "user": "Dongli He",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_261_a_1.nii.gz",
+    "question": "Do the mediastinal lymph nodes have a short-axis diameter greater than 1 cm?",
+    "answer": "No, their short axis does not exceed 1 cm.",
+    "index": 2,
+    "user": "Dongli He",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_261_a_1.nii.gz",
+    "question": "Are enlarged lymph nodes present in the prevascular, pre-paratracheal, subcarinal, or bilateral hilar-axillary regions?",
+    "answer": "No, no enlarged lymph nodes are detected in those regions.",
+    "index": 3,
+    "user": "Dongli He",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_261_a_1.nii.gz",
+    "question": "Where within the lungs are the reticular density increases located relative to the pleura?",
+    "answer": "In the peripheral subpleural regions.",
+    "index": 5,
+    "user": "Dongli He",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_264_a_1.nii.gz",
+    "question": "On which side and in which specific segment of the left lung are sequela parenchymal changes described?",
+    "answer": "In the left lung upper lobe, inferior lingular segment.",
+    "index": 2,
+    "user": "Asif Hanif",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_277_b_1.nii.gz",
+    "question": "Are the emphysematous changes unilateral or bilateral?",
+    "answer": "Bilateral, in both lungs",
+    "index": 2,
+    "user": "Salma Hassan",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_277_b_1.nii.gz",
+    "question": "Do the millimetric parenchymal nodules involve one lung or both?",
+    "answer": "Both lungs",
+    "index": 3,
+    "user": "Salma Hassan",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_277_b_1.nii.gz",
+    "question": "Where are the fibroatelectasis (sequelae) changes located?",
+    "answer": "Both lungs",
+    "index": 4,
+    "user": "Salma Hassan",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_277_b_1.nii.gz",
+    "question": "In the upper abdominal sections within the study area, which organs and on which sides had hypodense lesions?",
+    "answer": "Both kidneys",
+    "index": 5,
+    "user": "Salma Hassan",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_277_b_1.nii.gz",
+    "question": "Where within the lungs is the newly emerged nodular consolidation located?",
+    "answer": "Apical right lung",
+    "index": 1,
+    "user": "Salma Hassan",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_277_b_1.nii.gz",
+    "question": "Do the millimetric parenchymal nodules involve one lung or both?",
+    "answer": "Both lungs",
+    "index": 3,
+    "user": "Salma Hassan",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_277_b_1.nii.gz",
+    "question": "Where are the fibroatelectasis (sequelae) changes located?",
+    "answer": "Both lungs",
+    "index": 4,
+    "user": "Salma Hassan",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_288_a_1.nii.gz",
+    "question": "Were pathologically enlarged lymph nodes observed in the axilla or supraclavicular fossa?",
+    "answer": "No; none were observed in the axilla or supraclavicular fossa",
+    "index": 2,
+    "user": "Salma Hassan",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_288_a_1.nii.gz",
+    "question": "Were pathologically enlarged lymph nodes present in the mediastinum?",
+    "answer": "No; none were observed in the mediastinum",
+    "index": 3,
+    "user": "Salma Hassan",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_288_a_1.nii.gz",
+    "question": "At what airway level are bronchial wall thickness increases observed?",
+    "answer": "In the segmental bronchi",
+    "index": 4,
+    "user": "Salma Hassan",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_288_a_1.nii.gz",
+    "question": "In which adrenal gland is the nodular lesion located?",
+    "answer": "Left adrenal gland",
+    "index": 1,
+    "user": "Salma Hassan",
+    "human": true,
+    "gemini": false
+  },
+  {
+    "type": "spatial",
+    "case": "valid_294_a_1.nii.gz",
+    "question": "Which lung regions are mostly involved by the ground-glass densities?",
+    "answer": "Mostly in the posterobasal parts.",
+    "index": 3,
+    "user": "Dongli He",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_294_a_1.nii.gz",
+    "question": "Is the distribution of the ground-glass densities localized or diffuse?",
+    "answer": "Diffuse and patchy.",
+    "index": 4,
+    "user": "Dongli He",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_294_a_1.nii.gz",
+    "question": "Which lung regions are mostly involved by the ground-glass densities?",
+    "answer": "Mostly in the posterobasal parts.",
+    "index": 3,
+    "user": "Dongli He",
+    "human": false,
+    "gemini": true
+  },
+  {
+    "type": "spatial",
+    "case": "valid_294_a_1.nii.gz",
+    "question": "Which airway structures are reported as open?",
+    "answer": "The trachea and both main bronchi.",
+    "index": 5,
+    "user": "Dongli He",
+    "human": false,
+    "gemini": true
+  }
+]

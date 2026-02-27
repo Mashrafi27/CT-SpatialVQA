@@ -2,8 +2,9 @@
 .venv/
 
 # Downloaded data volumes
-3D_VLM_Spatial/data_volumes/
-3D_VLM_Spatial/processed_volumes_v2_med3dvlm/
+data_volumes/
+dataset/data_volumes/
+processed_volumes_v2_med3dvlm/
 # Hugging Face cache directories
 cached_datasets/
 datasets--*/
@@ -14,33 +15,30 @@ datasets--*/
 *.tmp
 *.ipynb
 # Downloaded NIfTI volumes for CT-RATE
-3D_VLM_Spatial/dataset/data_volumes/
-3D_VLM_Spatial/preprocess/_smoke_outputs/
+benchmarking/preprocess/_smoke_outputs/
 checkpoints/
 # Processed tensors
-3D_VLM_Spatial/preprocess/medgemma_npz_896/
-3D_VLM_Spatial/processed_volumes/
-3D_VLM_Spatial/reports/vista3d_cache/
-3D_VLM_Spatial/reports/vista3d_cache/
-3D_VLM_Spatial/dataset/resampled_vista3d_fixed/
-3D_VLM_Spatial/dataset/resampled_merlin/
-3D_VLM_Spatial/dataset/resampled_m3d/
-3D_VLM_Spatial/dataset/resampled_radfm/
-3D_VLM_Spatial/dataset/ctchat_embeddings/
+benchmarking/preprocess/medgemma_npz_896/
+processed_volumes/
+benchmarking/reports/vista3d_cache/
+dataset/resampled_vista3d_fixed/
+dataset/resampled_merlin/
+dataset/resampled_m3d/
+dataset/resampled_radfm/
+dataset/ctchat_embeddings/
 # CT-CHAT local model assets
-3D_VLM_Spatial/preprocess/__pycache__/
+benchmarking/preprocess/__pycache__/
 benchmarking/inference/ct-chat/CT_CLIP_encoder/
 benchmarking/inference/med3dvlm/Med3DVLM/
 
 benchmarking/inference/ct-chat/models/
-3D_VLM_Spatial/dataset/
 benchmarking/inference/ct2rep/models/
-3D_VLM_Spatial/preprocess/med3dvlm_npy
-3D_VLM_Spatial/preprocess/m3d_npy/
-3D_VLM_Spatial/preprocess/medevalkit_npz/
-3D_VLM_Spatial/preprocess/merlin_npy/
-3D_VLM_Spatial/preprocess/radfm_npy/
-3D_VLM_Spatial/preprocess/vila_m3_npy/
-3D_VLM_Spatial/preprocess/ctchat_basic_npy/
+benchmarking/preprocess/med3dvlm_npy
+benchmarking/preprocess/m3d_npy/
+benchmarking/preprocess/medevalkit_npz/
+benchmarking/preprocess/merlin_npy/
+benchmarking/preprocess/radfm_npy/
+benchmarking/preprocess/vila_m3_npy/
+benchmarking/preprocess/ctchat_basic_npy/
 benchmarking/inference/reg2rg/
-3D_VLM_Spatial/archive/
+archive/

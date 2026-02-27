@@ -27,6 +27,10 @@ This work addresses:
 3. **How do different model architectures compare** on spatial understanding despite similar overall medical VLM capabilities?
 4. **What role does input representation play?** How do different 3D slicing strategies (axial, coronal, sagittal) affect spatial reasoning?
 
+## 🔄 Spatial VQA Pipeline
+
+![CT Spatial VQA Pipeline](Figures/ct_spatial_vqa_pipeline.png)
+
 ## 📊 Dataset
 
 ### CT-RATE Source
@@ -58,67 +62,15 @@ All QA pairs are validated using **Gemini 2.5 Flash** with custom prompts to ens
 
 **Final dataset**: 9,077 high-quality spatial QA pairs with validated ground truth
 
-## 🏗️ Repository Structure
+## 📂 Quick Project Overview
 
-```
-MICCAI2026-3DMedVLMS/
-├── 3D_VLM_Spatial/                    # Core benchmarking framework
-│   ├── dataset/                       # CT-RATE download & validation
-│   │   ├── download_dataset.py       # Script to fetch CT volumes
-│   │   └── valid_fixed/              # Expected download target
-│   │
-│   ├── preprocess/                    # Model-specific preprocessing
-│   │   ├── preprocess_m3d.py         # M3D: 256×256×32 NIfTI → .npy
-│   │   ├── preprocess_med3dvlm.py    # Med3DVLM format
-│   │   ├── preprocess_merlin.py      # Merlin preprocessing
-│   │   ├── preprocess_radfm.py       # RadFM preprocessing
-│   │   ├── preprocess_ctchat.py      # CT-Chat preprocessing
-│   │   └── ...                       # Additional model preprocessing
-│   │
-│   ├── qa_generation_v2/             # QA pair generation pipeline
-│   │   ├── qa_generation.py          # Generate QA from reports
-│   │   ├── qa_to_jsonl.py            # Convert JSON → JSONL
-│   │   └── spatial_qa_filtered_full.* # Final QA datasets
-│   │
-│   ├── Spatial_categories/           # Spatial category assignments
-│   │   ├── get_qa_pairs_categories.py
-│   │   └── spatial_qa_filtered_full_with_categories.json
-│   │
-│   ├── reports/                      # Generated reports & judgments
-│   │   ├── predictions/              # *_predictions_full.jsonl
-│   │   ├── llm_eval/                 # *_gemini2.5_eval_full.json, *_gpt_eval.json, *_qwen_eval.json
-│   │   ├── metrics/                  # correctness_matrix_avg3.csv, category_performance.csv, text metrics
-│   │   ├── analysis/                 # dataset stats and summaries
-│   │   ├── plots/                    # figures + plot data
-│   │   └── human_eval/               # human evaluation summaries
-│   │
-│   ├── scripts/                      # Analysis & evaluation
-│   │   ├── evaluate_with_gemini.py  # LLM-based evaluation
-│   │   ├── evaluate_with_gpt.py     # GPT-based evaluation
-│   │   ├── evaluate_with_qwen.py    # Qwen-based evaluation
-│   │   ├── evaluate_text_metrics.py # BLEU, ROUGE, METEOR
-│   │   ├── build_correctness_matrix.py # Cross-model comparison
-│   │   └── plot_answer_length_distributions.py # Analysis
-│   │
-│   ├── README.md                    # Detailed 3D_VLM_Spatial guide
-│   └── archive/                     # Older experiments & artifacts
-│
-├── benchmarking/                     # Model inference harness
-│   ├── inference/
-│   │   ├── med3dvlm/                 # Med3DVLM eval
-│   │   │   ├── run_custom_eval.py   # Inference script
-│   │   │   └── README.md
-│   │   ├── m3d/                      # M3D eval
-│   │   ├── merlin/                   # Merlin eval
-│   │   ├── radfm/                    # RadFM eval
-│   │   ├── ct-chat/                  # CT-Chat eval
-│   │   ├── ct-clip/                  # CT-CLIP utilities
-│   │   ├── medgemma/                 # MedGemma eval
-│   │   ├── vila-m3/                  # VILA-M3 + VISTA3D eval
-│   │   └── [other-models]/           # Archived under 3D_VLM_Spatial/archive
-│   └── README.md                     # Benchmarking pipeline overview
-└── [CSV files]                       # Model inventory & tracking
-```
+- **`QA_generation/`** – Dataset generation pipeline (GPT-4 + Gemini filtering)
+- **`benchmarking/`** – Model inference harnesses (8 VLM implementations)
+- **`3D_VLM_Spatial/`** – Dataset loading, preprocessing, evaluation scripts
+- **`Figures/`** – Paper visualizations (pipeline, results, category analysis)
+- **`MICCAI2026.pdf`** – Final paper manuscript
+
+**For detailed technical setup**: See [QA_generation/README.md](QA_generation/README.md) and [benchmarking/README.md](benchmarking/README.md)
 
 ## 🚀 Quick Start
 
@@ -258,14 +210,33 @@ python 3D_VLM_Spatial/scripts/plot_answer_length_distributions.py \
 - **Segmentation-Augmented**: VISTA3D expert segmentation overlays (VILA-M3)
 - **Slice Grids**: Combined views in canvas format (visual context)
 
+## 📊 Spatial Category Performance
+
+![Category Radar Plot](Figures/category_radar_plot.pdf)
+
+*Model comparison across 6 spatial reasoning dimensions: laterality, vertical position, anterior-posterior relations, medial-lateral orientation, adjacency/containment, and extent/boundaries.*
+
 ## 🛠️ Detailed Guides
 
 For detailed setup and running instructions per model:
 
-- [3D_VLM_Spatial Guide](3D_VLM_Spatial/README.md) – Dataset, filtering, evaluation
-- [QA Generation v2 Guide](3D_VLM_Spatial/qa_generation_v2/README.md) – Generate new QA pairs
-- [Benchmarking Guide](benchmarking/inference/README.md) – Model-specific inference setup
-- Model-specific READMEs in `benchmarking/inference/<model>/`
+- [QA_generation/README.md](QA_generation/README.md) – Complete QA dataset generation pipeline
+- [benchmarking/README.md](benchmarking/README.md) – Model-specific inference & evaluation setup
+- [3D_VLM_Spatial/README.md](3D_VLM_Spatial/README.md) – Dataset, preprocessing, core evaluation
+
+## 📸 Example Results
+
+**Model Predictions on CT Cases**:
+
+![CT Predictions Example 1](Figures/ct_qa_pred_1.png)
+
+**Radiologist Reports with QA Examples**:
+
+![CT Report QA Example](Figures/ct_rep_qa_1.png)
+
+**Answer Length Distribution**:
+
+![QA Prediction Distribution](Figures/qa_pred_dist.png)
 
 ## 📝 Data Formats
 
